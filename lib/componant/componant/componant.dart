@@ -324,3 +324,88 @@ Widget rotateText({required String txt, Color color = Colors.orange}) {
             )),
       ));
 }
+
+Widget expriance() {
+  return Stack(
+    children: [
+      Image.asset('images/Path 381.png'),
+      Padding(
+        padding: const EdgeInsets.only(left: 144),
+        child: Image.asset('images/sportıve ıcon.png'),
+      ),
+    ],
+  );
+}
+
+Widget greenButton({required String txt, required Function onPress}) {
+  return InkWell(
+    onTap: () {
+      onPress();
+    },
+    child: Container(
+        height: 30,
+        width: 80,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.green,
+        ),
+        child: Center(
+          child: defaultText(
+            txt: txt,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        )),
+  );
+}
+
+Widget contactContainer(
+    {required String txt,
+    required String headerText,
+    required IconData icon,
+    required Widget widget}) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      children: [
+        Icon(
+          icon,
+          color: Colors.white,
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        RotatedBox(
+            quarterTurns: 3,
+            child: defaultText(
+                txt: txt,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
+        SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Align(
+                alignment: AlignmentDirectional.topEnd,
+                child: defaultText(
+                  txt: headerText,
+                  color: Colors.green,
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              widget,
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
