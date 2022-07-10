@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/model/sport.dart';
@@ -7,25 +8,31 @@ Widget buildTextFormField({
   TextEditingController? controller,
   String? hint,
   String? label,
+  Color color = Colors.white,
   IconData? icon,
   Function? validate,
   IconData? suffixIcon,
   bool obscure = false,
   TextInputType? type,
   Function()? press,
+  Function()? ontap,
 }) {
   return Container(
     height: 50,
     width: double.infinity,
     child: TextFormField(
+      onTap: ontap,
       controller: controller,
+      textAlign: TextAlign.justify,
       decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white,
+          fillColor: color,
           hintText: hint,
           labelText: label,
-          labelStyle: TextStyle(
-              color: Colors.black, fontSize: 17, fontWeight: FontWeight.normal),
+          hintStyle: TextStyle(
+              color: Color.fromARGB(255, 56, 56, 56),
+              fontSize: 14,
+              fontWeight: FontWeight.normal),
           prefixIcon: Icon(icon),
           suffix: IconButton(icon: Icon(suffixIcon), onPressed: press),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -66,19 +73,26 @@ Widget mainButton(
     {required String txt,
     required double fontSize,
     required FontWeight fontWeight,
+    Color colorButton = Colors.yellow,
     required Function() ontap,
     Color color = Colors.white}) {
   return InkWell(
     onTap: ontap,
     child: Container(
       height: 30,
-      child: Center(
-        child: defaultText(
-            color: color, txt: txt, fontSize: fontSize, fontWeight: fontWeight),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 12, left: 12),
+        child: Center(
+          child: defaultText(
+              color: color,
+              txt: txt,
+              fontSize: fontSize,
+              fontWeight: fontWeight),
+        ),
       ),
       decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.yellow,
+            color: colorButton,
             width: 2,
           ),
           borderRadius: BorderRadius.only(
@@ -126,9 +140,12 @@ Widget container() {
   return Stack(
     alignment: AlignmentDirectional.topCenter,
     children: [
-      Image.asset('images/Path 399.png'),
+      Image.asset('images/Path 399.png',
+      width: 390.w,
+      height: 200.h,
+      ),
       Padding(
-        padding: const EdgeInsets.only(left: 24),
+        padding:  EdgeInsets.only(left: 24.w,top: 25.h),
         child: Image.asset('images/sportıve ıcon.png'),
       ),
     ],
@@ -160,9 +177,9 @@ Widget secandContainer({
     children: [
       container(),
       Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:  EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
         child: Container(
-          height: 160,
+          height: 160.h,
           width: double.infinity,
           child: Row(
             children: [
@@ -174,11 +191,11 @@ Widget secandContainer({
                   quarterTurns: 3,
                   child: defaultText(
                       txt: txt,
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.white)),
               SizedBox(
-                width: 16,
+                width: 16.w,
               ),
               Expanded(child: widget!)
             ],
@@ -198,30 +215,30 @@ Widget logo() {
 
 Widget logoPages(context) {
   return Container(
-    height: 90,
+    height: 90.h,
     decoration: BoxDecoration(color: mainColor),
     child: Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+        padding:  EdgeInsets.only(top: 25.h, left: 10.w, right: 10.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               'images/logospotive1.png',
-              width: MediaQuery.of(context).size.width * .5,
+              width: MediaQuery.of(context).size.width * .5.w,
             ),
             Row(
               children: [
                 Image.asset('images/req to contact1.png'),
                 SizedBox(
-                  width: 10,
+                  width: 10.w,
                 ),
                 Image.asset('images/notifcation1.png'),
                 IconButton(
                     onPressed: () {},
                     icon: Icon(
                       Icons.menu,
-                      size: 30,
+                      size: 30.h,
                       color: Colors.white,
                     ))
               ],
@@ -279,22 +296,22 @@ Widget logoPages(context) {
 Widget getPosition(Sport sport) {
   return Container(
     child: Padding(
-      padding: EdgeInsets.only(right: 4, left: 4),
+      padding: EdgeInsets.only(right: 4.w, left: 4.w),
       child: defaultText(
         txt: '${sport.title}',
         color: Colors.white,
         fontWeight: FontWeight.bold,
-        fontSize: 20,
+        fontSize: 20.sp,
       ),
     ),
     decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white,
-          width: 2,
+          width: 2.w,
         ),
         borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(10),
-          topLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10.r),
+          topLeft: Radius.circular(10.r),
         )),
   );
 }
@@ -328,9 +345,11 @@ Widget rotateText({required String txt, Color color = Colors.orange}) {
 Widget expriance() {
   return Stack(
     children: [
-      Image.asset('images/Path 381.png'),
+      Image.asset('images/Path 381.png',
+      
+      ),
       Padding(
-        padding: const EdgeInsets.only(left: 144),
+        padding:  EdgeInsets.only(left: 144.w),
         child: Image.asset('images/sportıve ıcon.png'),
       ),
     ],
@@ -364,9 +383,10 @@ Widget contactContainer(
     {required String txt,
     required String headerText,
     required IconData icon,
+     Color color = Colors.green,
     required Widget widget}) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding:  EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
     child: Row(
       children: [
         Icon(
@@ -374,32 +394,40 @@ Widget contactContainer(
           color: Colors.white,
         ),
         SizedBox(
-          width: 5,
+          width: 5.w,
         ),
-        RotatedBox(
-            quarterTurns: 3,
-            child: defaultText(
-                txt: txt,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        Padding(
+          padding:  EdgeInsets.only(bottom: 8.h,top: 8.h),
+          child: Center(
+            child: RotatedBox(
+                quarterTurns: 3,
+                child: defaultText(
+                    txt: txt,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
+          ),
+        ),
         SizedBox(
-          width: 10,
+          width: 10.w,
         ),
         Expanded(
           child: Column(
             children: [
-              Align(
-                alignment: AlignmentDirectional.topEnd,
-                child: defaultText(
-                  txt: headerText,
-                  color: Colors.green,
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding:  EdgeInsets.only(top: 10.h),
+                child: Align(
+                  alignment: AlignmentDirectional.topEnd,
+                  child: defaultText(
+                    txt: headerText,
+                    color: color,
+                    fontSize: 19.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               widget,
             ],

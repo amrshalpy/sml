@@ -32,6 +32,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_cupertino_localizations: 1.0.1
+  # qr_flutter:
+  #   git:
+  #     url: git://github.com/lukef/qr.flutter.git
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -50,6 +53,16 @@ dependencies:
   country_state_city_picker: ^1.2.8
   smooth_page_indicator: ^1.0.0+2
   flutter_rounded_date_picker: 3.0.1
+  qr_flutter: ^4.0.0
+  qr_code_scanner: ^1.0.0
+  flutter_custom_clippers: ^2.0.0
+  flutter_screenutil: ^5.5.3+2
+  video_player: ^2.4.5
+  intl: ^0.17.0
+  flutter_datetime_picker: ^1.5.1
+
+  # sizer: ^2.0.15
+  # qrscan: ^0.3.2
 
 
 dev_dependencies:  

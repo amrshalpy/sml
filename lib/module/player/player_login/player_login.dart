@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
@@ -25,6 +26,7 @@ class PlayerLogin extends StatelessWidget {
           HomeCubit cubit = HomeCubit.get(context);
           return SafeArea(
             child: Scaffold(
+              resizeToAvoidBottomInset: false,
               body: Stack(
                 alignment: AlignmentDirectional.bottomCenter,
                 children: [
@@ -40,136 +42,155 @@ class PlayerLogin extends StatelessWidget {
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 5),
+                        padding:  EdgeInsets.only(top: 5.h,right: 10.w,left: 10.w),
                         child: Image.asset("images/logospotive1.png"),
                       ),
                       Padding(
                         padding:
-                            const EdgeInsets.only(top: 10, right: 5, left: 5),
+                             EdgeInsets.only(top: 10.h, right: 5.w, left: 5.w),
                         child: SingleChildScrollView(
                           child: Stack(
                             alignment: AlignmentDirectional.center,
                             children: [
                               Image.asset(
                                 'images/gold5.png',
-                                fit: BoxFit.cover,
-                                width: double.infinity,
+                                height: 440.h,
+                                // fit: BoxFit.contain,
+                                width: 360.w,
                               ),
                               SizedBox(
-                                height: 15,
+                                height: 15.h,
                               ),
                               Form(
                                 key: formKey,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(18),
+                                  padding:  EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
                                   child: Column(children: [
                                     defaultText(
                                         txt: 'New account',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w900),
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold),
                                     SizedBox(
-                                      height: 10,
+                                      height: 10.h,
                                     ),
-                                    buildTextFormField(
-                                      controller: nameController,
-                                      hint: 'please enter your name',
-                                      label: 'Enter your name',
-                                      type: TextInputType.text,
-                                      validate: (String? val) {
-                                        if (val!.isEmpty) {
-                                          return 'please enter your name';
-                                        } else {
-                                          return null;
-                                        }
-                                      },
+                                    Container(
+                                      width: 260.w,
+                                      child: buildTextFormField(
+
+                                        controller: nameController,
+                                        hint: 'please enter your name',
+                                        label: 'Enter your name',
+                                        type: TextInputType.text,
+                                        validate: (String? val) {
+                                          if (val!.isEmpty) {
+                                            return 'please enter your name';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                      ),
                                     ),
                                     SizedBox(
-                                      height: 10,
+                                      height: 10.h,
                                     ),
-                                    Row(
-                                      children: [
-                                        CountryCodePicker(
-                                          onChanged: onCountryChange,
-                                          initialSelection: 'IT',
-                                          favorite: ['+39', 'FR'],
-                                          showCountryOnly: false,
-                                          showOnlyCountryWhenClosed: false,
-                                          alignLeft: false,
-                                        ),
-                                        Expanded(
-                                          child: buildTextFormField(
-                                            controller: phoneController,
-                                            hint: 'please enter your phone',
-                                            label: 'Enter your phone',
-                                            type: TextInputType.phone,
-                                            validate: (String? val) {
-                                              if (val!.isEmpty) {
-                                                return 'please enter your phone';
-                                              } else {
-                                                return null;
-                                              }
-                                            },
+                                    Container(
+                                      width: 260.w,
+                                      child: Row(
+                                        children: [
+                                          CountryCodePicker(
+                                            onChanged: onCountryChange,
+                                            initialSelection: 'IT',
+                                            favorite: ['+39', 'FR'],
+                                            showCountryOnly: false,
+                                            showOnlyCountryWhenClosed: false,
+                                            alignLeft: false,
                                           ),
-                                        ),
-                                      ],
+                                          Expanded(
+                                            child: buildTextFormField(
+                                              controller: phoneController,
+                                              hint: '0122267776',
+                                              label: 'Enter your phone',
+                                              type: TextInputType.phone,
+                                              validate: (String? val) {
+                                                if (val!.isEmpty) {
+                                                  return 'please enter your phone';
+                                                } else {
+                                                  return null;
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     SizedBox(
-                                      height: 10,
+                                      height: 10.h,
                                     ),
-                                    buildTextFormField(
-                                      controller: passwordController,
-                                      hint: 'please enter your password',
-                                      label: 'Enter your password',
-                                      type: TextInputType.visiblePassword,
-                                      validate: (String? val) {
-                                        if (val!.isEmpty) {
-                                          return 'please enter your password';
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    buildTextFormField(
-                                      controller: confirmPasswordController,
-                                      hint:
-                                          'please enter your confirm Password',
-                                      label: 'Enter your confirm Password',
-                                      type: TextInputType.text,
-                                      validate: (String? val) {
-                                        if (val!.isEmpty) {
-                                          return 'please enter your confirmPassword';
-                                        } else {
-                                          return null;
-                                        }
-                                      },
+                                    Container(
+                                      width: 260.w,
+                                      child: buildTextFormField(
+                                        controller: passwordController,
+                                        hint: 'please enter your password',
+                                        label: 'Enter your password',
+                                        type: TextInputType.visiblePassword,
+                                        validate: (String? val) {
+                                          if (val!.isEmpty) {
+                                            return 'please enter your password';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                      ),
                                     ),
                                     SizedBox(
-                                      height: 6,
+                                      height: 10.h,
+                                    ),
+                                    Container(
+                                      width: 260.w,
+                                      child: buildTextFormField(
+                                        controller: confirmPasswordController,
+                                        hint:
+                                            'confirm Password',
+                                        label: 'confirm Password',
+                                        type: TextInputType.text,
+                                        validate: (String? val) {
+                                          if (val!.isEmpty) {
+                                            return 'please enter your confirmPassword';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 6.h,
                                     ),
                                     defaultText(
                                         txt: 'account type',
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.bold),
-                                    DropdownButtonFormField(
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10))),
-                                        items: cubit.services
-                                            .map<DropdownMenuItem<String>>(
-                                                (String val) =>
-                                                    DropdownMenuItem(
-                                                      child: Text(val),
-                                                      value: val,
-                                                    ))
-                                            .toList(),
-                                        value: cubit.servicesVal,
-                                        onChanged: (val) {
-                                          cubit.onChangedservices(val);
-                                        }),
+                                                     SizedBox(height: 7.h,),
+
+                                    Container(
+                                      width: 260.w,
+                                      child: DropdownButtonFormField(
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10))),
+                                          items: cubit.services
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String val) =>
+                                                      DropdownMenuItem(
+                                                        child: Text(val),
+                                                        value: val,
+                                                      ))
+                                              .toList(),
+                                          value: cubit.servicesVal,
+                                          onChanged: (val) {
+                                            cubit.onChangedservices(val);
+                                          }),
+                                    ),
                                 
                                   ]),
                                 ),
@@ -180,15 +201,17 @@ class PlayerLogin extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(height: 10.h,),
                   Positioned(
-                    bottom: 20,
+                    bottom: 10.h,
                     child: mainButton(
                         ontap: () {
                           print('phone');
-                          nextPage(context: context, page: ConfimPhone(phone: phoneController.text,));
+                          nextPage(context: context, page: ConfimPhone(
+                            phone: phoneController.text,));
                         },
                         txt: 'confirm phone',
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ],

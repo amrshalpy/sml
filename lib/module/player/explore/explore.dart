@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/cubit/home_cubit.dart';
@@ -19,57 +20,60 @@ class Explore extends StatelessWidget {
         Image.asset(
           'images/gold5.png',
           fit: BoxFit.contain,
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height * .7,
+          width: 330.w,
+          height: 450.h,
         ),
         Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      'images/CompositeLayer (2).png',
-                      height: 80,
-                      width: 80,
-                      // fit: BoxFit.contain,
-                    ),
-                    Image.asset(
-                      'images/CompositeLayer.png',
-                      height: 40,
-                      width: 40,
-                      fit: BoxFit.contain,
-                    ),
-                    defaultText(txt: '100 ' + "K"),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Icon(Icons.favorite),
-                    defaultText(txt: '100 ' + "K"),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Image.asset(
-                      'images/icons8-share-48 (3).png',
-                      height: 40,
-                      width: 40,
-                    ),
-                    defaultText(txt: '100 ' + "K"),
-                  ],
+                Padding(
+                  padding:  EdgeInsets.only(top: 70.w ),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'images/CompositeLayer (2).png',
+                        height: 65.h,
+                        width: 65.w,
+                        // fit: BoxFit.contain,
+                      ),
+                      Image.asset(
+                        'images/CompositeLayer.png',
+                        height: 30.h,
+                        width: 30.w,
+                        fit: BoxFit.contain,
+                      ),
+                      defaultText(txt: '100 ' + "K"),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Icon(Icons.favorite),
+                      defaultText(txt: '100 ' + "K"),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Image.asset(
+                        'images/icons8-share-48 (3).png',
+                        height: 30.h,
+                        width: 30.w,
+                      ),
+                      defaultText(txt: '100 ' + "K"),
+                    ],
+                  ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 20.w,
                 ),
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 17),
+                      padding:  EdgeInsets.only(top: 80.h,right: 18.w),
                       child: Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 60),
+                          padding:  EdgeInsets.only(top: 50.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -77,38 +81,39 @@ class Explore extends StatelessWidget {
                                   onPressed: () {},
                                   icon: Icon(
                                     Icons.upload_file,
-                                    size: 35,
+                                    size: 35.h,
                                   )),
+                                  SizedBox(height: 5.h,),
                               defaultText(
                                 txt: 'Upload image',
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               )
                             ],
                           ),
                         ),
-                        height: 220,
-                        width: 140,
+                        height: 170.h,
+                        width: 150.w,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Color.fromARGB(255, 39, 3, 3),
                           ),
                           shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 10.h,
                     ),
                   ],
                 ),
               ],
             ),
             Container(
-              height: 30,
-              width: 150,
+              height: 30.h,
+              width: 150.w,
               child: TextField(
                 textAlign: TextAlign.center,
                 controller: nameController,
@@ -118,11 +123,11 @@ class Explore extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 10.h,
             ),
             Container(
-              height: 30,
-              width: 150,
+              height: 30.h,
+              width: 150.w,
               child: TextField(
                 textAlign: TextAlign.center,
                 controller: clubController,
@@ -132,13 +137,13 @@ class Explore extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 12,
+              height: 10.h,
             ),
             InkWell(
               child: defaultText(
                 txt: 'your position',
                 color: Colors.blue,
-                fontSize: 20,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
               ),
               onTap: () {
@@ -146,13 +151,13 @@ class Explore extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: 8,
+              height: 8.h,
             ),
             InkWell(
               child: defaultText(
                 txt: 'your game name',
                 color: Colors.blue,
-                fontSize: 17,
+                fontSize: 17.sp,
                 fontWeight: FontWeight.bold,
               ),
               onTap: () {

@@ -1,14 +1,17 @@
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/cubit/home_cubit.dart';
 import 'package:sportive/cubit/home_state.dart';
-import 'package:sportive/module/player/Home/widget/widgets.dart';
+import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/details/details.dart';
-import 'package:sportive/module/player/explore/explore.dart';
-import 'package:sportive/module/player/player_login/player_login.dart';
+import 'package:sportive/module/player/home/widget/get_list/get_list.dart';
+import 'package:sportive/module/player/pdf%20_page/pdf_screen.dart';
+import 'package:sportive/module/player/pt/pt_screen.dart';
+import 'package:sportive/module/player/qr_code/qr_code.dart';
+import 'package:sportive/module/player/skills/skills.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -18,16 +21,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Widget page = Details();
   List<WidgetList> list = [
-    WidgetList(img: 'images/icons8-more-info-30.png'),
-    WidgetList(img: 'images/sportıve ıcon (1).png'),
-    WidgetList(img: 'images/icons8-pdf-30.png'),
-    WidgetList(img: 'images/QR (1).png'),
-    WidgetList(img: 'images/icons8-user-groups-64.png'),
-    WidgetList(img: 'images/pt.png'),
-    WidgetList(img: 'images/icons8-share-48 (2).png'),
+    WidgetList(img: 'images/icons8-more-info-30.png', txt: 'about me'),
+    WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Skills'),
+    WidgetList(img: 'images/icons8-pdf-30.png', txt: 'Pdf'),
+    WidgetList(img: 'images/icons8-share-48 (3).png', txt: 'Share'),
+    WidgetList(img: 'images/pt.png', txt: 'Pt'),
+    WidgetList(img: 'images/icons8-user-groups-64.png', txt: 'following'),
+    WidgetList(img: 'images/QR (1).png', txt: 'QR'),
+    WidgetList(img: 'images/freestyling3.png', txt: 'Free styling'),
   ];
-
+  bool isIcon = false;
   var nameController = TextEditingController();
 
   var clubController = TextEditingController();
@@ -55,10 +60,10 @@ class _HomeState extends State<Home> {
                       thickness: 1,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.only(left: 10.w, right: 10.w),
                       child: Container(
-                          height: 60,
-                          width: double.infinity,
+                          height: 65.h,
+                          width: double.infinity.w,
                           child: ReorderableListView.builder(
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
@@ -67,7 +72,83 @@ class _HomeState extends State<Home> {
                             buildDefaultDragHandles: list.length > 1,
                             itemBuilder: (context, index) => Container(
                                 key: ValueKey(index),
-                                child: getist(list[index])),
+                                child: InkWell(
+                                    onTap: () {
+                                      if (list[index].img ==
+                                          'images/icons8-more-info-30.png') {
+                                        setState(() {
+                                          page = Details();
+                                        });
+                                      } else if (list[index].img ==
+                                          "images/icons8-pdf-30.png") {
+                                        setState(() {
+                                          page = PdfScreen();
+                                        });
+                                      } else if (list[index].img ==
+                                          "images/sportıve ıcon (1).png") {
+                                        setState(() {
+                                          page = Skills();
+                                        });
+                                      } else if (list[index].img ==
+                                          "images/QR (1).png") {
+                                        setState(() {
+                                          page = QrCode();
+                                        });
+                                      } else if (list[index].img ==
+                                          "images/freestyling3.png") {
+                                        setState(() {
+                                          page = QrCode();
+                                        });
+                                      } else if (list[index].img ==
+                                          "images/icons8-user-groups-64.png") {
+                                        setState(() {
+                                          page = PdfScreen();
+                                        });
+                                      } else if (list[index].img ==
+                                          "images/pt.png") {
+                                        setState(() {
+                                          page = PtScreen();
+                                        });
+                                      } else if (list[index].img ==
+                                          "images/icons8-share-48 (2).png") {
+                                        setState(() {
+                                          page = PtScreen();
+                                        });
+                                      }
+
+                                      // if (index == 0) {
+                                      //   setState(() {
+                                      //     page = Details();
+                                      //   });
+                                      // } else if (index == 1) {
+                                      // } else if (index == 2) {
+                                      //   setState(() {
+                                      //     page = PdfScreen();
+                                      //   });
+                                      // } else if (index == 3) {
+                                      //   setState(() {
+                                      //     page = QrCode();
+                                      //   });
+                                      // } else if (index == 4) {
+                                      //   setState(() {
+                                      //     page = QrCode();
+                                      //   });
+                                      // } else if (index == 5) {
+//  setState(() {
+//                                           page = PtScreen();
+//                                         });                                      }
+                                    },
+                                    child: Container(
+                                        height: 60,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                width: 2,
+                                                color: isIcon == true
+                                                    ? Colors.red
+                                                    : Colors.white)),
+                                        child: getist(list[index])))),
                             onReorder: (newIndex, oldIndex) {
                               setState(() {
                                 if (newIndex > oldIndex) {
@@ -85,9 +166,10 @@ class _HomeState extends State<Home> {
                       thickness: 1,
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 2.h,
                     ),
-                    Details(),
+
+                    Expanded(child: page),
                     // Padding(
                     //   padding: const EdgeInsets.only(right: 10, left: 10),
                     //   child: Row(
@@ -112,7 +194,6 @@ class _HomeState extends State<Home> {
                     //     ],
                     //   ),
                     // )
-               
                   ],
                 ),
               ],
