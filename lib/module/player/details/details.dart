@@ -3,7 +3,7 @@ import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -40,6 +40,11 @@ class _DetailsState extends State<Details> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
+
+   DateTime? dateTime;
+  DateTime currentDate = DateTime.now();
+  String difference = "";
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -110,69 +115,68 @@ class _DetailsState extends State<Details> {
                               height: 4.h,
                             ),
                             InkWell(
-                              onTap: () async {
-                                DateTime? newDateTime =
-                                    await showRoundedDatePicker(
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(DateTime.now().year - 80),
-                                  lastDate: DateTime(DateTime.now().year + 1),
-                                  context: context,
-                                  background: Colors.white,
-                                  theme: ThemeData(
-                                    primaryColor: Colors.red[400],
-                                    accentColor: Colors.green[800],
-                                    dialogBackgroundColor: Colors.purple[50],
-                                    textTheme: TextTheme(
-                                      bodyText1: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 108, 204, 63),
-                                          fontSize: 22.sp,
-                                          fontWeight: FontWeight.bold),
-                                      caption: TextStyle(color: Colors.blue),
-                                    ),
-                                    disabledColor: Colors.orange,
-                                    accentTextTheme: TextTheme(
-                                      bodyText1: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 220, 235, 12),
-                                          fontSize: 22.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                );
+                              onTap: () {
+                                DatePicker.showDatePicker(
+                                    theme: DatePickerTheme(
+                                        backgroundColor: greyColor),
+                                    context,
+                                    showTitleActions: true,
+                                    currentTime: currentDate,
+                                    minTime: DateTime(1950, 1, 1),
+                                    onConfirm: (date) {
+                                  setState(() {
+                                    dateTime = date;
+                                    
+                                    difference =
+                                        "${currentDate.difference(date).inDays / 365}";
+                                  });
+                                  print(difference);
+                                });
+                            
                               },
-                              child: Container(
-                                  height: 40.h,
-                                  width: double.infinity.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.r),
-                                    color: Color(0xff40768C),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        bottom: 15.h,
-                                        right: 8.w,
-                                        left: 8.w,
-                                        top: 5.h),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          defaultText(
-                                            txt: 'Birth day',
-                                            color: hintColor, fontSize: 16.sp,
-                                            // fontWeight: FontWeight.bold,
-                                          ),
-                                          Icon(
-                                            Icons.keyboard_arrow_down,
-                                            color: Colors.white,
-                                            size: 25.h,
-                                          )
-                                        ],
+                              child: Column(
+                                children: [
+                                  Container(
+                                      height: 40.h,
+                                      width: double.infinity.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.r),
+                                        color: Color(0xff40768C),
                                       ),
-                                    ),
-                                  )),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            bottom: 15.h,
+                                            right: 8.w,
+                                            left: 8.w,
+                                            top: 5.h),
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              defaultText(
+                                                txt: '${dateTime}',
+                                                color: hintColor,
+                                                fontSize: 16.sp,
+                                                // fontWeight: FontWeight.bold,
+                                              ),
+                                              Icon(
+                                                Icons.keyboard_arrow_down,
+                                                color: Colors.white,
+                                                size: 25.h,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                  defaultText(
+                                      txt: difference,
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: 5.h,
@@ -357,7 +361,7 @@ class _DetailsState extends State<Details> {
                                     color: Color(0xff40768C),
                                     borderRadius: BorderRadius.circular(10.r)),
                                 child: DropdownButtonFormField(
-                                  dropdownColor: contactColor,
+                                    dropdownColor: contactColor,
                                     style: TextStyle(
                                         color: hintColor,
                                         fontSize: 17.sp,
@@ -686,17 +690,25 @@ class _DetailsState extends State<Details> {
                                           ),
                                           Expanded(
                                             child: buildTextFormField(
-                                              ontap: (){
-                                                 showDatePicker(
-                        context: context,
-                        initialDate:DateTime.now(),
-                        firstDate:  DateTime(1980, 1, 1),
-                        lastDate: DateTime.parse('2060-01-01'))
-                    .then((value) => {
-                          startingDataController.text =
-                              DateFormat.yMMMd().format(value!),
-                        });
-                                              },
+                                                ontap: () {
+                                                  showDatePicker(
+                                                          context: context,
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate: DateTime(
+                                                              1980, 1, 1),
+                                                          lastDate:
+                                                              DateTime.parse(
+                                                                  '2060-01-01'))
+                                                      .then((value) => {
+                                                            startingDataController
+                                                                    .text =
+                                                                DateFormat
+                                                                        .yMMMd()
+                                                                    .format(
+                                                                        value!),
+                                                          });
+                                                },
                                                 color: Color.fromARGB(
                                                     255, 199, 198, 198),
                                                 hint: 'Starting date',
@@ -726,19 +738,25 @@ class _DetailsState extends State<Details> {
                                           ),
                                           Expanded(
                                             child: buildTextFormField(
-                                              ontap: (){
-                                              
-                showDatePicker(
-                        context: context,
-                        initialDate:DateTime.now(),
-                        firstDate:  DateTime(1980, 1, 1),
-                        lastDate: DateTime.parse('2060-01-01'))
-                    .then((value) => {
-                          endingDataController.text =
-                              DateFormat.yMMMd().format(value!),
-                        });
-              
-                                              },
+                                                ontap: () {
+                                                  showDatePicker(
+                                                          context: context,
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate: DateTime(
+                                                              1980, 1, 1),
+                                                          lastDate:
+                                                              DateTime.parse(
+                                                                  '2060-01-01'))
+                                                      .then((value) => {
+                                                            endingDataController
+                                                                    .text =
+                                                                DateFormat
+                                                                        .yMMMd()
+                                                                    .format(
+                                                                        value!),
+                                                          });
+                                                },
                                                 hint: 'Ending date',
                                                 color: Color.fromARGB(
                                                     255, 199, 198, 198),
@@ -1162,11 +1180,12 @@ class _DetailsState extends State<Details> {
                                   )),
                             ],
                           ),
-                          SizedBox(height: 10.h,),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           Align(
                             alignment: AlignmentDirectional.bottomEnd,
-                            child: greenButton(txt: 'Save',
-                             onPress: (){}),
+                            child: greenButton(txt: 'Save', onPress: () {}),
                           )
                         ]),
                   ),

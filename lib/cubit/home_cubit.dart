@@ -61,9 +61,18 @@ class HomeCubit extends Cubit<HomeState> {
     "player",
     "club",
     "coach",
-    "doctor",
     "company",
-    "users"
+    "Sports academy",
+    'gym',
+    'agent',
+    'Nutritionist',
+    'physical therapist',
+    'Psychologist  doctor',
+    'normal user',
+    'Online coach',
+
+
+
   ];
 
   List<String> gender = [

@@ -7,6 +7,7 @@ import 'package:sportive/cubit/home_cubit.dart';
 import 'package:sportive/cubit/home_state.dart';
 import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/details/details.dart';
+import 'package:sportive/module/player/following/following.dart';
 import 'package:sportive/module/player/home/widget/get_list/get_list.dart';
 import 'package:sportive/module/player/pdf%20_page/pdf_screen.dart';
 import 'package:sportive/module/player/pt/pt_screen.dart';
@@ -24,15 +25,17 @@ class _HomeState extends State<Home> {
   Widget page = Details();
   List<WidgetList> list = [
     WidgetList(img: 'images/icons8-more-info-30.png', txt: 'about me'),
-    WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Skills'),
+        WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Skills'),
     WidgetList(img: 'images/icons8-pdf-30.png', txt: 'Pdf'),
+
     WidgetList(img: 'images/icons8-share-48 (3).png', txt: 'Share'),
     WidgetList(img: 'images/pt.png', txt: 'Pt'),
     WidgetList(img: 'images/icons8-user-groups-64.png', txt: 'following'),
     WidgetList(img: 'images/QR (1).png', txt: 'QR'),
     WidgetList(img: 'images/freestyling3.png', txt: 'Free styling'),
+   
   ];
-  bool isIcon = false;
+
   var nameController = TextEditingController();
 
   var clubController = TextEditingController();
@@ -60,11 +63,12 @@ class _HomeState extends State<Home> {
                       thickness: 1,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                      padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                       child: Container(
-                          height: 65.h,
+                          height: 60.h,
                           width: double.infinity.w,
                           child: ReorderableListView.builder(
+                            
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             itemCount: list.length,
@@ -74,6 +78,7 @@ class _HomeState extends State<Home> {
                                 key: ValueKey(index),
                                 child: InkWell(
                                     onTap: () {
+
                                       if (list[index].img ==
                                           'images/icons8-more-info-30.png') {
                                         setState(() {
@@ -84,32 +89,36 @@ class _HomeState extends State<Home> {
                                         setState(() {
                                           page = PdfScreen();
                                         });
-                                      } else if (list[index].img ==
+                                      }else if (list[index].img ==
                                           "images/sportıve ıcon (1).png") {
                                         setState(() {
                                           page = Skills();
                                         });
-                                      } else if (list[index].img ==
+                                      }else if (list[index].img ==
                                           "images/QR (1).png") {
                                         setState(() {
                                           page = QrCode();
                                         });
-                                      } else if (list[index].img ==
+                                        
+                                      }
+                                      else if (list[index].img ==
                                           "images/freestyling3.png") {
                                         setState(() {
                                           page = QrCode();
                                         });
-                                      } else if (list[index].img ==
+                                        
+                                      }
+                                      else if (list[index].img ==
                                           "images/icons8-user-groups-64.png") {
                                         setState(() {
-                                          page = PdfScreen();
+                                          page = Following();
                                         });
-                                      } else if (list[index].img ==
+                                      }else if (list[index].img ==
                                           "images/pt.png") {
                                         setState(() {
                                           page = PtScreen();
                                         });
-                                      } else if (list[index].img ==
+                                      }else if (list[index].img ==
                                           "images/icons8-share-48 (2).png") {
                                         setState(() {
                                           page = PtScreen();
@@ -139,16 +148,8 @@ class _HomeState extends State<Home> {
 //                                         });                                      }
                                     },
                                     child: Container(
-                                        height: 60,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                width: 2,
-                                                color: isIcon == true
-                                                    ? Colors.red
-                                                    : Colors.white)),
-                                        child: getist(list[index])))),
+                                      
+                                      child: getist(list[index])))),
                             onReorder: (newIndex, oldIndex) {
                               setState(() {
                                 if (newIndex > oldIndex) {
@@ -160,7 +161,7 @@ class _HomeState extends State<Home> {
                             },
                           )),
                     ),
-                    Divider(
+                    const Divider(
                       height: .1,
                       color: Colors.white,
                       thickness: 1,
@@ -309,3 +310,15 @@ class _HomeState extends State<Home> {
 //                                   width: 8,
 //                                 ),
 //                             itemCount: list.length),
+
+// List<String> list = ["B", "C", "D"];
+// list.insert(0, "A"); // at index 0 we are adding A
+// list now becomes ["A", "B", "C", "D"]
+////////////////////////
+/// List<Widget> _cardList = [];
+
+// void _addCardWidget() {
+//   setState(() {
+//     _cardList.add(_card());
+//   });
+// }
