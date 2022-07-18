@@ -140,12 +140,13 @@ Widget container() {
   return Stack(
     alignment: AlignmentDirectional.topCenter,
     children: [
-      Image.asset('images/Path 399.png',
-      width: 390.w,
-      height: 200.h,
+      Image.asset(
+        'images/Path 399.png',
+        width: 390.w,
+        height: 200.h,
       ),
       Padding(
-        padding:  EdgeInsets.only(left: 24.w,top: 25.h),
+        padding: EdgeInsets.only(left: 24.w, top: 25.h),
         child: Image.asset('images/sportıve ıcon.png'),
       ),
     ],
@@ -177,7 +178,7 @@ Widget secandContainer({
     children: [
       container(),
       Padding(
-        padding:  EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
         child: Container(
           height: 160.h,
           width: double.infinity,
@@ -213,43 +214,47 @@ Widget logo() {
   );
 }
 
-Widget logoPages(context) {
-  return Container(
-    height: 90.h,
-    decoration: BoxDecoration(color: mainColor),
-    child: Center(
-      child: Padding(
-        padding:  EdgeInsets.only(top: 25.h, left: 10.w, right: 10.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              'images/logospotive1.png',
-              width: MediaQuery.of(context).size.width * .5.w,
-            ),
-            Row(
-              children: [
-                Image.asset('images/req to contact1.png'),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Image.asset('images/notifcation1.png'),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.menu,
-                      size: 30.h,
-                      color: Colors.white,
-                    ))
-              ],
-            ),
-          ],
+class LogoPage extends StatelessWidget {
+  LogoPage({Key? key, required this.context}) : super(key: key);
+  BuildContext context;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 90.h,
+      decoration: BoxDecoration(color: mainColor),
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.only(top: 25.h, left: 10.w, right: 10.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'images/logospotive1.png',
+                width: MediaQuery.of(context).size.width * .5.w,
+              ),
+              Row(
+                children: [
+                  Image.asset('images/req to contact1.png'),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Image.asset('images/notifcation1.png'),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.menu,
+                        size: 30.h,
+                        color: Colors.white,
+                      ))
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
-
 // class LogoPages extends StatelessWidget {
 //   const LogoPages({Key? key}) : super(key: key);
 
@@ -345,11 +350,11 @@ Widget rotateText({required String txt, Color color = Colors.orange}) {
 Widget expriance() {
   return Stack(
     children: [
-      Image.asset('images/Path 381.png',
-      
+      Image.asset(
+        'images/Path 381.png',
       ),
       Padding(
-        padding:  EdgeInsets.only(left: 144.w),
+        padding: EdgeInsets.only(left: 144.w),
         child: Image.asset('images/sportıve ıcon.png'),
       ),
     ],
@@ -383,10 +388,10 @@ Widget contactContainer(
     {required String txt,
     required String headerText,
     required IconData icon,
-     Color color = Colors.green,
+    Color color = Colors.green,
     required Widget widget}) {
   return Padding(
-    padding:  EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
+    padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
     child: Row(
       children: [
         Icon(
@@ -397,7 +402,7 @@ Widget contactContainer(
           width: 5.w,
         ),
         Padding(
-          padding:  EdgeInsets.only(bottom: 8.h,top: 8.h),
+          padding: EdgeInsets.only(bottom: 8.h, top: 8.h),
           child: Center(
             child: RotatedBox(
                 quarterTurns: 3,
@@ -415,7 +420,7 @@ Widget contactContainer(
           child: Column(
             children: [
               Padding(
-                padding:  EdgeInsets.only(top: 10.h),
+                padding: EdgeInsets.only(top: 10.h),
                 child: Align(
                   alignment: AlignmentDirectional.topEnd,
                   child: defaultText(

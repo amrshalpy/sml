@@ -136,6 +136,20 @@ class Explore extends StatelessWidget {
                 ),
               ),
             ),
+             SizedBox(
+              height: 8.h,
+            ),
+            InkWell(
+              child: defaultText(
+                txt: 'your game name',
+                color: Colors.blue,
+                fontSize: 17.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              onTap: () {
+                getGame(context);
+              },
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -150,20 +164,7 @@ class Explore extends StatelessWidget {
                 getPoistion(context);
               },
             ),
-            SizedBox(
-              height: 8.h,
-            ),
-            InkWell(
-              child: defaultText(
-                txt: 'your game name',
-                color: Colors.blue,
-                fontSize: 17.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              onTap: () {
-                getGame(context);
-              },
-            )
+           
           ],
         ),
       ],

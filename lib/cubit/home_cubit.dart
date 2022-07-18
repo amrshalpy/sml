@@ -70,9 +70,6 @@ class HomeCubit extends Cubit<HomeState> {
     'Psychologist  doctor',
     'normal user',
     'Online coach',
-
-
-
   ];
 
   List<String> gender = [
@@ -178,7 +175,11 @@ class HomeCubit extends Cubit<HomeState> {
     Sports(image: 'images/surface1 (5).png', title: 'volleyball'),
     Sports(image: 'images/tennis.png', title: 'tennis'),
   ];
-
+  int indexPage = 1;
+  void changePage(int index) {
+    indexPage = index;
+    emit(ChangeIndexPage());
+  }
 
   ////// video_trimmer: ^1.1.3////////
 // How to make like that system ?
@@ -222,7 +223,6 @@ class HomeCubit extends Cubit<HomeState> {
 //   return;
 // }
 
-
 // // Future getVideo() async {
 
 // //    await MultiMediaPicker.pickVideo(source: ImageSource.gallery).then((video){
@@ -258,5 +258,5 @@ class HomeCubit extends Cubit<HomeState> {
 
 //   //   }
 //    }
-  
+
 }

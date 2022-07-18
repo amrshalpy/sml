@@ -3,6 +3,7 @@ import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_bdaya/flutter_datetime_picker_bdaya.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -41,7 +42,7 @@ class _DetailsState extends State<Details> {
   String cityValue = "";
   String address = "";
 
-   DateTime? dateTime;
+  DateTime? dateTime;
   DateTime currentDate = DateTime.now();
   String difference = "";
 
@@ -85,31 +86,27 @@ class _DetailsState extends State<Details> {
                             SizedBox(
                               height: 5.h,
                             ),
-                            Opacity(
-                              opacity: .3,
-                              child: CSCPicker(
-                                selectedItemStyle: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.bold),
-                                dropdownItemStyle: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.bold),
-                                onCountryChanged: (String value) {
-                                  setState(() {
-                                    countryValue = value;
-                                  });
-                                },
-                                onStateChanged: (String? value) {
-                                  setState(() {
-                                    stateValue = value.toString();
-                                  });
-                                },
-                                onCityChanged: (String? value) {
-                                  setState(() {
-                                    cityValue = value.toString();
-                                  });
-                                },
+                            SelectState(
+                              dropdownColor: Colors.grey.shade700,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
                               ),
+                              onCountryChanged: (value) {
+                                setState(() {
+                                  countryValue = value;
+                                });
+                              },
+                              onStateChanged: (value) {
+                                setState(() {
+                                  stateValue = value;
+                                });
+                              },
+                              onCityChanged: (value) {
+                                setState(() {
+                                  cityValue = value;
+                                });
+                              },
                             ),
                             SizedBox(
                               height: 4.h,
@@ -121,18 +118,18 @@ class _DetailsState extends State<Details> {
                                         backgroundColor: greyColor),
                                     context,
                                     showTitleActions: true,
+                                    
                                     currentTime: currentDate,
                                     minTime: DateTime(1950, 1, 1),
                                     onConfirm: (date) {
                                   setState(() {
                                     dateTime = date;
-                                    
+
                                     difference =
-                                        "${currentDate.difference(date).inDays / 365}";
+                                        "${DateTime.now().year - dateTime!.year}";
                                   });
                                   print(difference);
                                 });
-                            
                               },
                               child: Column(
                                 children: [
@@ -156,7 +153,9 @@ class _DetailsState extends State<Details> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               defaultText(
-                                                txt: '${dateTime}',
+                                                txt: dateTime == null
+                                                    ? "Birth day"
+                                                    : '${dateTime}',
                                                 color: hintColor,
                                                 fontSize: 16.sp,
                                                 // fontWeight: FontWeight.bold,
@@ -170,8 +169,9 @@ class _DetailsState extends State<Details> {
                                           ),
                                         ),
                                       )),
+                                      if(difference != '')
                                   defaultText(
-                                      txt: difference,
+                                      txt: difference + ' years',
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)

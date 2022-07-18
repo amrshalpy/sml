@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
                 crdientColor(),
                 Column(
                   children: [
-                    logoPages(context),
+                    LogoPage(context: context,),
                     Divider(
                       height: .1,
                       color: Colors.white,
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                       child: Container(
-                          height: 60.h,
+                          height: 64.h,
                           width: double.infinity.w,
                           child: ReorderableListView.builder(
                             
@@ -125,27 +125,7 @@ class _HomeState extends State<Home> {
                                         });
                                       }
 
-                                      // if (index == 0) {
-                                      //   setState(() {
-                                      //     page = Details();
-                                      //   });
-                                      // } else if (index == 1) {
-                                      // } else if (index == 2) {
-                                      //   setState(() {
-                                      //     page = PdfScreen();
-                                      //   });
-                                      // } else if (index == 3) {
-                                      //   setState(() {
-                                      //     page = QrCode();
-                                      //   });
-                                      // } else if (index == 4) {
-                                      //   setState(() {
-                                      //     page = QrCode();
-                                      //   });
-                                      // } else if (index == 5) {
-//  setState(() {
-//                                           page = PtScreen();
-//                                         });                                      }
+                                  
                                     },
                                     child: Container(
                                       
@@ -171,145 +151,16 @@ class _HomeState extends State<Home> {
                     ),
 
                     Expanded(child: page),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(right: 10, left: 10),
-                    //   child: Row(
-                    //     children: [
-                    //       Expanded(
-                    //         child: mainButton(
-                    //             txt: 'Follow',
-                    //             fontSize: 20,
-                    //             fontWeight: FontWeight.bold,
-                    //             ontap: () {}),
-                    //       ),
-                    //       SizedBox(
-                    //         width: 50,
-                    //       ),
-                    //       Expanded(
-                    //         child: mainButton(
-                    //             txt: 'save',
-                    //             fontSize: 20,
-                    //             fontWeight: FontWeight.bold,
-                    //             ontap: () {}),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // )
+                    
                   ],
                 ),
               ],
             ),
-            // bottomNavigationBar: BottomNavyBar(
-            //   backgroundColor: mainColor,
-            //   // iconSize: 40,
-            //   containerHeight: 60,
-            //   selectedIndex: cubit.currentIndex,
-            //   items: [
-            //     BottomNavyBarItem(
-            //         icon: Image.asset(
-            //           'images/CompositeLayer (1).png',
-            //           height: 30,
-            //           width: 25,
-            //         ),
-            //         title: Text(
-            //           " Explore",
-            //         ),
-            //         activeColor: thirdColor,
-            //         inactiveColor: Colors.grey),
-            //     BottomNavyBarItem(
-            //         icon: Image.asset(
-            //           'images/icons8-user-groups-64.png',
-            //           height: 30,
-            //           width: 25,
-            //         ),
-            //         title: Text(
-            //           " Following",
-            //           style:
-            //               TextStyle(fontSize: 11, fontWeight: FontWeight.w900),
-            //         ),
-            //         activeColor: thirdColor,
-            //         inactiveColor: Colors.grey),
-            //     BottomNavyBarItem(
-            //         icon: Image.asset(
-            //           'images/sportıve ıcon (1).png',
-            //           height: 30,
-            //           width: 25,
-            //         ),
-            //         title: Text(
-            //           " Skills",
-            //         ),
-            //         activeColor: thirdColor,
-            //         inactiveColor: Colors.grey),
-            //     BottomNavyBarItem(
-            //         icon: Image.asset(
-            //           'images/shope.png',
-            //           height: 30,
-            //           width: 25,
-            //         ),
-            //         title: Text(
-            //           " Shop",
-            //         ),
-            //         activeColor: thirdColor,
-            //         inactiveColor: mainColor),
-            //     BottomNavyBarItem(
-            //         icon: Image.asset(
-            //           'images/QR (1).png',
-            //           height: 30,
-            //           width: 25,
-            //         ),
-            //         title: Text(
-            //           " QR",
-            //         ),
-            //         activeColor: thirdColor,
-            //         inactiveColor: Colors.grey),
-            //     BottomNavyBarItem(
-            //         icon: Image.asset(
-            //           'images/icons8-pdf-30.png',
-            //           height: 30,
-            //           width: 25,
-            //         ),
-            //         title: Text(
-            //           " PDF",
-            //         ),
-            //         activeColor: thirdColor,
-            //         inactiveColor: Colors.grey),
-            //   ],
-            //   onItemSelected: (int index) {
-            //     cubit.changeCurrentIndex(index);
-            //   },
-            // ),
+
           );
         });
   }
 }
-// ListView.separated(
-//                             shrinkWrap: true,
-//                             scrollDirection: Axis.horizontal,
-//                             physics: BouncingScrollPhysics(),
-//                             itemBuilder: (context, index) => InkWell(
-//                                 onTap: () {
-//                                   cubit.changeProfile(index);
-//                                   if (index == 0) {
-//                                     cubit.profileWiget = PlayerLogin();
-//                                   } else if (index == 1) {
-//                                     cubit.profileWiget = PlayerLogin();
-//                                   } else if (index == 2) {
-//                                     cubit.profileWiget = PlayerLogin();
-//                                   } else if (index == 3) {
-//                                     cubit.profileWiget = PlayerLogin();
-//                                   } else if (index == 4) {
-//                                     cubit.profileWiget = PlayerLogin();
-//                                   } else if (index == 5) {
-//                                     cubit.profileWiget = PlayerLogin();
-//                                   } else if (index == 6) {
-//                                     cubit.profileWiget = PlayerLogin();
-//                                   }
-//                                 },
-//                                 child: getist(list[index])),
-//                             separatorBuilder: (context, index) => SizedBox(
-//                                   width: 8,
-//                                 ),
-//                             itemCount: list.length),
 
 // List<String> list = ["B", "C", "D"];
 // list.insert(0, "A"); // at index 0 we are adding A

@@ -74,9 +74,9 @@ class _VideoWidgetState extends State<VideoWidget> {
 
                   children: <Widget>[
                     Padding(
-                      padding:  EdgeInsets.only(left: 17.w,right: 15.w,top: 4.h),
+                      padding:  EdgeInsets.only(left: 24.w,right: 24.w,top: 4.h),
                       child: Row(children: [
-                        defaultText(txt: 'video name',color: Colors.white,fontSize: 18,),
+                        defaultText(txt: 'video name',color: Colors.white,fontSize: 18.sp,),
       Spacer(),
        Row(
          children: [
@@ -113,7 +113,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding:  EdgeInsets.only(right: 10.w,left: 10.w,top: 4.h,bottom: 4.h),
+                        padding:  EdgeInsets.only(right: 20.w,left: 20.w,top: 4.h,bottom: 4.h),
                         child: Chewie(
                           key: PageStorageKey(widget.url),
                           controller: ChewieController(
@@ -140,6 +140,20 @@ class _VideoWidgetState extends State<VideoWidget> {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding:  EdgeInsets.only(right: 27.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                        Icon(Icons.favorite,color: Colors.white,),
+                        SizedBox(width: 20,),
+                        Image.asset('images/icons8-share-48 (2).png',
+                        height: 30,
+                        width: 30,
+                        )
+
+                      ],),
+                    )
                   ],
                 ),
                 ]),

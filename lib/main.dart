@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/cubit/home_cubit.dart';
+import 'package:sportive/module/club/home/home.dart';
 import 'package:sportive/module/player/home/about_me.dart';
 import 'package:sportive/module/player/player_login/player_login.dart';
 import 'package:sportive/module/player/qr_code/qr_code.dart';
+import 'package:sportive/module/splash_screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,9 +26,9 @@ class MyApp extends StatelessWidget {
         builder: ( context, child) =>MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Sportive',
-          home: PlayerLogin(),
+          home: SplashScreen(),
         ),
-  designSize:const Size(360, 640),
+  designSize: Size(360, 640),
       ),
     );
   }

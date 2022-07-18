@@ -8,6 +8,7 @@ class ChangeVerify extends HomeState {}
 
 class ChangeCountry extends HomeState {}
 class ChangeTabBar extends HomeState {}
+class ChangeIndexPage extends HomeState {}
 
 class Changetype extends HomeState {}
 class ChangeGander extends HomeState {}
