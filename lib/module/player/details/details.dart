@@ -13,14 +13,14 @@ import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/cubit/home_cubit.dart';
 import 'package:sportive/module/player/explore/explore.dart';
 
-class Details extends StatefulWidget {
-  Details({Key? key}) : super(key: key);
+class PlayerDetails extends StatefulWidget {
+  PlayerDetails({Key? key}) : super(key: key);
 
   @override
-  State<Details> createState() => _DetailsState();
+  State<PlayerDetails> createState() => _PlayerDetailsState();
 }
 
-class _DetailsState extends State<Details> {
+class _PlayerDetailsState extends State<PlayerDetails> {
   var pageController = PageController();
   var wieghtController = TextEditingController();
   var hieghtController = TextEditingController();
@@ -1218,3 +1218,107 @@ class _DetailsState extends State<Details> {
     print("New Country selected: " + countryCode.toString());
   }
 }
+
+
+//////  Flutter DraggableScrollableSheet with sticky headers/////////
+
+// SizedBox.expand(
+//     child: DraggableScrollableSheet(
+//       maxChildSize: 0.9,
+//       minChildSize: 0.2,
+//       initialChildSize: 0.3,
+//       expand: false,
+//       builder:
+//           (BuildContext context, ScrollController scrollController) {
+//         return Container(
+//           decoration: BoxDecoration(
+//               color: Colors.white,
+//               borderRadius: BorderRadius.only(
+//                 topLeft: Radius.circular(20),
+//                 topRight: Radius.circular(20),
+//               )),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Align(
+//                 alignment: Alignment.topCenter,
+//                 child: Container(
+//                   margin: EdgeInsets.symmetric(vertical: 8),
+//                   height: 8.0,
+//                   width: 70.0,
+//                   decoration: BoxDecoration(
+//                       color: Colors.grey[400],
+//                       borderRadius: BorderRadius.circular(10.0)),
+//                 ),
+//               ),
+//               SizedBox(height: 16),
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(horizontal: 24),
+//                 child: Text(
+//                   'Neuigkeiten',
+//                   style: TextStyle(
+//                       fontSize: 20, fontWeight: FontWeight.bold),
+//                 ),
+//               ),
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(horizontal: 24),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: <Widget>[
+//                     SizedBox(height: 20.0),
+//                     Text('Erfahre mehr ... '),
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(height: 16),
+//               Expanded(child: NewsList(controller: scrollController))
+//             ],
+//           ),
+//         );
+//       },
+//     ),
+//   );
+// ////////// //// // ////////   //////
+
+// class HomePage extends StatelessWidget {
+//   const HomePage({Key? key}) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('DraggableScrollableSheet'),
+//       ),
+//       body: SizedBox.expand(
+//         child: DraggableScrollableSheet(
+//           builder: (BuildContext context, ScrollController scrollController) {
+//             return Stack(
+//               children: [
+//                 //this section is your list
+//                 Container(
+//                   color: Colors.blue[100],
+//                   child: ListView.builder(
+//                     controller: scrollController,
+//                     itemCount: 26,
+//                     itemBuilder: (BuildContext context, int index) {
+//                       if(index == 0)return Container(height: 50);//this is the padding on the top of the list
+//                       return ListTile(title: Text('Item ${index-1}'));
+//                       },
+//                   ),
+//                 ),
+//                 //this section is your header
+//                 IgnorePointer(
+//                   child: Container(
+//                     height: 50,
+//                     child: AppBar(
+//                       title: Text("Sheet title"),
+//                       automaticallyImplyLeading: false,//this prevents the appBar from having a close button (that button wouldn't work because of IgnorePointer)
+//                     ),
+//                 )),
+//               ],
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
