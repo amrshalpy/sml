@@ -442,3 +442,587 @@ Widget contactContainer(
     ),
   );
 }
+
+
+/////////////////// Flutter sticky header with search bar ////////
+// class AnimatedAppBar extends StatefulWidget {
+//   const AnimatedAppBar({Key key}) : super(key: key);
+
+//   @override
+//   _AnimatedAppBarState createState() => _AnimatedAppBarState();
+// }
+
+// class _AnimatedAppBarState extends State<AnimatedAppBar> {
+//   final TextEditingController stateController = TextEditingController();
+//   final FocusNode stateFocus = FocusNode();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         body: NestedScrollView(
+//           headerSliverBuilder:
+//               (BuildContext context, bool innnerBoxIsScrolled) {
+//             return <Widget>[
+//               SliverAppBar(
+//                 expandedHeight: 120.0,
+//                 floating: false,
+//                 pinned: true,
+//                 backgroundColor: Colors.grey,
+//                 automaticallyImplyLeading: false,
+//                 titleSpacing: 0.0,
+//                 toolbarHeight: 90.0,
+//                 centerTitle: false,
+//                 elevation: 0.0,
+//                 leadingWidth: 0.0,
+//                 title: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.center,
+//                   children: [
+//                     if (innnerBoxIsScrolled != null &&
+//                         innnerBoxIsScrolled == true)
+//                       Column(
+//                         crossAxisAlignment: CrossAxisAlignment.center,
+//                         children: [
+//                           SizedBox(
+//                             height: 10.0,
+//                           ),
+//                           Text(
+//                             "Search",
+//                             style: TextStyle(
+//                               color: Colors.black,
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding: const EdgeInsets.all(8.0),
+//                             child: TextFormField(
+//                               autovalidateMode:
+//                                   AutovalidateMode.onUserInteraction,
+//                               /* autovalidate is disabled */
+//                               controller: stateController,
+//                               inputFormatters: [
+//                                 FilteringTextInputFormatter.deny(
+//                                     RegExp(r"\s\s")),
+//                                 FilteringTextInputFormatter.deny(RegExp(
+//                                     r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])')),
+//                               ],
+//                               keyboardType: TextInputType.text,
+//                               maxLength: 160,
+//                               onChanged: (val) {},
+//                               maxLines: 1,
+//                               validator: (value) {},
+//                               focusNode: stateFocus,
+//                               autofocus: false,
+//                               decoration: InputDecoration(
+//                                 errorMaxLines: 3,
+//                                 counterText: "",
+//                                 filled: true,
+//                                 fillColor: Colors.white,
+//                                 focusedBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(4)),
+//                                   borderSide: BorderSide(
+//                                     width: 1,
+//                                     color: Color(0xffE5E5E5),
+//                                   ),
+//                                 ),
+//                                 disabledBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(4)),
+//                                   borderSide: BorderSide(
+//                                     width: 1,
+//                                     color: Color(0xffE5E5E5),
+//                                   ),
+//                                 ),
+//                                 enabledBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(4)),
+//                                   borderSide: BorderSide(
+//                                     width: 1,
+//                                     color: Color(0xffE5E5E5),
+//                                   ),
+//                                 ),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(4)),
+//                                   borderSide: BorderSide(
+//                                     width: 1,
+//                                   ),
+//                                 ),
+//                                 errorBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Colors.red,
+//                                     )),
+//                                 focusedErrorBorder: OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(4)),
+//                                   borderSide: BorderSide(
+//                                     width: 1,
+//                                     color: Colors.red,
+//                                   ),
+//                                 ),
+//                                 hintText: "Search" ?? "",
+//                               ),
+//                             ),
+//                           ),
+//                           SizedBox(
+//                             height: 6.0,
+//                           )
+//                         ],
+//                       ),
+//                   ],
+//                 ),
+//                 // bottom: PreferredSize(
+//                 //   preferredSize: Size.fromHeight(5.0),
+//                 //   child: Text(''),
+//                 // ),
+//                 flexibleSpace: FlexibleSpaceBar(
+//                   background: Container(
+//                     width: MediaQuery.of(context).size.width,
+//                     child: Stack(
+//                       alignment: Alignment.center,
+//                       children: [
+//                         Column(
+//                           mainAxisAlignment: MainAxisAlignment.start,
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             SizedBox(
+//                               height: 10.0,
+//                             ),
+//                             Padding(
+//                               padding: EdgeInsets.symmetric(
+//                                 horizontal: 8.0,
+//                               ),
+//                               child: Row(
+//                                 mainAxisAlignment:
+//                                     MainAxisAlignment.spaceBetween,
+//                                 children: [
+//                                   Text(
+//                                     "Search",
+//                                     style: TextStyle(
+//                                       fontWeight: FontWeight.bold,
+//                                       fontSize: 24.0,
+//                                     ),
+//                                   ),
+//                                   CircleAvatar(
+//                                     backgroundImage: NetworkImage(
+//                                         "https://images.ctfassets.net/hrltx12pl8hq/2TRIFRwcjrTuNprkTQHVxs/088159eb8e811aaac789c24701d7fdb1/LP_image.jpg?fit=fill&w=632&h=354&fm=webp"), //NetworkImage
+//                                     radius: 16.0,
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                             Padding(
+//                               padding: const EdgeInsets.all(8.0),
+//                               child: TextFormField(
+//                                 autovalidateMode:
+//                                     AutovalidateMode.onUserInteraction,
+//                                 /* autovalidate is disabled */
+//                                 controller: stateController,
+//                                 inputFormatters: [
+//                                   FilteringTextInputFormatter.deny(
+//                                       RegExp(r"\s\s")),
+//                                   FilteringTextInputFormatter.deny(RegExp(
+//                                       r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])')),
+//                                 ],
+//                                 keyboardType: TextInputType.text,
+//                                 maxLength: 160,
+//                                 onChanged: (val) {},
+//                                 maxLines: 1,
+//                                 validator: (value) {},
+//                                 focusNode: stateFocus,
+//                                 autofocus: false,
+//                                 decoration: InputDecoration(
+//                                   errorMaxLines: 3,
+//                                   counterText: "",
+//                                   filled: true,
+//                                   fillColor: Colors.white,
+//                                   focusedBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   disabledBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   enabledBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   border: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                     ),
+//                                   ),
+//                                   errorBorder: OutlineInputBorder(
+//                                       borderRadius:
+//                                           BorderRadius.all(Radius.circular(4)),
+//                                       borderSide: BorderSide(
+//                                         width: 1,
+//                                         color: Colors.red,
+//                                       )),
+//                                   focusedErrorBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Colors.red,
+//                                     ),
+//                                   ),
+//                                   hintText: "Search" ?? "",
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ];
+//           },
+//           body: Builder(
+//             builder: (BuildContext context) {
+//               return SingleChildScrollView(
+//                 child: Column(
+//                   children: [
+//                     ListView.builder(
+//                       itemCount: 100,
+//                       physics: NeverScrollableScrollPhysics(),
+//                       shrinkWrap: true,
+//                       itemBuilder: (BuildContext context, int index) {
+//                         return Padding(
+//                           padding: const EdgeInsets.all(4.0),
+//                           child: Text("Index value: $index"),
+//                         );
+//                       },
+//                     )
+//                   ],
+//                 ),
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//class AnimatedAppBar extends StatefulWidget {
+//   const AnimatedAppBar({Key key}) : super(key: key);
+
+//   @override
+//   _AnimatedAppBarState createState() => _AnimatedAppBarState();
+// }
+
+// class _AnimatedAppBarState extends State<AnimatedAppBar>
+//     with TickerProviderStateMixin {
+//   final TextEditingController stateController = TextEditingController();
+//   final FocusNode stateFocus = FocusNode();
+
+//   var animation;
+//   var controller;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         body: NestedScrollView(
+//           headerSliverBuilder:
+//               (BuildContext context, bool innnerBoxIsScrolled) {
+//             if (innnerBoxIsScrolled) {
+//               /* Animation */
+//               controller = AnimationController(
+//                 vsync: this,
+//                 duration: Duration(
+//                   seconds: 1,
+//                 ),
+//               );
+//               animation = Tween(
+//                 begin: 0.0,
+//                 end: 1.0,
+//               ).animate(controller);
+//               /* Animation */
+//               controller.forward();
+//             }
+//             return <Widget>[
+//               SliverAppBar(
+//                 expandedHeight: 120.0,
+//                 floating: false,
+//                 pinned: true,
+//                 backgroundColor: Colors.grey,
+//                 automaticallyImplyLeading: false,
+//                 titleSpacing: 0.0,
+//                 toolbarHeight: 90.0,
+//                 centerTitle: false,
+//                 elevation: 0.0,
+//                 leadingWidth: 0.0,
+//                 title: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.center,
+//                   children: [
+//                     if (innnerBoxIsScrolled != null &&
+//                         innnerBoxIsScrolled == true)
+//                       FadeTransition(
+//                         opacity: animation,
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.center,
+//                           children: [
+//                             SizedBox(
+//                               height: 10.0,
+//                             ),
+//                             Text(
+//                               "Search",
+//                               style: TextStyle(
+//                                 color: Colors.black,
+//                               ),
+//                             ),
+//                             Padding(
+//                               padding: const EdgeInsets.all(8.0),
+//                               child: TextFormField(
+//                                 autovalidateMode:
+//                                     AutovalidateMode.onUserInteraction,
+//                                 /* autovalidate is disabled */
+//                                 controller: stateController,
+//                                 inputFormatters: [
+//                                   FilteringTextInputFormatter.deny(
+//                                       RegExp(r"\s\s")),
+//                                   FilteringTextInputFormatter.deny(RegExp(
+//                                       r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])')),
+//                                 ],
+//                                 keyboardType: TextInputType.text,
+//                                 maxLength: 160,
+//                                 onChanged: (val) {},
+//                                 maxLines: 1,
+//                                 validator: (value) {},
+//                                 focusNode: stateFocus,
+//                                 autofocus: false,
+//                                 decoration: InputDecoration(
+//                                   errorMaxLines: 3,
+//                                   counterText: "",
+//                                   filled: true,
+//                                   fillColor: Colors.white,
+//                                   focusedBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   disabledBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   enabledBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   border: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                     ),
+//                                   ),
+//                                   errorBorder: OutlineInputBorder(
+//                                       borderRadius:
+//                                           BorderRadius.all(Radius.circular(4)),
+//                                       borderSide: BorderSide(
+//                                         width: 1,
+//                                         color: Colors.red,
+//                                       )),
+//                                   focusedErrorBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Colors.red,
+//                                     ),
+//                                   ),
+//                                   hintText: "Search" ?? "",
+//                                 ),
+//                               ),
+//                             ),
+//                             SizedBox(
+//                               height: 6.0,
+//                             )
+//                           ],
+//                         ),
+//                       ),
+//                   ],
+//                 ),
+//                 // bottom: PreferredSize(
+//                 //   preferredSize: Size.fromHeight(5.0),
+//                 //   child: Text(''),
+//                 // ),
+//                 flexibleSpace: FlexibleSpaceBar(
+//                   background: Container(
+//                     width: MediaQuery.of(context).size.width,
+//                     child: Stack(
+//                       alignment: Alignment.center,
+//                       children: [
+//                         Column(
+//                           mainAxisAlignment: MainAxisAlignment.start,
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             SizedBox(
+//                               height: 10.0,
+//                             ),
+//                             Padding(
+//                               padding: EdgeInsets.symmetric(
+//                                 horizontal: 8.0,
+//                               ),
+//                               child: Row(
+//                                 mainAxisAlignment:
+//                                     MainAxisAlignment.spaceBetween,
+//                                 children: [
+//                                   Text(
+//                                     "Search",
+//                                     style: TextStyle(
+//                                       fontWeight: FontWeight.bold,
+//                                       fontSize: 24.0,
+//                                     ),
+//                                   ),
+//                                   CircleAvatar(
+//                                     backgroundImage: NetworkImage(
+//                                         "https://images.ctfassets.net/hrltx12pl8hq/2TRIFRwcjrTuNprkTQHVxs/088159eb8e811aaac789c24701d7fdb1/LP_image.jpg?fit=fill&w=632&h=354&fm=webp"), //NetworkImage
+//                                     radius: 16.0,
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                             Padding(
+//                               padding: const EdgeInsets.all(8.0),
+//                               child: TextFormField(
+//                                 autovalidateMode:
+//                                     AutovalidateMode.onUserInteraction,
+//                                 /* autovalidate is disabled */
+//                                 controller: stateController,
+//                                 inputFormatters: [
+//                                   FilteringTextInputFormatter.deny(
+//                                       RegExp(r"\s\s")),
+//                                   FilteringTextInputFormatter.deny(RegExp(
+//                                       r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])')),
+//                                 ],
+//                                 keyboardType: TextInputType.text,
+//                                 maxLength: 160,
+//                                 onChanged: (val) {},
+//                                 maxLines: 1,
+//                                 validator: (value) {},
+//                                 focusNode: stateFocus,
+//                                 autofocus: false,
+//                                 decoration: InputDecoration(
+//                                   errorMaxLines: 3,
+//                                   counterText: "",
+//                                   filled: true,
+//                                   fillColor: Colors.white,
+//                                   focusedBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   disabledBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   enabledBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Color(0xffE5E5E5),
+//                                     ),
+//                                   ),
+//                                   border: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                     ),
+//                                   ),
+//                                   errorBorder: OutlineInputBorder(
+//                                       borderRadius:
+//                                           BorderRadius.all(Radius.circular(4)),
+//                                       borderSide: BorderSide(
+//                                         width: 1,
+//                                         color: Colors.red,
+//                                       )),
+//                                   focusedErrorBorder: OutlineInputBorder(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(4)),
+//                                     borderSide: BorderSide(
+//                                       width: 1,
+//                                       color: Colors.red,
+//                                     ),
+//                                   ),
+//                                   hintText: "Search" ?? "",
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ];
+//           },
+//           body: Builder(
+//             builder: (BuildContext context) {
+//               return SingleChildScrollView(
+//                 child: Column(
+//                   children: [
+//                     ListView.builder(
+//                       itemCount: 100,
+//                       physics: NeverScrollableScrollPhysics(),
+//                       shrinkWrap: true,
+//                       itemBuilder: (BuildContext context, int index) {
+//                         return Padding(
+//                           padding: const EdgeInsets.all(4.0),
+//                           child: Text("Index value: $index"),
+//                         );
+//                       },
+//                     )
+//                   ],
+//                 ),
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
+import 'package:sportive/module/club/club_explore/club_explore.dart';
 import 'package:sportive/module/club/club_explore/club_explore_gold.dart';
 import 'package:sportive/module/club/club_details/details.dart';
 import 'package:sportive/module/club/titles/titles.dart';
@@ -17,7 +18,7 @@ class ClubDetails extends StatefulWidget {
 
 class _ClubDetailsState extends State<ClubDetails> {
   var pageController = PageController();
-    var phoneController = TextEditingController();
+  var phoneController = TextEditingController();
   var emailController = TextEditingController();
   var socialController = TextEditingController();
 
@@ -34,8 +35,9 @@ class _ClubDetailsState extends State<ClubDetails> {
             controller: pageController,
             onPageChanged: (index) {},
             children: [
-              ClubExploreGold(),
+              ClubExplore(),
               Details(),
+              ClubExploreGold(),
               Titles(),
               SingleChildScrollView(
                 child: Container(

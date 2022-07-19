@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Widget page = Details();
+  Widget page = PlayerDetails();
   List<WidgetList> list = [
     WidgetList(img: 'images/icons8-more-info-30.png', txt: 'about me'),
         WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Skills'),
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                                       if (list[index].img ==
                                           'images/icons8-more-info-30.png') {
                                         setState(() {
-                                          page = Details();
+                                          page = PlayerDetails();
                                         });
                                       } else if (list[index].img ==
                                           "images/icons8-pdf-30.png") {

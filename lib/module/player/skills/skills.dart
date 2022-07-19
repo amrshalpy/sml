@@ -64,7 +64,7 @@ class _SkillsState extends State<Skills> {
         // content:
          Container(
                 width: double.infinity,
-                height: 270.0.h,
+                height: 290.0.h,
                 alignment: Alignment.center,
                 child: Container(
                     key:  PageStorageKey(

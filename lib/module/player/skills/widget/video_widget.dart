@@ -47,49 +47,54 @@ class _VideoWidgetState extends State<VideoWidget> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Padding(
-            padding:  EdgeInsets.only(top: 4.h),
+            padding:  EdgeInsets.only(top: 0.h),
             child: Container(
               child: Stack(
-                key: PageStorageKey(widget.url),
-                // elevation: 5.0,
-                children: [
-                  Stack(
-                    alignment: AlignmentDirectional.topCenter,
-                    children: [
-                      
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 290),
-                        child: Image.asset('images/sportıve ıcon (1).png',
-                        height: 40,
-                        width: 40,
-                        ),
-                      ),
-                      Image.asset('images/Path 384.png',
-                      height: 380,
-                      width: 390,
-                      ),
-                    ],
-                  ),
-                  Column(
 
-                  children: <Widget>[
-                    Padding(
-                      padding:  EdgeInsets.only(left: 24.w,right: 24.w,top: 4.h),
-                      child: Row(children: [
-                        defaultText(txt: 'video name',color: Colors.white,fontSize: 18.sp,),
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.topCenter,
+                    child: Stack(
+                      key: PageStorageKey(widget.url),
+                      // elevation: 5.0,
+                      children: [
+                        Stack(
+                          alignment: AlignmentDirectional.topCenter,
+                          children: [
+                            
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 355),
+                              child: Image.asset('images/redeem2.png',
+                              height: 60,
+                              width: 50,
+                              ),
+                            ),
+                            Image.asset('images/Path 384.png',
+                            height: 380,
+                            width: 390,
+                            ),
+                          ],
+                        ),
+                        Column(
+
+                        children: <Widget>[
+                          Padding(
+                            padding:  EdgeInsets.only(left: 24.w,right: 24.w,top: 8.h),
+                            child: Row(children: [
+                              defaultText(txt: 'video name',color: Colors.white,fontSize: 18.sp,),
       Spacer(),
        Row(
          children: [
              Column(
-               children: [
-                 Icon(Icons.favorite,color: Colors.white,),
-                 defaultText(txt: '100',
-                 color: Colors.white)
-               ],
+                     children: [
+                       Icon(Icons.favorite,color: Colors.white,),
+                       defaultText(txt: '100',
+                       color: Colors.white)
+                     ],
              ),
-                      SizedBox(width: 10.w,),
+                            SizedBox(width: 10.w,),
 
-              Column(
+                    Column(
          children: [
              Icon(Icons.visibility_outlined,color: Colors.white,),
              defaultText(txt: '100',
@@ -109,54 +114,62 @@ class _VideoWidgetState extends State<VideoWidget> {
          ],
        ),
       
-                      ],),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding:  EdgeInsets.only(right: 20.w,left: 20.w,top: 4.h,bottom: 4.h),
-                        child: Chewie(
-                          key: PageStorageKey(widget.url),
-                          controller: ChewieController(
-                            videoPlayerController: videoPlayerController!,
-                            aspectRatio: 3 / 2,
-                            // Prepare the video to be played and display the first frame
-                            autoInitialize: true,
-                            
-                            allowFullScreen: false,
-                            allowMuting: false,
-                            looping: false,
-                            autoPlay: false,
-                            // Errors can occur for example when trying to play a video
-                            // from a non-existent URL
-                            errorBuilder: (context, errorMessage) {
-                              return Center(
-                                child: Text(
-                                  errorMessage,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              );
-                            },
+                            ],),
                           ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(right: 27.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                        Icon(Icons.favorite,color: Colors.white,),
-                        SizedBox(width: 20,),
-                        Image.asset('images/icons8-share-48 (2).png',
-                        height: 30,
-                        width: 30,
-                        )
+                          Expanded(
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 20.w,left: 20.w,top: 0.h,bottom: 1.h),
+                              child: Chewie(
+                                key: PageStorageKey(widget.url),
+                                controller: ChewieController(
+                                  videoPlayerController: videoPlayerController!,
+                                  aspectRatio: 3 / 2,
+                                  // Prepare the video to be played and display the first frame
+                                  autoInitialize: true,
+                                  
+                                  allowFullScreen: false,
+                                  allowMuting: false,
+                                  looping: false,
+                                  autoPlay: false,
+                                  // Errors can occur for example when trying to play a video
+                                  // from a non-existent URL
+                                  errorBuilder: (context, errorMessage) {
+                                    return Center(
+                                      child: Text(
+                                        errorMessage,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:  EdgeInsets.only(right: 27.w,bottom: 12.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                              Icon(Icons.favorite,color: Colors.white,),
+                              SizedBox(width: 20,),
+                              Image.asset('images/icons8-share-48 (2).png',
+                              height: 30,
+                              width: 30,
+                              )
 
-                      ],),
-                    )
-                  ],
-                ),
-                ]),
+                            ],),
+                          )
+                        ],
+                      ),
+                      ]),
+                  ),
+               Padding(
+                 padding:  EdgeInsets.only(top: 270.h),
+                 child: Align(alignment: AlignmentDirectional.bottomCenter,
+                   child: Image.asset('images/redeem1.png')),
+               ),
+                ],
+              ),
             ),
           );
         } else {

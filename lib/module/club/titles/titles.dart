@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
+import 'package:sportive/module/club/club_cubit/club_cubit.dart';
 
 class Titles extends StatelessWidget {
    Titles({Key? key}) : super(key: key);
@@ -83,7 +83,7 @@ class Titles extends StatelessWidget {
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.r))),
-                          items: HomeCubit.get(context)
+                          items: ClubCubit.get(context)
                               .gender
                               .map<DropdownMenuItem<String>>(
                                   (String val) => DropdownMenuItem(
@@ -91,9 +91,9 @@ class Titles extends StatelessWidget {
                                         value: val,
                                       ))
                               .toList(),
-                          value: HomeCubit.get(context).ganderVal,
+                          value: ClubCubit.get(context).ganderVal,
                           onChanged: (val) {
-                            HomeCubit.get(context).onChangedGender(val);
+                            ClubCubit.get(context).onChangedGender(val);
                           }),
                     ),
                   ),
@@ -141,7 +141,7 @@ class Titles extends StatelessWidget {
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.r))),
-                          items: HomeCubit.get(context)
+                          items: ClubCubit.get(context)
                               .gender
                               .map<DropdownMenuItem<String>>(
                                   (String val) => DropdownMenuItem(
@@ -149,9 +149,9 @@ class Titles extends StatelessWidget {
                                         value: val,
                                       ))
                               .toList(),
-                          value: HomeCubit.get(context).ganderVal,
+                          value: ClubCubit.get(context).ganderVal,
                           onChanged: (val) {
-                            HomeCubit.get(context).onChangedGender(val);
+                            ClubCubit.get(context).onChangedGender(val);
                           }),
                     ),
                   ),
