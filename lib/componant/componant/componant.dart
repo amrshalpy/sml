@@ -300,6 +300,7 @@ class LogoPage extends StatelessWidget {
 
 Widget getPosition(Data? data) {
   return Container(
+   
     child: Center(
       child: Padding(
         padding: EdgeInsets.only(right: 4.w, left: 4.w),

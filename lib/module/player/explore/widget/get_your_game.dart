@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
+import 'package:sportive/module/player/explore/widget/get_category.dart';
+import 'package:sportive/module/player/explore/widget/get_sports.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 
 void getGame(context) {
@@ -57,61 +59,21 @@ void getGame(context) {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 40,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * .61,
+                height: MediaQuery.of(context).size.height * .65,
                 child: Row(
                   children: [
                     Column(
                       children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        rotateText(txt: 'All'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        rotateText(txt: 'Defenders'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        rotateText(txt: 'Midfielders'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        rotateText(txt: 'Midfielders'),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        getSports(context),
                       ],
                     ),
                     SizedBox(
                       width: 15,
                     ),
-                    Expanded(
-                      child: ListView.separated(
-                        itemBuilder: (context, index) => InkWell(
-                          onTap: () {
-                            PlayerCubit.get(context).getIndex(index);
-                          },
-                          child: Container(
-                            color: PlayerCubit.get(context).sportIndex == index
-                                ? Colors.orangeAccent
-                                : Colors.transparent,
-                            child: getPosition(PlayerCubit.get(context)
-                                .subSportModel!
-                                .data![index]),
-                          ),
-                        ),
-                        separatorBuilder: (context, index) => SizedBox(
-                          height: 7,
-                        ),
-                        itemCount:
-                            PlayerCubit.get(context).subSportModel!.data!.length,
-                        shrinkWrap: true,
-                      ),
-                    ),
+                    Expanded(child: category()),
                   ],
                 ),
               )

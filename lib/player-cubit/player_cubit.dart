@@ -190,9 +190,11 @@ class PlayerCubit extends Cubit<PlayerState> {
     required String confirmPassword,
     String? countryCode,
     String? roleTypeId,
+    String? code,
   }) {
     emit(RegisterLoading());
-    DioHelper.postData(path: 'http://3.13.247.140/api/register',
+    DioHelper.postData(
+      path: 'http://3.13.247.140/api/register',
         // token: null,
         data: {
           "name": name,
@@ -200,6 +202,8 @@ class PlayerCubit extends Cubit<PlayerState> {
           "country_phone_code": countryCode,
           "password_confirmation": confirmPassword,
           "password": password,
+          "country_code": code,
+
           "account_type_id": roleTypeId,
         }).then((value) {
       registerModel = RegisterModel.fromJson(value.data);

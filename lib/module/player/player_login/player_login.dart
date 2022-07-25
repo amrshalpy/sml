@@ -122,7 +122,7 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                           Expanded(
                                             child: buildTextFormField(
                                               controller: phoneController,
-                                              hint: '0122267776',
+                                              hint: '122267776',
                                               label: 'Enter your phone',
                                               type: TextInputType.phone,
                                               validate: (String? val) {
@@ -224,16 +224,19 @@ class _PlayerLoginState extends State<PlayerLogin> {
                         ? CircularProgressIndicator()
                         : mainButton(
                             ontap: () {
-                              cubit.register(
+                              if(formKey.currentState!.validate()){
+                                cubit.register(
                                   name: nameController.text,
                                   password: passwordController.text,
                                   confirmPassword:
                                       confirmPasswordController.text,
                                   phone: phoneController.text,
-                                  countryCode: code,
+                                  countryCode: 'EG',
                                   roleTypeId: "1",
+                                  code: "EG",
                                   
                                   );
+                              }
                               nextPage(
                                   context: context,
                                   page: ConfimPhone(

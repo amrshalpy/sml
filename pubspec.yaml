@@ -67,9 +67,6 @@ dependencies:
   share_plus: ^4.0.10
   image_picker: ^0.8.5+3
   image_preview: ^1.0.1
-  draggable_home: ^1.0.3
-  floating_draggable_widget: ^2.0.0
-  dragablegridview_flutter: ^0.2.5
   # sizer: ^2.0.15
   # qrscan: ^0.3.2
 

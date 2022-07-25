@@ -30,8 +30,8 @@ class DioHelper {
     };
     return await dio.post(
       path,
-      data: data,
-      // queryParameters: data
+       data: data,
+      //  queryParameters: data
     );
   }
 
