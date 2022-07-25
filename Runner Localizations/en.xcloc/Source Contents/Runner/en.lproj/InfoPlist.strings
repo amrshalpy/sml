@@ -1,0 +1,6 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Sportive";
+/* Bundle name */
+"CFBundleName" = "sportive";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "This app needs camera access to scan QR codes";

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
-import 'package:sportive/cubit/home_cubit.dart';
 import 'package:sportive/module/club/club_cubit/club_cubit.dart';
 import 'package:sportive/module/club/club_pt/widgets/new_performance.dart';
 import 'package:sportive/module/club/club_pt/widgets/old_performance.dart';
@@ -13,7 +12,7 @@ class ClubPtScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      initialIndex: HomeCubit.get(context).indexTab,
+      initialIndex: ClubCubit.get(context).indexTab,
       child: Column(
         children: [
           Container(

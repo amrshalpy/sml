@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/module/player/explore/explore.dart';
 
 class PlayerDetails extends StatefulWidget {
@@ -221,7 +221,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10.r))),
-                                          items: HomeCubit.get(context)
+                                          items: PlayerCubit.get(context)
                                               .gender
                                               .map<DropdownMenuItem<String>>(
                                                   (String val) =>
@@ -231,9 +231,9 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                       ))
                                               .toList(),
                                           value:
-                                              HomeCubit.get(context).ganderVal,
+                                              PlayerCubit.get(context).ganderVal,
                                           onChanged: (val) {
-                                            HomeCubit.get(context)
+                                            PlayerCubit.get(context)
                                                 .onChangedGender(val);
                                           }),
                                     ),
@@ -370,7 +370,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                         border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
-                                    items: HomeCubit.get(context)
+                                    items: PlayerCubit.get(context)
                                         .direction
                                         .map<DropdownMenuItem<String>>(
                                             (String val) => DropdownMenuItem(
@@ -378,9 +378,9 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                   value: val,
                                                 ))
                                         .toList(),
-                                    value: HomeCubit.get(context).right,
+                                    value: PlayerCubit.get(context).right,
                                     onChanged: (val) {
-                                      HomeCubit.get(context)
+                                      PlayerCubit.get(context)
                                           .onChangedDirection(val);
                                     }),
                               ),
@@ -1220,105 +1220,47 @@ class _PlayerDetailsState extends State<PlayerDetails> {
 }
 
 
-//////  Flutter DraggableScrollableSheet with sticky headers/////////
-
-// SizedBox.expand(
-//     child: DraggableScrollableSheet(
-//       maxChildSize: 0.9,
-//       minChildSize: 0.2,
-//       initialChildSize: 0.3,
-//       expand: false,
-//       builder:
-//           (BuildContext context, ScrollController scrollController) {
-//         return Container(
-//           decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.only(
-//                 topLeft: Radius.circular(20),
-//                 topRight: Radius.circular(20),
-//               )),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Align(
-//                 alignment: Alignment.topCenter,
-//                 child: Container(
-//                   margin: EdgeInsets.symmetric(vertical: 8),
-//                   height: 8.0,
-//                   width: 70.0,
-//                   decoration: BoxDecoration(
-//                       color: Colors.grey[400],
-//                       borderRadius: BorderRadius.circular(10.0)),
-//                 ),
-//               ),
-//               SizedBox(height: 16),
-//               Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 24),
-//                 child: Text(
-//                   'Neuigkeiten',
-//                   style: TextStyle(
-//                       fontSize: 20, fontWeight: FontWeight.bold),
-//                 ),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 24),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: <Widget>[
-//                     SizedBox(height: 20.0),
-//                     Text('Erfahre mehr ... '),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(height: 16),
-//               Expanded(child: NewsList(controller: scrollController))
-//             ],
-//           ),
-//         );
-//       },
+// new Slidable(
+//   delegate: new SlidableDrawerDelegate(),
+//   actionExtentRatio: 0.25,
+//   child: new Container(
+//     color: Colors.white,
+//     child: new ListTile(
+//       leading: new CircleAvatar(
+//         backgroundColor: Colors.indigoAccent,
+//         child: new Text('$3'),
+//         foregroundColor: Colors.white,
+//       ),
+//       title: new Text('Tile n°$3'),
+//       subtitle: new Text('SlidableDrawerDelegate'),
 //     ),
-//   );
-// ////////// //// // ////////   //////
-
-// class HomePage extends StatelessWidget {
-//   const HomePage({Key? key}) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('DraggableScrollableSheet'),
-//       ),
-//       body: SizedBox.expand(
-//         child: DraggableScrollableSheet(
-//           builder: (BuildContext context, ScrollController scrollController) {
-//             return Stack(
-//               children: [
-//                 //this section is your list
-//                 Container(
-//                   color: Colors.blue[100],
-//                   child: ListView.builder(
-//                     controller: scrollController,
-//                     itemCount: 26,
-//                     itemBuilder: (BuildContext context, int index) {
-//                       if(index == 0)return Container(height: 50);//this is the padding on the top of the list
-//                       return ListTile(title: Text('Item ${index-1}'));
-//                       },
-//                   ),
-//                 ),
-//                 //this section is your header
-//                 IgnorePointer(
-//                   child: Container(
-//                     height: 50,
-//                     child: AppBar(
-//                       title: Text("Sheet title"),
-//                       automaticallyImplyLeading: false,//this prevents the appBar from having a close button (that button wouldn't work because of IgnorePointer)
-//                     ),
-//                 )),
-//               ],
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
+//   ),
+//   actions: <Widget>[
+//     new IconSlideAction(
+//       caption: 'Archive',
+//       color: Colors.blue,
+//       icon: Icons.archive,
+//       onTap: () => _showSnackBar('Archive'),
+//     ),
+//     new IconSlideAction(
+//       caption: 'Share',
+//       color: Colors.indigo,
+//       icon: Icons.share,
+//       onTap: () => _showSnackBar('Share'),
+//     ),
+//   ],
+//   secondaryActions: <Widget>[
+//     new IconSlideAction(
+//       caption: 'More',
+//       color: Colors.black45,
+//       icon: Icons.more_horiz,
+//       onTap: () => _showSnackBar('More'),
+//     ),
+//     new IconSlideAction(
+//       caption: 'Delete',
+//       color: Colors.red,
+//       icon: Icons.delete,
+//       onTap: () => _showSnackBar('Delete'),
+//     ),
+//   ],
+// );

@@ -2,47 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sportive/componant/const/const.dart';
 import 'package:sportive/componant/constants/constants.dart';
-import 'package:sportive/cubit/home_state.dart';
+import 'package:sportive/model/sport_model.dart';
+import 'package:sportive/model/register_model.dart';
 import 'package:sportive/model/sport.dart';
 import 'package:sportive/model/sports.dart';
+import 'package:sportive/model/sub_sport_model.dart';
 import 'package:sportive/module/player/details/details.dart';
+import 'package:sportive/player-cubit/player_state.dart';
+import 'package:sportive/share/dio_helper.dart';
 
 //
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitialState());
+class PlayerCubit extends Cubit<PlayerState> {
+  PlayerCubit() : super(HomeInitialState());
 
-  static HomeCubit get(context) => BlocProvider.of(context);
+  static PlayerCubit get(context) => BlocProvider.of(context);
 
   List<Widget> screen = [];
   int currentIndex = 0;
-  List<Sport> sports = [
-    Sport(title: 'football'),
-    Sport(title: 'bascketball'),
-    Sport(title: 'central forword'),
-    Sport(title: 'central forword'),
-    Sport(title: 'left wing'),
-    Sport(title: 'left wing back'),
-    Sport(title: 'football'),
-    Sport(title: 'bascketball'),
-    Sport(title: 'central forword'),
-    Sport(title: 'football'),
-    Sport(title: 'bascketball'),
-    Sport(title: 'central forword'),
-    Sport(title: 'central forword'),
-    Sport(title: 'left wing'),
-    Sport(title: 'left wing back'),
-    Sport(title: 'central forword'),
-    Sport(title: 'central forword'),
-    Sport(title: 'left wing'),
-    Sport(title: 'left wing back'),
-    Sport(title: 'central forword'),
-    Sport(title: 'left wing'),
-    Sport(title: 'left wing back'),
-  ];
-  changeCurrentIndex(index) {
-    currentIndex = index;
-    emit(ChangeCurrentIndex());
-  }
 
   bool isVerify = false;
   void showVerify() {
@@ -56,21 +32,6 @@ class HomeCubit extends Cubit<HomeState> {
     countryValue = val;
     emit(ChangeCountry());
   }
-
-  List<String> services = [
-    "player",
-    "club",
-    "coach",
-    "company",
-    "Sports academy",
-    'gym',
-    'agent',
-    'Nutritionist',
-    'physical therapist',
-    'Psychologist  doctor',
-    'normal user',
-    'Online coach',
-  ];
 
   List<String> gender = [
     "female",
@@ -92,17 +53,6 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangeGander());
   }
 
-  List<String> social = [
-    "twitter",
-    "facebook",
-    "instagram",
-  ];
-  String socialVal = 'twitter';
-  void onChangedSocial(val) {
-    direction = val;
-    emit(ChangeSocial());
-  }
-
   bool isTab = false;
 
   int indexTab = 0;
@@ -117,9 +67,24 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangeTabBar());
   }
 
-  String servicesVal = 'player';
+  List<String> roles = [
+    "player",
+    "club",
+    "coach",
+    "company",
+    "Sports academy",
+    'gym',
+    'agent',
+    'Nutritionist',
+    'physical therapist',
+    'Psychologist  doctor',
+    'normal user',
+    'Online coach',
+  ];
+
+  String rolesVal = 'player';
   void onChangedservices(val) {
-    servicesVal = val;
+    rolesVal = val;
     emit(Changetype());
   }
 
@@ -162,10 +127,16 @@ class HomeCubit extends Cubit<HomeState> {
   //   });
   // }
 
-  int sportIndex = 0;
+  var sportIndex = 0;
   void getIndex(index) {
     sportIndex = index;
-    emit(GetSport());
+    emit(GetSportModel());
+  }
+
+  var categoryIndex = 0;
+  void getCategoryIndex(index) {
+    categoryIndex = index;
+    emit(GetSubSportModel());
   }
 
   List<Sports> sportsList = [
@@ -179,6 +150,74 @@ class HomeCubit extends Cubit<HomeState> {
   void changePage(int index) {
     indexPage = index;
     emit(ChangeIndexPage());
+  }
+
+  SportModel? sportModel;
+  void getSports() {
+    emit(GetSportsLoading());
+    DioHelper.getData(
+      path: kSports,
+    ).then((value) {
+      sportModel = SportModel.fromJson(value.data);
+
+      emit(GetSportsSuccess());
+    }).catchError((er) {
+      print(er.toString());
+      emit(GetSportsError());
+    });
+  }
+
+  SubSportModel? subSportModel;
+  void getSubSports({String?id}) {
+    id = '1';
+    emit(GetSubSportsLoading());
+    DioHelper.getData(
+      path: kSubSports + '${id}',
+    ).then((value) {
+      subSportModel = SubSportModel.fromJson(value.data);
+      emit(GetSubSportsSuccess());
+    }).catchError((er) {
+      print(er.toString());
+      emit(GetSubSportsError(er.toString()));
+    });
+  }
+
+  RegisterModel? registerModel;
+  void register({
+    required String name,
+    required String phone,
+    required String password,
+    required String confirmPassword,
+    String? countryCode,
+    String? roleTypeId,
+  }) {
+    emit(RegisterLoading());
+    DioHelper.postData(path: 'http://3.13.247.140/api/register',
+        // token: null,
+        data: {
+          "name": name,
+          "phone": phone,
+          "country_phone_code": countryCode,
+          "password_confirmation": confirmPassword,
+          "password": password,
+          "account_type_id": roleTypeId,
+        }).then((value) {
+      registerModel = RegisterModel.fromJson(value.data);
+      emit(RegisterSuccess());
+    }).catchError((er) {
+      print(er.toString());
+      emit(RegisterError());
+    });
+  }
+
+  SubSportModel? category;
+  void getSportCategory({String? id}) {
+    DioHelper.getData(path: 'http://3.13.247.140/api/sub-sports/$id')
+        .then((value) {
+      category = SubSportModel.fromJson(value.data);
+    }).catchError((er) {
+      print(er.toString());
+    });
   }
 
   ////// video_trimmer: ^1.1.3////////

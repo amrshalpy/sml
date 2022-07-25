@@ -6,9 +6,11 @@ class DioHelper {
   static init() async {
     dio = Dio(
       BaseOptions(
-        connectTimeout: 60 * 1000, // 60 seconds
-        receiveTimeout: 60 * 1000,
-        baseUrl: "https://shoppingoo00099.herokuapp.com/",
+        connectTimeout: 60000, // 60 seconds
+        receiveTimeout: 60000,
+        // connectTimeout: 5000,
+        // receiveTimeout: 3000,
+        baseUrl: "http://3.13.247.140/api/",
         receiveDataWhenStatusError: true,
       ),
     );
@@ -22,12 +24,14 @@ class DioHelper {
     // Map<String, dynamic>? query,
   }) async {
     dio.options.headers = {
-      "Content-Type": "application/json",
-      "token": "Bearer $token",
+      "Accept": "application/json",
+      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
+      //  'Content-type': 'multipart/form-data'
     };
     return await dio.post(
       path,
       data: data,
+      // queryParameters: data
     );
   }
 
@@ -38,8 +42,9 @@ class DioHelper {
     Map<String, dynamic>? query,
   }) async {
     dio.options.headers = {
-      "Content-Type": "application/json",
-      "token": "Bearer $token",
+      "Accept": "application/json",
+      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
+      // "Content-Type": "application/x-www-form-urlencoded",
     };
     return await dio.get(path!, queryParameters: query);
   }
@@ -48,12 +53,12 @@ class DioHelper {
   static Future<Response> putData({
     String? path,
     String? token,
-     dynamic data,
+    dynamic data,
     Map<String, dynamic>? query,
   }) async {
     dio.options.headers = {
-      "Content-Type": "application/json",
-      "token": "Bearer $token",
+      "Accept": "application/json",
+      "secretKey": "Bearer $token",
     };
     return await dio.put(path!, data: data, queryParameters: query);
   }
@@ -66,8 +71,8 @@ class DioHelper {
     Map<String, dynamic>? query,
   }) async {
     dio.options.headers = {
-      "Content-Type": "application/json",
-      "token": "Bearer $token",
+      "Accept": "application/json",
+      "secretKey": "Bearer $token",
     };
     return await dio.delete(path!, data: data, queryParameters: query);
   }

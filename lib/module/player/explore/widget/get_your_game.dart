@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 
 void getGame(context) {
   showModalBottomSheet(
@@ -93,20 +93,22 @@ void getGame(context) {
                       child: ListView.separated(
                         itemBuilder: (context, index) => InkWell(
                           onTap: () {
-                            HomeCubit.get(context).getIndex(index);
+                            PlayerCubit.get(context).getIndex(index);
                           },
                           child: Container(
-                            color: HomeCubit.get(context).sportIndex == index
+                            color: PlayerCubit.get(context).sportIndex == index
                                 ? Colors.orangeAccent
                                 : Colors.transparent,
-                            child: getPosition(
-                                HomeCubit.get(context).sports[index]),
+                            child: getPosition(PlayerCubit.get(context)
+                                .subSportModel!
+                                .data![index]),
                           ),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 7,
                         ),
-                        itemCount: HomeCubit.get(context).sports.length,
+                        itemCount:
+                            PlayerCubit.get(context).subSportModel!.data!.length,
                         shrinkWrap: true,
                       ),
                     ),

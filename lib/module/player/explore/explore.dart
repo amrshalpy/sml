@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/module/player/explore/widget/get_poistion.dart';
 import 'package:sportive/module/player/explore/widget/get_your_game.dart';
 

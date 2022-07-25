@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sportive/componant/componant/componant.dart';
-import 'package:sportive/cubit/home_cubit.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/module/player/following/widget/video_widget.dart';
 import 'package:sportive/module/player/pt/widgets/get_sports_list.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
@@ -52,11 +52,11 @@ class _FollowingState extends State<Following> {
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) =>
-                getSportsList(HomeCubit.get(context).sportsList[index]),
+                getSportsList(PlayerCubit.get(context).sportsList[index]),
           separatorBuilder: (context, index) => SizedBox(
                   width: 12,
                 ),
-          itemCount: HomeCubit.get(context).sportsList.length),
+          itemCount: PlayerCubit.get(context).sportsList.length),
         ),
            ),
         

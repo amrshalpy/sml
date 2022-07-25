@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
-import 'package:sportive/cubit/home_state.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
+import 'package:sportive/player-cubit/player_state.dart';
 import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/details/details.dart';
 import 'package:sportive/module/player/following/following.dart';
@@ -44,10 +44,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<PlayerCubit, PlayerState>(
         listener: (context, state) {},
         builder: (context, state) {
-          HomeCubit cubit = HomeCubit.get(context);
+          PlayerCubit cubit = PlayerCubit.get(context);
           return Scaffold(
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                                       else if (list[index].img ==
                                           "images/freestyling3.png") {
                                         setState(() {
-                                          page = QrCode();
+                                          page = Skills();
                                         });
                                         
                                       }
@@ -140,6 +140,7 @@ class _HomeState extends State<Home> {
                               });
                             },
                           )),
+                   
                     ),
                     const Divider(
                       height: .1,

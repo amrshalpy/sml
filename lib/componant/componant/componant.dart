@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/model/sport.dart';
+import 'package:sportive/model/sub_sport_model.dart';
 
 Widget buildTextFormField({
   TextEditingController? controller,
@@ -298,15 +298,17 @@ class LogoPage extends StatelessWidget {
 //   }
 // }
 
-Widget getPosition(Sport sport) {
+Widget getPosition(Data? data) {
   return Container(
-    child: Padding(
-      padding: EdgeInsets.only(right: 4.w, left: 4.w),
-      child: defaultText(
-        txt: '${sport.title}',
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 20.sp,
+    child: Center(
+      child: Padding(
+        padding: EdgeInsets.only(right: 4.w, left: 4.w),
+        child: defaultText(
+          txt: '${data!.name}',
+          color: Colors.white,
+          fontWeight: FontWeight.normal,
+          fontSize: 18.sp,
+        ),
       ),
     ),
     decoration: BoxDecoration(
@@ -345,6 +347,7 @@ Widget rotateText({required String txt, Color color = Colors.orange}) {
               topLeft: Radius.circular(10),
             )),
       ));
+
 }
 
 Widget expriance() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/module/player/pt/widgets/new_performance.dart';
 
 void getDetails(context) {

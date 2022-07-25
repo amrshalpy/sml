@@ -3,7 +3,6 @@ import 'package:flutter_datetime_picker_bdaya/flutter_datetime_picker_bdaya.dart
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
 import 'package:sportive/module/player/explore/widget/get_poistion.dart';
 import 'package:sportive/module/player/explore/widget/get_your_game.dart';
 

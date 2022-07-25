@@ -5,25 +5,38 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/cubit/home_cubit.dart';
-import 'package:sportive/cubit/home_state.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
+import 'package:sportive/player-cubit/player_state.dart';
 import 'package:sportive/module/player/confirm_phone.dart';
 
-class PlayerLogin extends StatelessWidget {
+class PlayerLogin extends StatefulWidget {
   PlayerLogin({Key? key}) : super(key: key);
 
+  @override
+  State<PlayerLogin> createState() => _PlayerLoginState();
+}
+
+class _PlayerLoginState extends State<PlayerLogin> {
   var nameController = TextEditingController();
+
   var emailController = TextEditingController();
+
   var phoneController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var confirmPasswordController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
+
+  String code = '';
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<PlayerCubit, PlayerState>(
         listener: (context, state) {},
         builder: (context, state) {
-          HomeCubit cubit = HomeCubit.get(context);
+          PlayerCubit cubit = PlayerCubit.get(context);
           return SafeArea(
             child: Scaffold(
               resizeToAvoidBottomInset: false,
@@ -42,12 +55,13 @@ class PlayerLogin extends StatelessWidget {
                   Column(
                     children: [
                       Padding(
-                        padding:  EdgeInsets.only(top: 5.h,right: 10.w,left: 10.w),
+                        padding:
+                            EdgeInsets.only(top: 5.h, right: 10.w, left: 10.w),
                         child: Image.asset("images/logospotive1.png"),
                       ),
                       Padding(
                         padding:
-                             EdgeInsets.only(top: 10.h, right: 5.w, left: 5.w),
+                            EdgeInsets.only(top: 10.h, right: 5.w, left: 5.w),
                         child: SingleChildScrollView(
                           child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -64,7 +78,8 @@ class PlayerLogin extends StatelessWidget {
                               Form(
                                 key: formKey,
                                 child: Padding(
-                                  padding:  EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10.h, horizontal: 10.w),
                                   child: Column(children: [
                                     defaultText(
                                         txt: 'New account',
@@ -76,7 +91,6 @@ class PlayerLogin extends StatelessWidget {
                                     Container(
                                       width: 260.w,
                                       child: buildTextFormField(
-
                                         controller: nameController,
                                         hint: 'please enter your name',
                                         label: 'Enter your name',
@@ -149,8 +163,7 @@ class PlayerLogin extends StatelessWidget {
                                       width: 260.w,
                                       child: buildTextFormField(
                                         controller: confirmPasswordController,
-                                        hint:
-                                            'confirm Password',
+                                        hint: 'confirm Password',
                                         label: 'confirm Password',
                                         type: TextInputType.text,
                                         validate: (String? val) {
@@ -169,16 +182,18 @@ class PlayerLogin extends StatelessWidget {
                                         txt: 'account type',
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.bold),
-                                                     SizedBox(height: 7.h,),
-
+                                    SizedBox(
+                                      height: 7.h,
+                                    ),
                                     Container(
                                       width: 260.w,
                                       child: DropdownButtonFormField(
                                           decoration: InputDecoration(
                                               border: OutlineInputBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(10))),
-                                          items: cubit.services
+                                                      BorderRadius.circular(
+                                                          10))),
+                                          items: cubit.roles
                                               .map<DropdownMenuItem<String>>(
                                                   (String val) =>
                                                       DropdownMenuItem(
@@ -186,12 +201,11 @@ class PlayerLogin extends StatelessWidget {
                                                         value: val,
                                                       ))
                                               .toList(),
-                                          value: cubit.servicesVal,
+                                          value: cubit.rolesVal,
                                           onChanged: (val) {
                                             cubit.onChangedservices(val);
                                           }),
                                     ),
-                                
                                   ]),
                                 ),
                               ),
@@ -201,18 +215,34 @@ class PlayerLogin extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Positioned(
                     bottom: 10.h,
-                    child: mainButton(
-                        ontap: () {
-                          print('phone');
-                          nextPage(context: context, page: ConfimPhone(
-                            phone: phoneController.text,));
-                        },
-                        txt: 'confirm phone',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
+                    child: state is RegisterSuccess
+                        ? CircularProgressIndicator()
+                        : mainButton(
+                            ontap: () {
+                              cubit.register(
+                                  name: nameController.text,
+                                  password: passwordController.text,
+                                  confirmPassword:
+                                      confirmPasswordController.text,
+                                  phone: phoneController.text,
+                                  countryCode: code,
+                                  roleTypeId: "1",
+                                  
+                                  );
+                              nextPage(
+                                  context: context,
+                                  page: ConfimPhone(
+                                    phone: phoneController.text,
+                                  ));
+                            },
+                            txt: 'confirm phone',
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -222,6 +252,10 @@ class PlayerLogin extends StatelessWidget {
   }
 
   void onCountryChange(CountryCode countryCode) {
-    print("New Country selected: " + countryCode.toString());
+    // print("New Country selected: " + countryCode.toString());
+    setState(() {
+      code = countryCode.toString();
+    });
+    print(code);
   }
 }
