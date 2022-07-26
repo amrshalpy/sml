@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/model/sport_model.dart';
 import 'package:sportive/module/player/explore/widget/get_category.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 
 Widget getSubSport(Data data, context) => InkWell(
       onTap: () {
-        category(
-          id: "${data.id}",
-        );
+        // PlayerCubit.get(context).getId(data.id);
+        category(id: data.id);
       },
       child: Padding(
         padding: EdgeInsets.only(top: 1.h),

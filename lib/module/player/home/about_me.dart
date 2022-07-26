@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
+import 'package:sportive/module/player/free_styling/free_styling.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/player-cubit/player_state.dart';
 import 'package:sportive/model/widget_list_model.dart';
@@ -104,7 +105,7 @@ class _HomeState extends State<Home> {
                                       else if (list[index].img ==
                                           "images/freestyling3.png") {
                                         setState(() {
-                                          page = Skills();
+                                          page = FreeStyling();
                                         });
                                         
                                       }

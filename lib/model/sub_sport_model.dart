@@ -1,41 +1,29 @@
 class SubSportModel {
-  List<Data>? data;
+  List<Data> data=[];
   String? message;
   List<String>? errors;
 
-  SubSportModel({this.data, this.message, this.errors});
+  // SubSportModel({this.data, this.message, this.errors});
 
   SubSportModel.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != String) {
+    if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data.add(new Data.fromJson(v));
       });
     }
     message = json['message'];
-    // if (json['errors'] != String) {
-    //   errors = <Null>[];
-    //   json['errors'].forEach((v) {
-    //     errors!.add( Null.fromJson(v));
-    //   });
-    // }
+    if (json['errors'] != null) {
+      errors = <String>[];
+     
+    }
   }
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   if (this.data != String) {
-  //     data['data'] = this.data!.map((v) => v.toJson()).toList();
-  //   }
-  //   data['message'] = this.message;
-  //   if (this.errors != String) {
-  //     data['errors'] = this.errors!.map((v) => v.toJson()).toList();
-  //   }
-  //   return data;
-  // }
+ 
 }
 
 class Data {
-  int? id;
+  dynamic id;
   String? name;
   int? sportId;
   int? numberOfUsers;

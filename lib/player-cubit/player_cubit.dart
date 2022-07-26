@@ -167,15 +167,27 @@ class PlayerCubit extends Cubit<PlayerState> {
     });
   }
 
+  // int id = 1;
+  // void getId( pid) {
+  //   id = pid;
+  //       print(id);
+
+  //   emit(GetSportId());
+  // }
+
   SubSportModel? subSportModel;
-  void getSubSports({String?id}) {
-    id = '1';
+  void getSubSports({int? id}) {
+    id = 1;
     emit(GetSubSportsLoading());
+    print("pi :$id");
+
     DioHelper.getData(
-      path: kSubSports + '${id}',
+      path: kSubSports + id.toString(),
     ).then((value) {
       subSportModel = SubSportModel.fromJson(value.data);
+      print("pi :$id");
       emit(GetSubSportsSuccess());
+      print('pid = $id');
     }).catchError((er) {
       print(er.toString());
       emit(GetSubSportsError(er.toString()));
@@ -193,8 +205,7 @@ class PlayerCubit extends Cubit<PlayerState> {
     String? code,
   }) {
     emit(RegisterLoading());
-    DioHelper.postData(
-      path: 'http://3.13.247.140/api/register',
+    DioHelper.postData(path: 'http://3.13.247.140/api/register',
         // token: null,
         data: {
           "name": name,
@@ -203,7 +214,6 @@ class PlayerCubit extends Cubit<PlayerState> {
           "password_confirmation": confirmPassword,
           "password": password,
           "country_code": code,
-
           "account_type_id": roleTypeId,
         }).then((value) {
       registerModel = RegisterModel.fromJson(value.data);

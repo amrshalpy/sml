@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 
-import 'package:image_preview/image_preview.dart';
 
 
 class DemoApp extends StatefulWidget {

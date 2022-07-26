@@ -5,9 +5,7 @@ import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/module/player/explore/widget/get_category.dart';
 import 'package:sportive/module/player/explore/widget/get_sports.dart';
-import 'package:sportive/module/player/explore/widget/get_sub_sport.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
-import 'package:sportive/player-cubit/player_state.dart';
 
 void getPoistion(context) {
   showModalBottomSheet(
@@ -18,7 +16,7 @@ void getPoistion(context) {
       builder: (context) => Padding(
             padding:
                 const EdgeInsets.only(top: 20, right: 10, bottom: 40, left: 10),
-            child: PlayerCubit.get(context).sportModel!.data!.isNotEmpty
+            child: PlayerCubit.get(context).sportModel !=null
                 ? Column(mainAxisSize: MainAxisSize.min, children: [
                     Row(
                       children: [

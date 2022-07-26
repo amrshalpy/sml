@@ -21,6 +21,7 @@ class ChangeSocial extends PlayerState {}
 class ChangeProfile extends PlayerState {}
 
 class GetSportModel extends PlayerState {}
+class GetSportId extends PlayerState {}
 
 class GetSubSportModel extends PlayerState {}
 

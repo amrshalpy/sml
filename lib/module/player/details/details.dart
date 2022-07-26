@@ -113,12 +113,10 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                             ),
                             InkWell(
                               onTap: () {
-                                DatePicker.showDatePicker(
+                                DatePicker.showDatePicker(context,
                                     theme: DatePickerTheme(
                                         backgroundColor: greyColor),
-                                    context,
                                     showTitleActions: true,
-                                    
                                     currentTime: currentDate,
                                     minTime: DateTime(1950, 1, 1),
                                     onConfirm: (date) {
@@ -153,9 +151,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               defaultText(
-                                                txt: dateTime == null
-                                                    ? "Birth day"
-                                                    : '${dateTime}',
+                                                txt: "Birth day",
                                                 color: hintColor,
                                                 fontSize: 16.sp,
                                                 // fontWeight: FontWeight.bold,
@@ -169,12 +165,29 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                           ),
                                         ),
                                       )),
-                                      if(difference != '')
-                                  defaultText(
-                                      txt: difference + ' years',
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold)
+                                  if (difference != '')
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 35.w),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          defaultText(
+                                              txt: 'Your age ',
+                                              color: Colors.orangeAccent,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          defaultText(
+                                              txt: difference + ' years',
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold)
+                                        ],
+                                      ),
+                                    )
                                 ],
                               ),
                             ),
@@ -230,8 +243,8 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                         value: val,
                                                       ))
                                               .toList(),
-                                          value:
-                                              PlayerCubit.get(context).ganderVal,
+                                          value: PlayerCubit.get(context)
+                                              .ganderVal,
                                           onChanged: (val) {
                                             PlayerCubit.get(context)
                                                 .onChangedGender(val);

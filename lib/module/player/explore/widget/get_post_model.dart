@@ -26,14 +26,14 @@ class _GetSportModelState extends State<GetSportModel> {
                                   : Colors.transparent,
                               child: getPosition(PlayerCubit.get(context)
                                   .subSportModel!
-                                  .data![index]),
+                                  .data[index]),
                             ),
                           ),
                           separatorBuilder: (context, index) => SizedBox(
                             height: 7,
                           ),
                           itemCount:
-                              PlayerCubit.get(context).sportModel!.data!.length,
+                              PlayerCubit.get(context).sportModel!.data.length,
                           shrinkWrap: true,
                         ),
                      

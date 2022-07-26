@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sportive/componant/componant/componant.dart';
+import 'package:sportive/module/club/upload_video/upload_video.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/module/player/following/widget/video_widget.dart';
 import 'package:sportive/module/player/pt/widgets/get_sports_list.dart';
@@ -37,67 +38,73 @@ class _FollowingState extends State<Following> {
   ];
   @override
   Widget build(BuildContext context) {
-    return 
-        SingleChildScrollView(
-      physics:  BouncingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-           Padding(
-             padding:  EdgeInsets.only(top: 15.h),
-             child: Container(
-          height: 70,
-          child: ListView.separated(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) =>
-                getSportsList(PlayerCubit.get(context).sportsList[index]),
-          separatorBuilder: (context, index) => SizedBox(
-                  width: 12,
+      return Stack(
+      children: [
+        Container(
+            child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListView.builder(
+                shrinkWrap: true,
+                cacheExtent: 1000,
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                key: PageStorageKey(widget.position),
+                addAutomaticKeepAlives: true,
+                itemCount: itemList.isEmpty ? 0 : itemList.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    //      StickyHeader(
+                    // header: Container(
+                    //   height: 50.0,
+                    //   color: Colors.transparent,
+                    //   // padding: EdgeInsets.symmetric(horizontal: 2.0),
+                    //   alignment: Alignment.center,
+                    //   child: Image.asset('images/sportıve ıcon (1).png'),
+
+                    // ),
+                    // content:
+                    Stack(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      children: [
+                        Container(
+                  width: double.infinity,
+                  height: 290.0.h,
+                  alignment: Alignment.center,
+                  child: Container(
+                          key: PageStorageKey(
+                            "keydata$index",
+                          ),
+                          child: VideoWidget(
+                            play: true,
+                            url: itemList.elementAt(index),
+                          )),
                 ),
-          itemCount: PlayerCubit.get(context).sportsList.length),
-        ),
-           ),
-        
-          ListView.builder(
-            shrinkWrap: true,
-            cacheExtent: 1000,
-            physics: NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            key: PageStorageKey(widget.position),
-            addAutomaticKeepAlives: true,
-            itemCount: itemList.isEmpty ? 0 : itemList.length,
-            itemBuilder: (BuildContext context, int index) => 
-          //      StickyHeader(
-          // header: Container(
-          //   height: 50.0,
-          //   color: Colors.transparent,
-          //   // padding: EdgeInsets.symmetric(horizontal: 2.0),
-          //   alignment: Alignment.center,
-          //   child: Image.asset('images/sportıve ıcon (1).png'),
-          
-          // ),
-          // content:
-           Container(
-                width: double.infinity,
-                height: 270.0.h,
-                alignment: Alignment.center,
-                child: Container(
-                    key:  PageStorageKey(
-                      "keydata$index",
+                      // Container(
+                      //   width: 74.w,
+                      //   child: Image.asset('images/sportıve ıcon (1).png'))
+                      ],
                     ),
-                    child: VideoWidget(
-                      play: true,
-                      url: itemList.elementAt(index),
-                    )),
-                    
               ),
+            ],
+          ),
+        )),
+        Align(
+          alignment: AlignmentDirectional.bottomEnd,
+          child: Padding(
+            padding: EdgeInsets.only(right: 15.w, bottom: 35.h),
+            child: FloatingActionButton(
+              onPressed: () {
+                nextPage(context: context, page: UploadVideo());
+              },
+              backgroundColor: Colors.orangeAccent,
+              child: Icon(Icons.video_camera_back),
             ),
-        
-          
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }

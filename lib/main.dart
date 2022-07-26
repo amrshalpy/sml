@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/app.dart';
 import 'package:sportive/module/club/club_cubit/club_cubit.dart';
 import 'package:sportive/module/club/home/home.dart';
+import 'package:sportive/module/player/home/about_me.dart';
 import 'package:sportive/module/player/player_login/player_login.dart';
 import 'package:sportive/module/player/splash_screen/splash_screen.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
@@ -38,10 +39,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<PlayerCubit>(
             create: (context) => PlayerCubit()
                 ..getSports()
-                    ..getSubSports()
+                 ..getSubSports()
               //  ..getSportCategory()
               ),
         BlocProvider(create: (context) => ClubCubit()),
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Sportive',
-          home:  SplashScreen(),
+          home:  PlayerLogin(),
         ),
         designSize: Size(360, 640),
       ),

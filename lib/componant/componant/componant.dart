@@ -21,10 +21,15 @@ Widget buildTextFormField({
     height: 50,
     width: double.infinity,
     child: TextFormField(
+      cursorColor: Colors.white,
       onTap: ontap,
       controller: controller,
       textAlign: TextAlign.justify,
       decoration: InputDecoration(
+          // enabledBorder:
+          //     OutlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
           filled: true,
           fillColor: color,
           hintText: hint,
@@ -36,9 +41,8 @@ Widget buildTextFormField({
           prefixIcon: Icon(icon),
           suffix: IconButton(icon: Icon(suffixIcon), onPressed: press),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-      validator: (String? val) {
-        validate!(val!);
-      },
+           validator: (value) => validate!(value),
+
       keyboardType: type,
       obscureText: obscure,
     ),
@@ -300,7 +304,6 @@ class LogoPage extends StatelessWidget {
 
 Widget getPosition(Data? data) {
   return Container(
-   
     child: Center(
       child: Padding(
         padding: EdgeInsets.only(right: 4.w, left: 4.w),
@@ -348,7 +351,6 @@ Widget rotateText({required String txt, Color color = Colors.orange}) {
               topLeft: Radius.circular(10),
             )),
       ));
-
 }
 
 Widget expriance() {

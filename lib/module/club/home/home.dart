@@ -10,6 +10,7 @@ import 'package:sportive/module/club/club_details/club_details.dart';
 import 'package:sportive/module/club/club_details/details.dart';
 import 'package:sportive/module/club/club_pt/club_pt_screen.dart';
 import 'package:sportive/module/club/club_skills/club_skills.dart';
+import 'package:sportive/module/club/free_styling/free_styling.dart';
 import 'package:sportive/module/club/home/widgets/get_list_club.dart';
 import 'package:sportive/module/club/player_club/players.dart';
 import 'package:sportive/module/club/qr_code/club_qr_code.dart';
@@ -95,7 +96,7 @@ class _ClubHomeState extends State<ClubHome> {
                                       } else if (list[index].img ==
                                           "images/freestyling3.png") {
                                         setState(() {
-                                          page = ClubSkills();
+                                          page = ClubFreeStyling();
                                         });
                                       } else if (list[index].img ==
                                           "images/icons8-user-groups-64.png") {

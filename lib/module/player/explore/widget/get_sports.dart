@@ -35,7 +35,7 @@ Widget getSports(context) {
                             child: getSubSport(
                                 PlayerCubit.get(context)
                                     .sportModel!
-                                    .data![index],
+                                    .data[index],
                                 context),
                           ),
                         ),
@@ -43,7 +43,7 @@ Widget getSports(context) {
                           height: 15.h,
                         ),
                     itemCount:
-                        PlayerCubit.get(context).sportModel!.data!.length)
+                        PlayerCubit.get(context).sportModel!.data.length)
                 : CircularProgressIndicator(),
           ),
         );

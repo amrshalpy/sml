@@ -141,9 +141,10 @@ class _ClubExploreState extends State<ClubExplore> {
               InkWell(
                 onTap: (){
                      DatePicker.showDatePicker(
+                       context,
                                     theme: DatePickerTheme(
                                         backgroundColor: greyColor),
-                                    context,
+                                    
                                     showTitleActions: true,
                                     currentTime: currentDate,
                                     minTime: DateTime(1950, 1, 1),
