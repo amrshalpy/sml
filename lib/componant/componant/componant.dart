@@ -13,13 +13,14 @@ Widget buildTextFormField({
   Function? validate,
   IconData? suffixIcon,
   bool obscure = false,
+  double width = double.infinity,
   TextInputType? type,
   Function()? press,
   Function()? ontap,
 }) {
   return Container(
     height: 50,
-    width: double.infinity,
+    width: width,
     child: TextFormField(
       cursorColor: Colors.white,
       onTap: ontap,
@@ -36,13 +37,12 @@ Widget buildTextFormField({
           labelText: label,
           hintStyle: TextStyle(
               color: Color.fromARGB(255, 56, 56, 56),
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.normal),
           prefixIcon: Icon(icon),
           suffix: IconButton(icon: Icon(suffixIcon), onPressed: press),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-           validator: (value) => validate!(value),
-
+      validator: (value) => validate!(value),
       keyboardType: type,
       obscureText: obscure,
     ),
@@ -66,7 +66,7 @@ buildButton({
         child: Text(
           txt,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 18.sp,
             fontWeight: FontWeight.bold,
           ),
         )),
@@ -159,7 +159,7 @@ Widget container() {
 
 Widget buildTextField({Function()? onchange}) {
   return Container(
-    height: 50,
+    height: 50.h,
     width: double.infinity,
     child: TextField(
       decoration: InputDecoration(
@@ -213,7 +213,7 @@ Widget secandContainer({
 
 Widget logo() {
   return Padding(
-    padding: const EdgeInsets.only(top: 5),
+    padding: EdgeInsets.only(top: 5.h),
     child: Image.asset("images/logospotive1.png"),
   );
 }
@@ -332,18 +332,18 @@ Widget rotateText({required String txt, Color color = Colors.orange}) {
       quarterTurns: 3,
       child: Container(
         child: Padding(
-          padding: EdgeInsets.only(right: 4, left: 4),
+          padding: EdgeInsets.only(right: 4.w, left: 4.w),
           child: defaultText(
             txt: txt,
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
         ),
         decoration: BoxDecoration(
             border: Border.all(
               color: Colors.white,
-              width: 2,
+              width: 2.w,
             ),
             color: color,
             borderRadius: BorderRadius.only(
@@ -355,13 +355,20 @@ Widget rotateText({required String txt, Color color = Colors.orange}) {
 
 Widget expriance() {
   return Stack(
+    alignment: AlignmentDirectional.center,
     children: [
       Image.asset(
         'images/Path 381.png',
+        width: 410.w,
+        height: 470.h,
       ),
       Padding(
-        padding: EdgeInsets.only(left: 144.w),
-        child: Image.asset('images/sportıve ıcon.png'),
+        padding: EdgeInsets.only(left: 0.w, bottom: 275.h),
+        child: Image.asset(
+          'images/sportıve ıcon.png',
+          width: 62.w,
+          height: 39.h,
+        ),
       ),
     ],
   );
@@ -373,8 +380,8 @@ Widget greenButton({required String txt, required Function onPress}) {
       onPress();
     },
     child: Container(
-        height: 30,
-        width: 80,
+        height: 30.h,
+        width: 80.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.green,
@@ -382,7 +389,7 @@ Widget greenButton({required String txt, required Function onPress}) {
         child: Center(
           child: defaultText(
             txt: txt,
-            fontSize: 17,
+            fontSize: 17.sp,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
