@@ -3,30 +3,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/module/player/free_styling/free_styling.dart';
-import 'package:sportive/player-cubit/player_cubit.dart';
-import 'package:sportive/player-cubit/player_state.dart';
+import 'package:sportive/module/coach/coach-cubit/coach_cubit.dart';
+import 'package:sportive/module/coach/coach-cubit/coach_state.dart';
+import 'package:sportive/module/coach/details/coach_details.dart';
+import 'package:sportive/module/coach/free_styling/free_styling.dart';
+import 'package:sportive/module/coach/home/widget/get_list/get_list.dart';
+import 'package:sportive/module/coach/pdf%20_page/pdf_screen.dart';
+import 'package:sportive/module/coach/qr_code/qr_code.dart';
 import 'package:sportive/model/widget_list_model.dart';
-import 'package:sportive/module/player/details/details.dart';
 import 'package:sportive/module/player/following/following.dart';
-import 'package:sportive/module/player/home/widget/get_list/get_list.dart';
-import 'package:sportive/module/player/pdf%20_page/pdf_screen.dart';
 import 'package:sportive/module/player/pt/pt_screen.dart';
-import 'package:sportive/module/player/qr_code/qr_code.dart';
 import 'package:sportive/module/player/skills/skills.dart';
 
-class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+class CoachHome extends StatefulWidget {
+  CoachHome({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<CoachHome> createState() => _CoachHomeState();
 }
 
-class _HomeState extends State<Home> {
-  Widget page = PlayerDetails();
+class _CoachHomeState extends State<CoachHome> {
+  Widget page = CoachDetails();
   List<WidgetList> list = [
     WidgetList(img: 'images/icons8-more-info-30.png', txt: 'about me'),
-    WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Skills'),
+    WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Courses'),
     WidgetList(img: 'images/icons8-pdf-30.png', txt: 'Pdf'),
     WidgetList(img: 'images/icons8-share-48 (3).png', txt: 'Share'),
     WidgetList(img: 'images/pt.png', txt: 'Pt'),
@@ -43,10 +43,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PlayerCubit, PlayerState>(
+    return BlocConsumer<CoachCubit, CoachState>(
         listener: (context, state) {},
         builder: (context, state) {
-          PlayerCubit cubit = PlayerCubit.get(context);
+          CoachCubit cubit = CoachCubit.get(context);
           return Scaffold(
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
                                       if (list[index].img ==
                                           'images/icons8-more-info-30.png') {
                                         setState(() {
-                                          page = PlayerDetails();
+                                          page = CoachDetails();
                                         });
                                       } else if (list[index].img ==
                                           "images/icons8-pdf-30.png") {
