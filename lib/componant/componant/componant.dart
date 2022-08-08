@@ -224,11 +224,11 @@ class LogoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90.h,
+      height: 70.h,
       decoration: BoxDecoration(color: mainColor),
       child: Center(
         child: Padding(
-          padding: EdgeInsets.only(top: 25.h, left: 10.w, right: 10.w),
+          padding: EdgeInsets.only(top: 5.h, left: 10.w, right: 10.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -302,30 +302,6 @@ class LogoPage extends StatelessWidget {
 //   }
 // }
 
-Widget getPosition(Data? data) {
-  return Container(
-    child: Center(
-      child: Padding(
-        padding: EdgeInsets.only(right: 4.w, left: 4.w),
-        child: defaultText(
-          txt: '${data!.name}',
-          color: Colors.white,
-          fontWeight: FontWeight.normal,
-          fontSize: 18.sp,
-        ),
-      ),
-    ),
-    decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.white,
-          width: 2.w,
-        ),
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(10.r),
-          topLeft: Radius.circular(10.r),
-        )),
-  );
-}
 
 Widget rotateText({required String txt, Color color = Colors.orange}) {
   return RotatedBox(
@@ -359,11 +335,11 @@ Widget expriance() {
     children: [
       Image.asset(
         'images/Path 381.png',
-        width: 410.w,
+        width: double.infinity,
         height: 470.h,
       ),
       Padding(
-        padding: EdgeInsets.only(left: 0.w, bottom: 275.h),
+        padding: EdgeInsets.only(bottom: 310.h),
         child: Image.asset(
           'images/sportıve ıcon.png',
           width: 62.w,

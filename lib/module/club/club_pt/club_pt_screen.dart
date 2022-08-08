@@ -16,7 +16,7 @@ class ClubPtScreen extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 50,
+            height: 50.h,
             color: Colors.grey,
             child: TabBar(
               onTap: (index) {
@@ -27,18 +27,18 @@ class ClubPtScreen extends StatelessWidget {
               indicatorSize: TabBarIndicatorSize.label,
               tabs: [
                 Container(
-                  height: 55,
+                  height: 55.h,
                   width: double.infinity,
                   color: Colors.grey,
                   child: Center(
                       child: defaultText(
                           txt: 'Old Performance ',
                           color: Colors.white,
-                          fontSize: 19,
+                          fontSize: 19.sp,
                           fontWeight: FontWeight.bold)),
                 ),
                 Container(
-                  height: 60,
+                  height: 60.h,
                   color: Colors.grey,
                   child: Row(
                     children: [
@@ -54,7 +54,7 @@ class ClubPtScreen extends StatelessWidget {
                           child: defaultText(
                               txt: 'New Performance ',
                               color: Colors.white,
-                              fontSize: 19,
+                              fontSize: 19.sp,
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -63,7 +63,7 @@ class ClubPtScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
           Expanded(
             child: TabBarView(children: [

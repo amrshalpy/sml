@@ -165,12 +165,12 @@ class ClubCubit extends Cubit<ClubState> {
     emit(GetSport());
   }
 
-  List<Sports> sportsList = [
-    Sports(image: 'images/Path 239.png', title: 'Football'),
-    Sports(image: 'images/Path 237.png', title: 'Table tennis'),
-    Sports(image: 'images/surface1 (4).png', title: 'basketball'),
-    Sports(image: 'images/surface1 (5).png', title: 'volleyball'),
-    Sports(image: 'images/tennis.png', title: 'tennis'),
+  List<Sportss> sportsList = [
+    Sportss(image: 'images/Path 239.png', title: 'Football'),
+    Sportss(image: 'images/Path 237.png', title: 'Table tennis'),
+    Sportss(image: 'images/surface1 (4).png', title: 'basketball'),
+    Sportss(image: 'images/surface1 (5).png', title: 'volleyball'),
+    Sportss(image: 'images/tennis.png', title: 'tennis'),
   ];
   int indexPage = 1;
   void changePage(int index) {
