@@ -25,28 +25,31 @@ class DioHelper {
   }) async {
     dio.options.headers = {
       "Accept": "application/json",
+      "Authorization": "Bearer $token",
       "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
       //  'Content-type': 'multipart/form-data'
     };
     return await dio.post(
       path,
-       data: data,
+      data: data,
       //  queryParameters: data
     );
   }
 
   //get
   static Future<Response> getData({
-    String? path,
+    required String path,
     String? token,
     Map<String, dynamic>? query,
   }) async {
     dio.options.headers = {
       "Accept": "application/json",
+      "Authorization": "Bearer $token",
       "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
-      // "Content-Type": "application/x-www-form-urlencoded",
     };
-    return await dio.get(path!, queryParameters: query);
+    
+      return await dio.get(path, queryParameters: query);
+    
   }
 
   //put
@@ -59,6 +62,7 @@ class DioHelper {
     dio.options.headers = {
       "Accept": "application/json",
       "secretKey": "Bearer $token",
+      "Authorization": "Bearer $token",
     };
     return await dio.put(path!, data: data, queryParameters: query);
   }
@@ -73,6 +77,7 @@ class DioHelper {
     dio.options.headers = {
       "Accept": "application/json",
       "secretKey": "Bearer $token",
+      "Authorization": "Bearer $token",
     };
     return await dio.delete(path!, data: data, queryParameters: query);
   }
