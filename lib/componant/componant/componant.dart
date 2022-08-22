@@ -19,13 +19,14 @@ Widget buildTextFormField({
   Function()? ontap,
 }) {
   return Container(
-    height: 50,
-    width: width,
+    height: 55,
+    width: double.infinity,
     child: TextFormField(
       cursorColor: Colors.white,
       onTap: ontap,
       controller: controller,
-      textAlign: TextAlign.justify,
+
+      // textAlign: TextAlign.left,
       decoration: InputDecoration(
           // enabledBorder:
           //     OutlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
@@ -301,7 +302,6 @@ class LogoPage extends StatelessWidget {
 //     );
 //   }
 // }
-
 
 Widget rotateText({required String txt, Color color = Colors.orange}) {
   return RotatedBox(

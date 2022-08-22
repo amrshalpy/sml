@@ -34,7 +34,7 @@ class ClubPtScreen extends StatelessWidget {
                       child: defaultText(
                           txt: 'Old Performance ',
                           color: Colors.white,
-                          fontSize: 19.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold)),
                 ),
                 Container(
@@ -44,8 +44,8 @@ class ClubPtScreen extends StatelessWidget {
                     children: [
                       VerticalDivider(
                         color: Colors.black,
-                        thickness: 2,
-                        width: 1.w,
+                        thickness: .5,
+                        width: .5.w,
                       ),
                       SizedBox(
                         width: 5.w,
@@ -53,8 +53,8 @@ class ClubPtScreen extends StatelessWidget {
                       Center(
                           child: defaultText(
                               txt: 'New Performance ',
-                              color: Colors.white,
-                              fontSize: 19.sp,
+                              color: Color.fromRGBO(255, 255, 255, 1),
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
