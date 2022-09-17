@@ -80,7 +80,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                             children: <Widget>[
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: 24.w, right: 24.w, top: 8.h),
+                                    left: 0.w, right: 0.w, top: 8.h),
                                 child: Row(
                                   children: [
                                     defaultText(
@@ -144,23 +144,20 @@ class _VideoWidgetState extends State<VideoWidget> {
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.only(
-                                      right: 20.w,
-                                      left: 20.w,
+                                      right: 0.w,
+                                      left: 0.w,
                                       top: 0.h,
                                       bottom: 1.h),
                                   child: Stack(
                                     children: [
-                                      Card(
-                                        color: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
+                                      FittedBox(
+                                        fit: BoxFit.cover,
                                         child: Chewie(
                                           key: PageStorageKey(widget.url),
                                           controller: ChewieController(
                                             videoPlayerController:
                                                 videoPlayerController!,
-                                            aspectRatio: 3 / 2,
+                                            aspectRatio: 2 / 3,
                                             // Prepare the video to be played and display the first frame
                                             // autoInitialize: false,
                                             // allowPlaybackSpeedChanging: false,

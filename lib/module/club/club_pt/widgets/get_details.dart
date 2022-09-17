@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/module/player/pt/widgets/new_performance.dart';
@@ -11,7 +12,7 @@ void getClubDetails(context) {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       builder: (context) => Padding(
             padding:
-                const EdgeInsets.only(top: 20, right: 10, bottom: 40, left: 10),
+                 EdgeInsets.only(top: 20.h, right: 10.w, bottom: 40.h, left: 10.w),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               Row(
                 children: [
@@ -24,13 +25,13 @@ void getClubDetails(context) {
                         color: Colors.white,
                       )),
                   SizedBox(
-                    width: 15,
+                    width: 15.w,
                   ),
                  
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 20.h,
               ),
               NewPerformance(),
             ]),

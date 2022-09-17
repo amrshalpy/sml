@@ -10,7 +10,7 @@ class Requests extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 8.w),
         child: Column(
           children: [
             Stack(

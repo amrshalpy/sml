@@ -27,7 +27,7 @@ class _ClubHomeState extends State<ClubHome> {
 
   List<WidgetList> list = [
     WidgetList(img: 'images/icons8-more-info-30.png', txt: 'about me'),
-    WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Skills'),
+    WidgetList(img: 'images/sportıve ıcon (1).png', txt: 'Titles'),
     WidgetList(img: 'images/my agent.png', txt: 'Players'),
     WidgetList(img: 'images/icons8-share-48 (3).png', txt: 'Share'),
     WidgetList(img: 'images/pt.png', txt: 'Pt'),
@@ -54,7 +54,7 @@ class _ClubHomeState extends State<ClubHome> {
                       context: context,
                     ),
                     Divider(
-                      height: .1,
+                      height: .1.h,
                       color: Colors.white,
                       thickness: 1,
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/model/sports.dart';
 
-Widget getSportsList(Sports sportsList) {
+Widget getSportsList(Sportss sportsList) {
   return Column(
     children: [
       Image.asset(

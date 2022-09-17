@@ -30,15 +30,14 @@ class _FollowingState extends State<Following> {
       });
   }
 
-
   List<String> itemList = [
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
   ];
   @override
   Widget build(BuildContext context) {
-      return Stack(
+    return Stack(
       children: [
         Container(
             child: SingleChildScrollView(
@@ -67,13 +66,13 @@ class _FollowingState extends State<Following> {
                     // ),
                     // content:
                     Stack(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      children: [
-                        Container(
-                  width: double.infinity,
-                  height: 290.0.h,
-                  alignment: Alignment.center,
-                  child: Container(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 290.0.h,
+                      alignment: Alignment.center,
+                      child: Container(
                           key: PageStorageKey(
                             "keydata$index",
                           ),
@@ -81,12 +80,12 @@ class _FollowingState extends State<Following> {
                             play: true,
                             url: itemList.elementAt(index),
                           )),
-                ),
-                      // Container(
-                      //   width: 74.w,
-                      //   child: Image.asset('images/sportıve ıcon (1).png'))
-                      ],
                     ),
+                    // Container(
+                    //   width: 74.w,
+                    //   child: Image.asset('images/sportıve ıcon (1).png'))
+                  ],
+                ),
               ),
             ],
           ),
@@ -94,7 +93,7 @@ class _FollowingState extends State<Following> {
         Align(
           alignment: AlignmentDirectional.bottomEnd,
           child: Padding(
-            padding: EdgeInsets.only(right: 15.w, bottom: 35.h),
+            padding: EdgeInsets.only(right: 15.w, bottom: 210.h),
             child: FloatingActionButton(
               onPressed: () {
                 nextPage(context: context, page: UploadVideo());
@@ -108,4 +107,3 @@ class _FollowingState extends State<Following> {
     );
   }
 }
-

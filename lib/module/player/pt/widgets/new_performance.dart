@@ -9,7 +9,7 @@ class NewPerformance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 550,
+      // height: 550,
       child: SingleChildScrollView(
         child: Column(
           children: [

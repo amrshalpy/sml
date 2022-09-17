@@ -1,31 +1,28 @@
-class SportModel {
-  List<Data> data=[];
+class MainSportsModel {
+  List<Data> data = [];
   String? message;
-  // List<Null>? errors;
+  List<Null>? errors;
 
-  // SportModel({this.data, this.message, this.errors});
+  // MainSportsModel({this.data, this.message, this.errors});
 
-  SportModel.fromJson(Map<String, dynamic> json) {
+  MainSportsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       json['data'].forEach((v) {
-        data.add( Data.fromJson(v));
+        data.add(new Data.fromJson(v));
       });
     }
     message = json['message'];
-    
-    }
   }
-
-  
-
+}
 
 class Data {
-  dynamic id;
+  int? id;
   String? name;
-  int? sportId;
+  Null sportId;
   int? numberOfUsers;
   String? createdAt;
   String? updatedAt;
+  int? isUserAdd;
 
   Data(
       {this.id,
@@ -33,7 +30,8 @@ class Data {
       this.sportId,
       this.numberOfUsers,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.isUserAdd});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -42,7 +40,8 @@ class Data {
     numberOfUsers = json['number_of_users'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    isUserAdd = json['is_user_add'];
   }
 
-  
+ 
 }

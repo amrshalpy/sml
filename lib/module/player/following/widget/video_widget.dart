@@ -294,8 +294,8 @@ class _VideoWidgetState extends State<VideoWidget> {
                                       },
                                       child: Image.asset(
                                         'images/icons8-share-48 (2).png',
-                                        height: 20,
-                                        width: 20,
+                                        height: 20.h,
+                                        width: 20.w,
                                       ),
                                     )
                                   ],
@@ -383,7 +383,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding:  EdgeInsets.symmetric(vertical: 8.0.h),
                   child: FlatButton(
                       onPressed: () {
                         setState(() {

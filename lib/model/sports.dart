@@ -1,6 +1,6 @@
-class Sports {
+class Sportss {
   String image;
   String title;
 
-  Sports({required this.image, required this.title});
+  Sportss({required this.image, required this.title});
 }

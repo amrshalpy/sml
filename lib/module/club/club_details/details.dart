@@ -42,7 +42,7 @@ class _DetailsState extends State<Details> {
                 dropdownColor: Colors.grey.shade700,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 17,
+                  fontSize: 17.sp,
                 ),
                 onCountryChanged: (value) {
                   setState(() {

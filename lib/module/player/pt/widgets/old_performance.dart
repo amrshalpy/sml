@@ -8,64 +8,64 @@ class OldPerformance extends StatelessWidget {
   var txtController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 70,
-          child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) =>
-                  getSportsList(PlayerCubit.get(context).sportsList[index]),
-              separatorBuilder: (context, index) => SizedBox(
-                    width: 12,
-                  ),
-              itemCount: PlayerCubit.get(context).sportsList.length),
-        ),
-       
-        SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Container(
-            height: 40,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.black,
-            ),
-            child: Row(children: [
-              Expanded(
-                child: TextField(
-                  controller: txtController,
-                  onChanged: (val) {},
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      iconColor: Colors.white,
-                      labelText: 'Search',
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      )),
-                ),
-              ),
-              Image.asset(
-                'images/adv search.png',
-                height: 30,
-                width: 30,
-              )
-            ]),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            height: 70,
+            child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) =>
+                    getSportsList(PlayerCubit.get(context).sportsList[index]),
+                separatorBuilder: (context, index) => SizedBox(
+                      width: 12,
+                    ),
+                itemCount: PlayerCubit.get(context).sportsList.length),
           ),
-        ),
-      
-        Expanded(
-          child: Padding(
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Container(
+              height: 40,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.black,
+              ),
+              child: Row(children: [
+                Expanded(
+                  child: TextField(
+                    controller: txtController,
+                    onChanged: (val) {},
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                        iconColor: Colors.white,
+                        labelText: 'Search',
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        )),
+                  ),
+                ),
+                Image.asset(
+                  'images/adv search.png',
+                  height: 30,
+                  width: 30,
+                )
+              ]),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.only(left: 15),
             child: GridView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -76,8 +76,8 @@ class OldPerformance extends StatelessWidget {
               itemCount: 10,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -12,7 +12,7 @@ class NewPerformance extends StatelessWidget {
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 60.w),
+            padding: EdgeInsets.only(left: 30.w),
             child: Stack(
               alignment: AlignmentDirectional.centerStart,
               children: [
@@ -20,16 +20,16 @@ class NewPerformance extends StatelessWidget {
                   children: [
                     Image.asset(
                       'images/PT card3 (1).png',
-                      height: 530,
+                      height: 530.h,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 98),
+                      padding: EdgeInsets.only(top: 110.h, left: 10.w),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
-                              height: 28,
-                              width: 90,
+                              height: 28.h,
+                              width: 90.w,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.green,
@@ -38,7 +38,7 @@ class NewPerformance extends StatelessWidget {
                                   child: Text(
                                     'Flip',
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
@@ -46,11 +46,11 @@ class NewPerformance extends StatelessWidget {
                                 onPressed: () {},
                               )),
                           SizedBox(
-                            width: 58,
+                            width: 99.w,
                           ),
                           Container(
-                              height: 28,
-                              width: 90,
+                              height: 28.h,
+                              width: 90.w,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.green,
@@ -59,7 +59,7 @@ class NewPerformance extends StatelessWidget {
                                   child: Text(
                                     'Edit',
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
@@ -70,8 +70,8 @@ class NewPerformance extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                        bottom: 70,
-                        left: 61,
+                        bottom: 90.h,
+                        left: 90.w,
                         child: Stack(
                           alignment: AlignmentDirectional.center,
                           children: [
@@ -93,45 +93,45 @@ class NewPerformance extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30, bottom: 15),
+                  padding: EdgeInsets.only(left: 40.w, bottom: 15.h, top: 10.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(left: 10.w),
                         child: defaultText(
                           txt: 'Performance test',
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 3.h,
                       ),
                       Row(
                         children: [
                           Image.asset(
                             'images/sportıve ıcon (1).png',
-                            height: 20,
-                            width: 20,
+                            height: 20.h,
+                            width: 20.w,
                             fit: BoxFit.contain,
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           defaultText(
                             txt: 'Game',
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            width: 14,
+                            width: 14.w,
                           ),
                           Container(
-                              height: 16,
-                              width: 60,
+                              height: 16.h,
+                              width: 60.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: Color.fromARGB(255, 70, 117, 72),
@@ -139,7 +139,7 @@ class NewPerformance extends StatelessWidget {
                               child: Center(
                                 child: defaultText(
                                   txt: '',
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -147,31 +147,31 @@ class NewPerformance extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 3.h,
                       ),
                       Row(
                         children: [
                           Image.asset(
                             'images/position.png',
-                            height: 20,
-                            width: 20,
+                            height: 20.h,
+                            width: 20.w,
                             fit: BoxFit.contain,
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           defaultText(
                             txt: 'Position',
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            width: 14,
+                            width: 14.w,
                           ),
                           Container(
-                              height: 16,
-                              width: 60,
+                              height: 16.h,
+                              width: 60.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: Color.fromARGB(255, 70, 117, 72),
@@ -179,7 +179,7 @@ class NewPerformance extends StatelessWidget {
                               child: Center(
                                 child: defaultText(
                                   txt: '',
-                                  fontSize: 12,
+                                  fontSize: 12.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -187,31 +187,31 @@ class NewPerformance extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 3.h,
                       ),
                       Row(
                         children: [
                           Image.asset(
                             'images/iconmonstr-user.png',
-                            height: 20,
-                            width: 20,
+                            height: 20.h,
+                            width: 20.w,
                             fit: BoxFit.contain,
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           defaultText(
                             txt: 'Type',
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            width: 14,
+                            width: 14.w,
                           ),
                           Container(
-                              height: 16,
-                              width: 60,
+                              height: 16.h,
+                              width: 60.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: Color.fromARGB(255, 70, 117, 72),
@@ -219,7 +219,7 @@ class NewPerformance extends StatelessWidget {
                               child: Center(
                                 child: defaultText(
                                   txt: '',
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -227,31 +227,31 @@ class NewPerformance extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 3.h,
                       ),
                       Row(
                         children: [
                           Image.asset(
                             'images/iconmonstr-user.png',
-                            height: 20,
-                            width: 20,
+                            height: 20.h,
+                            width: 20.w,
                             fit: BoxFit.contain,
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           defaultText(
                             txt: 'Age',
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            width: 16,
+                            width: 16.w,
                           ),
                           Container(
-                              height: 16,
-                              width: 55,
+                              height: 16.h,
+                              width: 55.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: Color.fromARGB(255, 70, 117, 72),
@@ -259,20 +259,20 @@ class NewPerformance extends StatelessWidget {
                               child: Center(
                                 child: defaultText(
                                   txt: '',
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               )),
                           defaultText(
                             txt: 'to ',
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             color: Colors.yellowAccent,
                             fontWeight: FontWeight.bold,
                           ),
                           Container(
-                              height: 16,
-                              width: 55,
+                              height: 16.h,
+                              width: 55.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: Color.fromARGB(255, 70, 117, 72),
@@ -280,7 +280,7 @@ class NewPerformance extends StatelessWidget {
                               child: Center(
                                 child: defaultText(
                                   txt: '',
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -288,31 +288,31 @@ class NewPerformance extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 3.h,
                       ),
                       Row(
                         children: [
                           Image.asset(
                             'images/surface1 (1).png',
-                            height: 20,
-                            width: 20,
+                            height: 20.h,
+                            width: 20.w,
                             fit: BoxFit.contain,
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           defaultText(
                             txt: 'Date',
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            width: 7,
+                            width: 7.w,
                           ),
                           Container(
-                              height: 16,
-                              width: 55,
+                              height: 16.h,
+                              width: 55.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: Color.fromARGB(255, 70, 117, 72),
@@ -320,20 +320,20 @@ class NewPerformance extends StatelessWidget {
                               child: Center(
                                 child: defaultText(
                                   txt: '',
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               )),
                           defaultText(
                             txt: 'to ',
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             color: Colors.yellowAccent,
                             fontWeight: FontWeight.bold,
                           ),
                           Container(
-                              height: 16,
-                              width: 55,
+                              height: 16.h,
+                              width: 55.w,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: Color.fromARGB(255, 70, 117, 72),
@@ -341,7 +341,7 @@ class NewPerformance extends StatelessWidget {
                               child: Center(
                                 child: defaultText(
                                   txt: '',
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),

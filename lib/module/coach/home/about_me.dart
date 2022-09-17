@@ -5,6 +5,7 @@ import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/module/coach/coach-cubit/coach_cubit.dart';
 import 'package:sportive/module/coach/coach-cubit/coach_state.dart';
+import 'package:sportive/module/coach/courses/courses.dart';
 import 'package:sportive/module/coach/details/coach_details.dart';
 import 'package:sportive/module/coach/free_styling/free_styling.dart';
 import 'package:sportive/module/coach/home/widget/get_list/get_list.dart';
@@ -13,7 +14,6 @@ import 'package:sportive/module/coach/qr_code/qr_code.dart';
 import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/following/following.dart';
 import 'package:sportive/module/player/pt/pt_screen.dart';
-import 'package:sportive/module/player/skills/skills.dart';
 
 class CoachHome extends StatefulWidget {
   CoachHome({Key? key}) : super(key: key);
@@ -91,7 +91,7 @@ class _CoachHomeState extends State<CoachHome> {
                                       } else if (list[index].img ==
                                           "images/sportıve ıcon (1).png") {
                                         setState(() {
-                                          page = Skills();
+                                          page = Courses();
                                         });
                                       } else if (list[index].img ==
                                           "images/QR (1).png") {

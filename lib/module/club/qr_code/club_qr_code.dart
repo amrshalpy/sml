@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sportive/componant/componant/componant.dart';
 // import 'package:qrscan/qrscan.dart' as scanner;
 
@@ -40,22 +39,19 @@ class _ClubQrCodeState extends State<ClubQrCode> {
           child: Column(
             children: [
               Center(
-                child: QrImage(
-                  data: data,
-                  version: QrVersions.auto,
-                  size: 200.0,
-                  // backgroundColor: Colors.blue,
-                  embeddedImage: AssetImage('images/sportıve ıcon (1).png'),
-                  dataModuleStyle: QrDataModuleStyle(
-                      dataModuleShape: QrDataModuleShape.square),
-                  foregroundColor: Colors.blue,
+                child: Image.asset('images/Group 204.png',
+                height: 120,
+                width: 120,
+                )
                 ),
-              ),
-              // ElevatedButton(onPressed: () {}, child: Text('scan')),
-              SizedBox(
-                height: 20,
-              ),
-              greenButton(txt: 'share', onPress: (){})
+              
+               Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                greenButton(txt: 'share', onPress: () {}),
+                greenButton(txt: 'Scan', onPress: () {}),
+              ],
+            )
               // result == null
               //     ? Container(
               //         height: 190,
@@ -192,6 +188,7 @@ class _ClubQrCodeState extends State<ClubQrCode> {
           ),
         ),
       ),
+   
     );
   }
 

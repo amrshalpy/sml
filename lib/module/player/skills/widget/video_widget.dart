@@ -4,14 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sportive/componant/componant/componant.dart';
+import 'package:sportive/module/player/skills/widget/delete_skills.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:video_player/video_player.dart';
-import 'package:image_picker/image_picker.dart';
 
 class VideoWidget extends StatefulWidget {
   final bool? play;
   final String? url;
+  final String? title;
+  final dynamic id;
 
-  const VideoWidget({Key? key, @required this.url, @required this.play})
+  const VideoWidget(
+      {Key? key,
+      required this.url,
+      required this.play,
+      this.id,
+      required this.title})
       : super(key: key);
 
   @override
@@ -19,6 +27,7 @@ class VideoWidget extends StatefulWidget {
 }
 
 class _VideoWidgetState extends State<VideoWidget> {
+  bool isEdit = false;
   VideoPlayerController? videoPlayerController;
   Future<void>? _initializeVideoPlayerFuture;
   bool _enabled = true;
@@ -80,62 +89,162 @@ class _VideoWidgetState extends State<VideoWidget> {
                             children: <Widget>[
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: 24.w, right: 24.w, top: 8.h),
+                                    left: 24.w, right: 10.w, top: 8.h),
                                 child: Row(
                                   children: [
-                                    defaultText(
-                                      txt: 'video name',
-                                      color: Colors.white,
-                                      fontSize: 15.sp,
+                                    Stack(
+                                      alignment: AlignmentDirectional.topEnd,
+                                      children: [
+                                        if (isEdit == false)
+                                          defaultText(
+                                            txt: widget.title,
+                                            color: Colors.white,
+                                            fontSize: 15.sp,
+                                          ),
+                                        InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                isEdit = true;
+                                              });
+                                            },
+                                            child: Align(
+                                              alignment: AlignmentDirectional
+                                                  .centerEnd,
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 15.h),
+                                                child: Icon(
+                                                  Icons.edit,
+                                                  color: Colors.white24,
+                                                ),
+                                              ),
+                                            )),
+                                        if (isEdit == true)
+                                          Container(
+                                            height: 50.h,
+                                            width: 150.w,
+                                            child: TextField(
+                                              // controller: txtcontroller,
+                                              onSubmitted: (value) {
+                                                PlayerCubit.get(context)
+                                                    .updateSkills(
+                                                  id: widget.id,
+                                                  title: value,
+                                                );
+                                                setState(() {
+                                                  isEdit = false;
+                                                });
+                                              },
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 11.sp,
+                                                  fontWeight: FontWeight.bold),
+                                              decoration: InputDecoration(
+                                                disabledBorder:
+                                                    OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15.r),
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.white)),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15.r),
+                                                        borderSide: BorderSide(
+                                                            color: Colors
+                                                                .orangeAccent)),
+                                                filled: true,
+                                                fillColor: Colors.white10,
+                                                border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.r),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.white)),
+                                              ),
+                                            ),
+                                          )
+                                      ],
                                     ),
                                     Spacer(),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Column(
+                                        Row(
                                           children: [
-                                            Icon(
-                                              Icons.favorite,
-                                              size: 16,
-                                              color: Colors.white,
+                                            Column(
+                                              children: [
+                                                Icon(
+                                                  Icons.favorite,
+                                                  size: 16,
+                                                  color: Colors.white,
+                                                ),
+                                                defaultText(
+                                                    txt: '100',
+                                                    fontSize: 10.sp,
+                                                    color: Colors.white)
+                                              ],
                                             ),
-                                            defaultText(
-                                                txt: '100',
-                                                fontSize: 10.sp,
-                                                color: Colors.white)
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            Column(
+                                              children: [
+                                                Icon(
+                                                  Icons.visibility_outlined,
+                                                  size: 16,
+                                                  color: Colors.white,
+                                                ),
+                                                defaultText(
+                                                    txt: '100',
+                                                    fontSize: 10.sp,
+                                                    color: Colors.white)
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            Column(
+                                              children: [
+                                                Icon(
+                                                  Icons.share,
+                                                  size: 16,
+                                                  color: Colors.white,
+                                                ),
+                                                defaultText(
+                                                    txt: '100',
+                                                    fontSize: 10.sp,
+                                                    color: Colors.white)
+                                              ],
+                                            ),
                                           ],
                                         ),
                                         SizedBox(
-                                          width: 10.w,
+                                          width: 20.w,
                                         ),
-                                        Column(
-                                          children: [
-                                            Icon(
-                                              Icons.visibility_outlined,
-                                              size: 16,
+                                        PopupMenuButton(
+                                            icon: const Icon(
+                                              Icons.more_vert,
                                               color: Colors.white,
                                             ),
-                                            defaultText(
-                                                txt: '100',
-                                                fontSize: 10.sp,
-                                                color: Colors.white)
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Icon(
-                                              Icons.share,
-                                              size: 16,
-                                              color: Colors.white,
-                                            ),
-                                            defaultText(
-                                                txt: '100',
-                                                fontSize: 10.sp,
-                                                color: Colors.white)
-                                          ],
-                                        ),
+                                            itemBuilder: (BuildContext
+                                                    context) =>
+                                                [
+                                                  PopupMenuItem(
+                                                    child: InkWell(
+                                                        onTap: () {
+                                                          deleteSkills(context,
+                                                              widget.id);
+                                                        },
+                                                        child: const Text(
+                                                            'delete')),
+                                                    value: 2,
+                                                  ),
+                                                ]),
                                       ],
                                     ),
                                   ],
@@ -144,43 +253,47 @@ class _VideoWidgetState extends State<VideoWidget> {
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.only(
-                                      right: 20.w,
-                                      left: 20.w,
+                                      right: 5.w,
+                                      left: 5.w,
                                       top: 0.h,
                                       bottom: 1.h),
                                   child: Stack(
                                     children: [
-                                      Card(
-                                        color: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Chewie(
-                                          key: PageStorageKey(widget.url),
-                                          controller: ChewieController(
-                                            videoPlayerController:
-                                                videoPlayerController!,
-                                            aspectRatio: 3 / 2,
-                                            // Prepare the video to be played and display the first frame
-                                            // autoInitialize: false,
-                                            // allowPlaybackSpeedChanging: false,
-                                            // fullScreenByDefault: true,
-                                            allowFullScreen: true,
-                                            allowMuting: false,
-                                            looping: false,
-                                            autoPlay: false,
-                                            // Errors can occur for example when trying to play a video
-                                            // from a non-existent URL
-                                            errorBuilder:
-                                                (context, errorMessage) {
-                                              return Center(
-                                                child: Text(
-                                                  errorMessage,
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              );
-                                            },
+                                      Container(
+                                        height: 400.h,
+                                        width: double.infinity,
+                                        child: Card(
+                                          color: Colors.transparent,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: Chewie(
+                                            key: PageStorageKey(widget.url),
+                                            controller: ChewieController(
+                                              videoPlayerController:
+                                                  videoPlayerController!,
+                                              aspectRatio: 3 / 2,
+                                              // Prepare the video to be played and display the first frame
+                                              // autoInitialize: false,
+                                              // allowPlaybackSpeedChanging: false,
+                                              // fullScreenByDefault: true,
+                                              allowFullScreen: true,
+                                              allowMuting: false,
+                                              looping: false,
+                                              autoPlay: false,
+                                              // Errors can occur for example when trying to play a video
+                                              // from a non-existent URL
+                                              errorBuilder:
+                                                  (context, errorMessage) {
+                                                return Center(
+                                                  child: Text(
+                                                    errorMessage,
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
                                       ),

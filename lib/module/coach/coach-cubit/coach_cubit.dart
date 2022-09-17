@@ -151,13 +151,13 @@ class CoachCubit extends Cubit<CoachState> {
   }
 
 
-  SportModel? sportModel;
+  SubSports? sportModel;
   void getSports() {
     emit(GetSportsLoading());
     DioHelper.getData(
       path: kSports,
     ).then((value) {
-      sportModel = SportModel.fromJson(value.data);
+      sportModel = SubSports.fromJson(value.data);
 
       emit(GetSportsSuccess());
     }).catchError((er) {
@@ -174,7 +174,7 @@ class CoachCubit extends Cubit<CoachState> {
   //   emit(GetSportId());
   // }
 
-  SubSportModel? subSportModel;
+  SubSports? subSportModel;
   void getSubSports({int? id}) {
     id = 1;
     emit(GetSubSportsLoading());
@@ -183,7 +183,7 @@ class CoachCubit extends Cubit<CoachState> {
     DioHelper.getData(
       path: kSubSports + id.toString(),
     ).then((value) {
-      subSportModel = SubSportModel.fromJson(value.data);
+      subSportModel = SubSports.fromJson(value.data);
       print("pi :$id");
       emit(GetSubSportsSuccess());
       print('pid = $id');
@@ -238,11 +238,11 @@ PositionModel? positionModel;
     });
   }
 
-  SubSportModel? category;
+  SubSports? category;
   void getSportCategory({String? id}) {
     DioHelper.getData(path: 'http://3.13.247.140/api/sub-sports/$id')
         .then((value) {
-      category = SubSportModel.fromJson(value.data);
+      category = SubSports.fromJson(value.data);
     }).catchError((er) {
       print(er.toString());
     });

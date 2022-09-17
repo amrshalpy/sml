@@ -1,10 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sportive/componant/componant/componant.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
+import 'package:sportive/player-cubit/player_state.dart';
+import 'package:sportive/share/cache_helper.dart';
 // import 'package:qrscan/qrscan.dart' as scanner;
 
 class QrCode extends StatefulWidget {
@@ -15,13 +19,11 @@ class QrCode extends StatefulWidget {
 }
 
 class _QrCodeState extends State<QrCode> {
-  String data = 'hello amr mohamed shalpy n,kkopo';
+  String data = 'hello ';
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
-
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
+  bool isQr = false;
   @override
   void reassemble() {
     super.reassemble();
@@ -34,29 +36,49 @@ class _QrCodeState extends State<QrCode> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return BlocConsumer<PlayerCubit, PlayerState>(listener: (context, state) {
+      if (state is GenrateQrSuccess) {
+        CacheHelper.setBool(key: 'qr', value: isQr).then((value) {
+          setState(() {});
+        });
+      }
+    }, builder: (context, state) {
+      PlayerCubit cubit = PlayerCubit.get(context);
+      return Padding(
         padding: const EdgeInsets.only(top: 100),
         child: Container(
           child: Column(
             children: [
               Center(
-                child: QrImage(
-                  data: data,
-                  version: QrVersions.auto,
-                  size: 200.0,
-                  // backgroundColor: Colors.blue,
-                  embeddedImage: AssetImage('images/sportıve ıcon (1).png'),
-                  dataModuleStyle: QrDataModuleStyle(
-                      dataModuleShape: QrDataModuleShape.square),
-                  foregroundColor: Colors.blue,
-                ),
-              ),
+                  child: Image.asset(
+                'images/Group 204.png',
+                fit: BoxFit.contain,
+                height: 150,
+                width: 150,
+              )),
+              // Center(
+              // child: QrImage(
+              //   data: data,
+              //   version: QrVersions.auto,
+              //   size: 200.0,
+              //   // backgroundColor: Colors.blue,
+              // embeddedImage: AssetImage('images/sportıve ıcon (1).png'),
+              // dataModuleStyle: QrDataModuleStyle(
+              //     dataModuleShape: QrDataModuleShape.square),
+              // foregroundColor: Colors.blue,
+              // ),
+              // ),
               // ElevatedButton(onPressed: () {}, child: Text('scan')),
               SizedBox(
                 height: 20,
               ),
-              greenButton(txt: 'share', onPress: (){})
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  greenButton(txt: 'share', onPress: () {}),
+                  greenButton(txt: 'Scan', onPress: () {}),
+                ],
+              )
               // result == null
               //     ? Container(
               //         height: 190,
@@ -161,11 +183,10 @@ class _QrCodeState extends State<QrCode> {
               //               ),
               //             ],
               //           )
-                     
+
               //             : Text('Scan a code'),
               //       ),
-             
-             
+
               // Expanded(
               //   flex: 1,
               //   child: Center(
@@ -192,8 +213,8 @@ class _QrCodeState extends State<QrCode> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   void _onQRViewCreated(QRViewController controller) {
@@ -204,6 +225,6 @@ class _QrCodeState extends State<QrCode> {
       });
     });
   }
+  // String result = "Hello World...!";
 
-  void scan() async {}
 }

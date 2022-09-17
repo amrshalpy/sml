@@ -61,7 +61,7 @@ class DioHelper {
   }) async {
     dio.options.headers = {
       "Accept": "application/json",
-      "secretKey": "Bearer $token",
+      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
       "Authorization": "Bearer $token",
     };
     return await dio.put(path!, data: data, queryParameters: query);
@@ -76,7 +76,7 @@ class DioHelper {
   }) async {
     dio.options.headers = {
       "Accept": "application/json",
-      "secretKey": "Bearer $token",
+      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
       "Authorization": "Bearer $token",
     };
     return await dio.delete(path!, data: data, queryParameters: query);

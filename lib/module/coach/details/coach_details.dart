@@ -49,8 +49,8 @@ class _CoachDetailsState extends State<CoachDetails> {
       alignment: AlignmentDirectional.bottomCenter,
       children: [
         Container(
-          height: 700.h,
-          width: double.infinity.w,
+          // height: 700.h,
+          // width: double.infinity.w,
           child: PageView(
             scrollDirection: Axis.horizontal,
             controller: pageController,

@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/module/player/explore/widget/get_category.dart';
-import 'package:sportive/module/player/explore/widget/get_sports.dart';
+import 'package:sportive/module/doctors/explore/widget/get_post_model.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
-
 void getPoistion(context) {
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: mainColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
       builder: (context) => Padding(
             padding:
-                const EdgeInsets.only(top: 20, right: 10, bottom: 40, left: 10),
+                 EdgeInsets.only(top: 20.h, right: 10.w, bottom: 40.h, left: 10.w),
             child: PlayerCubit.get(context).sportModel !=null
                 ? Column(mainAxisSize: MainAxisSize.min, children: [
                     Row(
@@ -29,31 +26,31 @@ void getPoistion(context) {
                               color: Colors.white,
                             )),
                         SizedBox(
-                          width: 15,
+                          width: 15.w,
                         ),
                         defaultText(
                             txt: 'Select your Position',
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ],
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 20.h,
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height * .65,
                       child: Row(
                         children: [
-                          Column(
-                            children: [
-                            getSports(context),
-                            ],
-                          ),
+                          // Column(
+                          //   children: [
+                          //   getSports(context),
+                          //   ],
+                          // ),
                           SizedBox(
-                            width: 15,
+                            width: 15.w,
                           ),
-                        Expanded(child: category()),
+                        Expanded(child: GetSportsModel()),
                         ],
                       ),
                     )
