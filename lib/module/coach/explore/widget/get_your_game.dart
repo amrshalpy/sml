@@ -68,13 +68,13 @@ void getGame(context) {
                     children: [
                       Column(
                         children: [
-                          getSports(context),
+                          // getSports(context),
                         ],
                       ),
                       SizedBox(
                         width: 15.w,
                       ),
-                      Expanded(child: category()),
+                      // Expanded(child: category()),
                     ],
                   ),
                 )

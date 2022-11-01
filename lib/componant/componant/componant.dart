@@ -20,16 +20,14 @@ Widget buildTextFormField({
 }) {
   return Container(
     height: 55,
-    width: double.infinity,
     child: TextFormField(
+      style: TextStyle(fontSize: 13.sp),
+      textAlign: TextAlign.start,
+      // expands: true,
       cursorColor: Colors.white,
       onTap: ontap,
       controller: controller,
-
-      // textAlign: TextAlign.left,
       decoration: InputDecoration(
-          // enabledBorder:
-          //     OutlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
           focusedBorder:
               OutlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
           filled: true,
@@ -37,7 +35,7 @@ Widget buildTextFormField({
           hintText: hint,
           labelText: label,
           hintStyle: TextStyle(
-              color: Color.fromARGB(255, 56, 56, 56),
+              color: Color.fromARGB(255, 39, 39, 39),
               fontSize: 14.sp,
               fontWeight: FontWeight.normal),
           prefixIcon: Icon(icon),
@@ -116,7 +114,8 @@ defaultText({
 }) =>
     Text(
       txt!,
-      style: GoogleFonts.actor(
+      style: TextStyle(
+        fontFamily: 'SitkaVF',
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,
@@ -219,47 +218,6 @@ Widget logo() {
   );
 }
 
-class LogoPage extends StatelessWidget {
-  LogoPage({Key? key, required this.context}) : super(key: key);
-  BuildContext context;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 70.h,
-      decoration: BoxDecoration(color: mainColor),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.only(top: 5.h, left: 10.w, right: 10.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                'images/logospotive1.png',
-                width: MediaQuery.of(context).size.width * .5.w,
-              ),
-              Row(
-                children: [
-                  Image.asset('images/req to contact1.png'),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Image.asset('images/notifcation1.png'),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.menu,
-                        size: 30.h,
-                        color: Colors.white,
-                      ))
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 // class LogoPages extends StatelessWidget {
 //   const LogoPages({Key? key}) : super(key: key);
 
@@ -397,7 +355,7 @@ Widget contactContainer(
                 quarterTurns: 3,
                 child: defaultText(
                     txt: txt,
-                    fontSize: 15.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.white)),
           ),

@@ -177,10 +177,15 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MTBBarcodeScanner/MTBBarcodeScanner.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/camera_avfoundation/camera_avfoundation.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/device_info/device_info.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/device_info_plus/device_info_plus.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/fluttertoast/fluttertoast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/image_picker_ios/image_picker_ios.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/open_file/open_file.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/platform_device_id/platform_device_id.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/printing/printing.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/qr_code_scanner/qr_code_scanner.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/share_plus/share_plus.framework"
@@ -191,10 +196,15 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Profile" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MTBBarcodeScanner/MTBBarcodeScanner.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/camera_avfoundation/camera_avfoundation.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/device_info/device_info.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/device_info_plus/device_info_plus.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/fluttertoast/fluttertoast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/image_picker_ios/image_picker_ios.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/open_file/open_file.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/platform_device_id/platform_device_id.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/printing/printing.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/qr_code_scanner/qr_code_scanner.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/share_plus/share_plus.framework"
@@ -205,10 +215,15 @@ if [[ "$CONFIGURATION" == "Profile" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MTBBarcodeScanner/MTBBarcodeScanner.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Toast/Toast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/camera_avfoundation/camera_avfoundation.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/device_info/device_info.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/device_info_plus/device_info_plus.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/fluttertoast/fluttertoast.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/image_picker_ios/image_picker_ios.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/open_file/open_file.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/platform_device_id/platform_device_id.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/printing/printing.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/qr_code_scanner/qr_code_scanner.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/share_plus/share_plus.framework"

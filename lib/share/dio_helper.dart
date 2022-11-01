@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:sportive/componant/constants/constants.dart';
 
 class DioHelper {
   static late Dio dio;
@@ -10,7 +11,7 @@ class DioHelper {
         receiveTimeout: 60000,
         // connectTimeout: 5000,
         // receiveTimeout: 3000,
-        baseUrl: "http://3.13.247.140/api/",
+        baseUrl: kBaseUrl,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -19,14 +20,14 @@ class DioHelper {
   // post
   static Future<Response> postData({
     required String path,
-    String? token,
+    String? token ,
     required dynamic data,
     // Map<String, dynamic>? query,
   }) async {
     dio.options.headers = {
       "Accept": "application/json",
       "Authorization": "Bearer $token",
-      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
+      // "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
       //  'Content-type': 'multipart/form-data'
     };
     return await dio.post(
@@ -45,7 +46,7 @@ class DioHelper {
     dio.options.headers = {
       "Accept": "application/json",
       "Authorization": "Bearer $token",
-      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
+      // "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
     };
     
       return await dio.get(path, queryParameters: query);
@@ -61,10 +62,24 @@ class DioHelper {
   }) async {
     dio.options.headers = {
       "Accept": "application/json",
-      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
+      // "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
       "Authorization": "Bearer $token",
     };
     return await dio.put(path!, data: data, queryParameters: query);
+  }
+
+  static Future<Response> patchData({
+    String? path,
+    String? token,
+    dynamic data,
+    Map<String, dynamic>? query,
+  }) async {
+    dio.options.headers = {
+      "Accept": "application/json",
+      // "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
+      "Authorization": "Bearer $token",
+    };
+    return await dio.patch(path!, data: data, queryParameters: query);
   }
 
   //delete
@@ -76,7 +91,7 @@ class DioHelper {
   }) async {
     dio.options.headers = {
       "Accept": "application/json",
-      "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
+      // "secretKey": "tgCiGblcr1daxYxx3Lw8uw==",
       "Authorization": "Bearer $token",
     };
     return await dio.delete(path!, data: data, queryParameters: query);

@@ -34,7 +34,7 @@ import 'package:sportive/player-cubit/player_cubit.dart';
               // ),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage('${PlayerCubit.get(context).getPlayerProfileData!.data!.profilePicture}'),
+                    image: NetworkImage('${PlayerCubit.get(context).getProfileData!.data!.user!.image}'),
                     fit: BoxFit.cover),
                 border: Border.all(color: Colors.white, width: 3),
                 borderRadius: BorderRadius.circular(20),

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/module/doctors/details/doctor_details.dart';
-import 'package:sportive/module/doctors/doctor_cubit/doctor_cubit.dart';
-import 'package:sportive/module/doctors/doctor_cubit/doctor_state.dart';
 import 'package:sportive/module/doctors/free_styling/free_styling.dart';
 import 'package:sportive/module/doctors/home/widget/get_list/get_list.dart';
 import 'package:sportive/module/doctors/pdf%20_page/pdf_screen.dart';
@@ -13,7 +10,10 @@ import 'package:sportive/module/doctors/qr_code/qr_code.dart';
 import 'package:sportive/module/doctors/tips/tips.dart';
 import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/following/following.dart';
+import 'package:sportive/module/player/home/widget/logo.dart';
 import 'package:sportive/module/player/pt/pt_screen.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
+import 'package:sportive/player-cubit/player_state.dart';
 
 class DoctorHome extends StatefulWidget {
   DoctorHome({Key? key}) : super(key: key);
@@ -43,10 +43,10 @@ class _DoctorHomeState extends State<DoctorHome> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DoctorCubit, DoctorState>(
+    return BlocConsumer<PlayerCubit, PlayerState>(
         listener: (context, state) {},
         builder: (context, state) {
-          DoctorCubit cubit = DoctorCubit.get(context);
+          PlayerCubit cubit = PlayerCubit.get(context);
           return Scaffold(
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,

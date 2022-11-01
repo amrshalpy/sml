@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
-import 'package:sportive/module/club/club_cubit/club_cubit.dart';
 import 'package:sportive/module/club/player_club/widgets/accepted.dart';
 import 'package:sportive/module/club/player_club/widgets/get_sports.dart';
 import 'package:sportive/module/club/player_club/widgets/requests.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 
 class PlayersClub extends StatelessWidget {
   PlayersClub({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class PlayersClub extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      initialIndex: ClubCubit.get(context).indexTab,
+      initialIndex: PlayerCubit.get(context).indexTab,
       child: Column(
         children: [
           Container(
@@ -21,8 +21,8 @@ class PlayersClub extends StatelessWidget {
             color: Colors.grey,
             child: TabBar(
               onTap: (index) {
-                ClubCubit.get(context).changeTabBar(index);
-                ClubCubit.get(context).changeIsTab();
+                PlayerCubit.get(context).changeTabBar(index);
+                PlayerCubit.get(context).changeIsTab();
               },
               indicatorColor: Colors.amber,
               indicatorSize: TabBarIndicatorSize.label,
@@ -60,11 +60,11 @@ class PlayersClub extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) =>
-                    getSportsList(ClubCubit.get(context).sportsList[index]),
+                    getSportsList(PlayerCubit.get(context).sportsList[index]),
                 separatorBuilder: (context, index) => SizedBox(
                       width: 12.w,
                     ),
-                itemCount: ClubCubit.get(context).sportsList.length),
+                itemCount: PlayerCubit.get(context).sportsList.length),
           ),
           SizedBox(
             height: 10.h,

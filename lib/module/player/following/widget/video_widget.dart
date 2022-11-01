@@ -270,6 +270,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                                       //     ],
                                       //   ),
                                       // ),
+                               
                                     ],
                                   ),
                                 ),
@@ -384,7 +385,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                 ),
                 Padding(
                   padding:  EdgeInsets.symmetric(vertical: 8.0.h),
-                  child: FlatButton(
+                  child: ElevatedButton(
                       onPressed: () {
                         setState(() {
                           _enabled = !_enabled;

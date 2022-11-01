@@ -1,3 +1,6 @@
+const kBaseUrl = 'http://sportivecommunity.com/apis';
+const kUrl = 'http://sportivecommunity.com/';
+
 const kRegister = 'http://3.13.247.140/api/register';
 const kLogin = '/login';
 const kSports = 'http://3.13.247.140/api/main-sports';

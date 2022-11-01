@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/module/coach/coach-cubit/coach_cubit.dart';
-import 'package:sportive/module/coach/coach-cubit/coach_state.dart';
 import 'package:sportive/module/coach/pdf%20_page/widgets/pdf_one.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
+import 'package:sportive/player-cubit/player_state.dart';
 
 class PdfScreen extends StatefulWidget {
   PdfScreen({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _PdfScreenState extends State<PdfScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CoachCubit, CoachState>(
+    return BlocConsumer<PlayerCubit, PlayerState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Stack(
@@ -50,10 +50,12 @@ class _PdfScreenState extends State<PdfScreen> {
                               width: 100.w,
                             ),
                             mainButton(
-                                txt: 'Share',
+                                txt: 'View',
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.bold,
-                                ontap: () {}),
+                                ontap: () {
+                                  
+                                }),
                           ]),
                       SizedBox(
                         height: 5.h,

@@ -37,11 +37,8 @@ class _QrCodeState extends State<QrCode> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PlayerCubit, PlayerState>(listener: (context, state) {
-      if (state is GenrateQrSuccess) {
-        CacheHelper.setBool(key: 'qr', value: isQr).then((value) {
-          setState(() {});
-        });
-      }
+     
+      
     }, builder: (context, state) {
       PlayerCubit cubit = PlayerCubit.get(context);
       return Padding(

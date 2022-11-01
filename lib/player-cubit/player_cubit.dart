@@ -1,32 +1,54 @@
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/services.dart';
 import 'package:http_parser/http_parser.dart';
+import 'dart:async';
+
+import 'package:platform_device_id/platform_device_id.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sidebarx/sidebarx.dart';
 import 'package:sportive/componant/const/const.dart';
 import 'package:sportive/componant/constants/constants.dart';
 import 'package:sportive/model/acount_type.dart';
-import 'package:sportive/model/add_contact_info.dart';
-import 'package:sportive/model/add_exprience_model.dart';
+import 'package:sportive/model/add_category_model.dart';
+import 'package:sportive/model/add_certificate.dart';
+import 'package:sportive/model/add_coupon.dart';
+import 'package:sportive/model/add_products.dart';
 import 'package:sportive/model/add_skills.dart';
-import 'package:sportive/model/all_sports_model.dart';
 import 'package:sportive/model/city_model.dart';
+import 'package:sportive/model/contact_model.dart';
 import 'package:sportive/model/country_model.dart';
 import 'package:sportive/model/delete_skills.dart';
+import 'package:sportive/model/edit_coupon.dart';
 import 'package:sportive/model/edit_skills.dart';
+import 'package:sportive/model/experience_model.dart';
+import 'package:sportive/model/genral_model.dart';
+import 'package:sportive/model/get_category_model.dart';
+import 'package:sportive/model/get_company-products.dart';
+import 'package:sportive/model/get_coupon.dart';
 import 'package:sportive/model/get_player_data.dart';
-import 'package:sportive/model/player_data.dart';
-import 'package:sportive/model/position_model.dart';
-import 'package:sportive/model/qr_model.dart';
+import 'package:sportive/model/get_user_data.dart';
+import 'package:sportive/model/performance_data.dart';
+import 'package:sportive/model/profile_model.dart';
 import 'package:sportive/model/search_model.dart';
 import 'package:sportive/model/register_model.dart';
 import 'package:sportive/model/sport_model.dart';
 import 'package:sportive/model/sports.dart';
 import 'package:sportive/model/sub_sport_model.dart';
+import 'package:sportive/model/tites_model.dart';
+import 'package:sportive/model/update_products.dart';
+import 'package:sportive/model/verify_model.dart';
+import 'package:sportive/module/club/home/home.dart';
+import 'package:sportive/module/coach/home/about_me.dart';
+import 'package:sportive/module/company/home/about_me.dart';
+import 'package:sportive/module/doctors/home/about_me.dart';
+import 'package:sportive/module/player/details/widgets/social.dart';
+import 'package:sportive/module/player/home/about_me.dart';
 import 'package:sportive/player-cubit/player_state.dart';
-import 'package:sportive/share/cache_helper.dart';
 import 'package:sportive/share/dio_helper.dart';
 import 'package:video_player/video_player.dart';
 
@@ -52,16 +74,35 @@ class PlayerCubit extends Cubit<PlayerState> {
     emit(ChangeCountry());
   }
 
+  int genderVal = 1;
   List<String> gender = [
     "female",
     "male",
   ];
-  String ganderVal = 'female';
+  String ganderValue = 'female';
   void onChangedGender(val) {
-    ganderVal = val;
+    ganderValue = val;
+    if (val == 'female') {
+      genderVal = 2;
+    } else {
+      genderVal = 1;
+    }
     emit(ChangeGander());
   }
 
+  bool isCountry = false;
+  bool isSocial = false;
+  void changeIsCountry() {
+    isCountry = !isCountry;
+    emit(ChangeCountry());
+  }
+
+  void changeIsSocial() {
+    isSocial = !isSocial;
+    emit(ChangeIsSocial());
+  }
+
+  int? directionVal = 1;
   List<String> direction = [
     "Right",
     "Left",
@@ -69,6 +110,11 @@ class PlayerCubit extends Cubit<PlayerState> {
   String right = 'Right';
   void onChangedDirection(val) {
     right = val;
+    if (val == 'Right') {
+      directionVal = 1;
+    } else {
+      directionVal = 2;
+    }
     emit(ChangeGander());
   }
 
@@ -86,18 +132,124 @@ class PlayerCubit extends Cubit<PlayerState> {
     emit(ChangeTabBar());
   }
 
+  String? devicesId;
+  void initPlatformState() async {
+    String? deviceId;
+    try {
+      deviceId = await PlatformDeviceId.getDeviceId;
+    } on PlatformException {
+      deviceId = 'Failed to get deviceId.';
+    }
+emit(GetDeviceId());
+    devicesId = deviceId;
+    print("deviceId->$devicesId");
+  }
+
+  String? deviceId;
+  int fmcToken = 1;
+  Future getDeviceId() async {
+    var deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      deviceId = iosDeviceInfo.identifierForVendor!;
+      fmcToken = 2;
+      print(fmcToken);
+      print(deviceId);
+      emit(GetDeviceId());
+    } else if (Platform.isAndroid) {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      deviceId = androidDeviceInfo.androidId;
+      fmcToken = 1;
+      emit(GetDeviceId());
+    } else {
+      deviceId = 'null';
+    }
+    return deviceId;
+  }
+
+  GetComapanyProductModel? getCompanyProductModel;
+  void getProducts() {
+    emit(GetProductsLoading());
+    DioHelper.getData(path: kBaseUrl + '/companyProducts', token: uid)
+        .then((value) {
+      getCompanyProductModel = GetComapanyProductModel.fromJson(value.data);
+      emit(GetProductsSuccess());
+    }).catchError((er) {
+      emit(GetProductsError());
+    });
+  }
+
+  GetCategoryModel? getCategoryModel;
+  void getCategory() {
+    emit(GetCategoryModelLoading());
+    DioHelper.getData(path: kBaseUrl + '/categories', token: uid).then((value) {
+      getCategoryModel = GetCategoryModel.fromJson(value.data);
+      print(value.data);
+      emit(GetCategoryModelSuccess());
+    }).catchError((er) {
+      emit(GetCategoryModelError());
+    });
+  }
+
+  GetCouponeModel? getCouponModel;
+  void getCoupons() {
+    emit(GetCouponModelLoading());
+    DioHelper.getData(path: kBaseUrl + '/coupons', token: uid).then((value) {
+      getCouponModel = GetCouponeModel.fromJson(value.data);
+      print(value.data);
+      emit(GetCouponModelSuccess());
+    }).catchError((er) {
+      emit(GetCouponModelError());
+    });
+  }
+
+  AddCategoryModel? addCategoryModel;
+  void addCategory({
+    String? name,
+    String? parentId,
+    String? type,
+  }) {
+    emit(UpdateCategoryLoading());
+    DioHelper.postData(path: kBaseUrl + '/categories', token: uid, data: {
+      'parent_id': parentId,
+      'name': name,
+      'type': type,
+    }).then((value) {
+      addCategoryModel = AddCategoryModel.fromJson(value.data);
+      emit(UpdateCategorySuccess());
+    }).catchError((er) {
+      emit(UpdateCategoryError());
+    });
+  }
+
+  UpdateProductModel? updateProductModel;
+  void updateProducts(int? id, String? name) {
+    emit(UpdateProductsLoading());
+
+    DioHelper.patchData(
+        token: uid,
+        path: kBaseUrl + '/companyProducts+$id',
+        data: {
+          'name': name,
+        }).then((value) {
+      updateProductModel = UpdateProductModel.fromJson(value.data);
+      getProducts();
+    }).catchError((er) {
+      emit(UpdateProductsError());
+
+      print(er.toString());
+    });
+  }
+
   List<String> roles = [
     "player",
-    "Sports Academy",
-    "Gym",
-    "Agent",
-    'Nutritionist',
-    'physical therapist',
-    'Psychologist  doctor',
-    'Coach',
-    'Online Coach',
+    "club",
+    "coach",
+    "Doctor",
     'Company',
-    'Normal User',
+    'Agent',
+    'normal',
   ];
   int roleId = 1;
   String rolesVal = 'player';
@@ -105,30 +257,43 @@ class PlayerCubit extends Cubit<PlayerState> {
     rolesVal = val;
     if (val == 'player') {
       roleId = 1;
-    } else if (val == 'Sports Academy') {
+    } else if (val == 'club') {
       roleId = 2;
-    } else if (val == 'Gym') {
+    } else if (val == 'doctor') {
       roleId = 3;
-    } else if (val == 'Agent') {
+    } else if (val == 'coach') {
       roleId = 4;
-    } else if (val == 'Nutritionist') {
+    } else if (val == 'company') {
       roleId = 5;
-    } else if (val == 'Physical Therapist') {
+    } else if (val == 'Agent') {
       roleId = 6;
-    } else if (val == 'Psychologist  doctor') {
+    } else if (val == 'normal') {
       roleId = 7;
-    } else if (val == 'Coach') {
-      roleId = 8;
-    } else if (val == 'Online Coach') {
-      roleId = 9;
-    } else if (val == 'Company') {
-      roleId = 10;
-    } else if (val == 'Normal User') {
-      roleId = 11;
     }
     print(roleId);
     emit(Changetype());
   }
+
+  // void getPages() {
+  //   if (accountType == 1) {
+  //     appPages = Home();
+  //   } else if (accountType == 2 || accountType == 3 || accountType == 4) {
+  //     appPages = ClubHome();
+  //   } else if (accountType == 5 || accountType == 6 || accountType == 7) {
+  //     appPages = DoctorHome();
+  //   } else if (accountType == 8 || accountType == 9) {
+  //     appPages = CoachHome();
+  //   } else if (accountType == 10) {
+  //     appPages = CompanyHome();
+  //   } else if (accountType == 11) {
+  //     // nextPageUntil(context: context, page: ());
+  //     //  setState(() {
+  //     //   pages = UserHome();
+  //     // });
+  //     //   }
+  //     // });
+  //   }
+  // }
 
   Widget? profileWiget;
   int index = 0;
@@ -175,34 +340,29 @@ class PlayerCubit extends Cubit<PlayerState> {
     emit(GetSportModel());
   }
 
-  String nation = '';
-  bool isNationality = false;
-  String countryCode = '';
-  void changeNation({String? value, String? code}) {
-    nation = value!;
-    countryCode = code!;
-    print(nation);
-    print(countryCode);
+  String? nationVal;
+  int? nation;
+  void changeNation(value, val) {
+    nation = value;
+    nationVal = val;
 
     emit(ChangeNationality());
   }
 
-  void changeIsNAtionality() {
-    isNationality = !isNationality;
-
-    emit(ChangeNationality());
-  }
-
-  String city = '';
-  bool isCity = false;
-  void changecity(value) {
+  String? cityVal;
+  int? city;
+  void changecity(value, val) {
     city = value;
+    cityVal = val;
 
     emit(ChangeCity());
   }
 
-  void changeIsCity() {
-    isCity = !isCity;
+  int? country;
+  String? countryVal;
+  void changeCountr(value, val) {
+    country = value;
+    countryVal = val;
 
     emit(ChangeCity());
   }
@@ -211,7 +371,7 @@ class PlayerCubit extends Cubit<PlayerState> {
   void getCountry() {
     emit(GetCountryLoading());
     DioHelper.getData(
-      path: 'http://3.13.247.140/api/list-countries',
+      path: kBaseUrl + '/locations',
     ).then((value) {
       countryModel = CountryModel.fromJson(value.data);
 
@@ -222,11 +382,12 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   CityModel? cityModel;
-  void getCity() {
+  void getCity({int? id}) {
     emit(GetCityLoading());
     DioHelper.getData(
-      path: 'http://3.13.247.140/api/list-cities?country_code=$nation',
-    ).then((value) {
+        path: kBaseUrl + '/cities',
+        token: uid,
+        query: {'country_id': 70}).then((value) {
       cityModel = CityModel.fromJson(value.data);
 
       emit(GetCitySuccess());
@@ -254,11 +415,24 @@ class PlayerCubit extends Cubit<PlayerState> {
     emit(ChangeIndexPage());
   }
 
+  final _picker = ImagePicker();
+  File? playVideo;
+  bool isCaptured = false;
+  uploadCamera() async {
+    final file = await _picker.pickVideo(
+        source: ImageSource.camera, maxDuration: const Duration(seconds: 30));
+    isCaptured = true;
+
+    playVideo = File(file!.path);
+    print("Video Path ${file.path}");
+    emit(ChangeQrCode());
+  }
+
   MainSportsModel? sportModel;
   void getSports() {
     emit(GetSportsLoading());
     DioHelper.getData(
-      path: kSports,
+      path: kBaseUrl + '/sports',
     ).then((value) {
       sportModel = MainSportsModel.fromJson(value.data);
 
@@ -284,22 +458,6 @@ class PlayerCubit extends Cubit<PlayerState> {
     emit(ChangeQrCode());
   }
 
-  QrCodeModel? qrCodeModel;
-
-  void genrateQr() {
-    emit(GenrateQrLoading());
-    DioHelper.postData(
-        path: 'http://3.13.247.140/api/player/generate-qr-code',
-        token: uid,
-        data: {}).then((value) {
-      qrCodeModel = QrCodeModel.fromJson(value.data);
-      emit(GenrateQrSuccess(isQrCode));
-    }).catchError((er) {
-      emit(GenrateQrError());
-      print(er.toString());
-    });
-  }
-
   SubSports? subSportModel;
   void getSubSports({int? sId}) {
     sId = 1;
@@ -307,7 +465,7 @@ class PlayerCubit extends Cubit<PlayerState> {
     print("pi :$sId");
 
     DioHelper.getData(
-      path: 'http://3.13.247.140/api/sub-sports?sport_id=$sId',
+      path: 'http://3.13.247.140/sub-sports?sport_id=$sId',
     ).then((value) {
       subSportModel = SubSports.fromJson(value.data);
       print("pi :$id");
@@ -334,7 +492,7 @@ class PlayerCubit extends Cubit<PlayerState> {
     controller.addListener(() {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
         isPage = true;
-        getSportsData();
+        // getSportsData();
         ;
 
         emit(FetchData());
@@ -342,21 +500,21 @@ class PlayerCubit extends Cubit<PlayerState> {
     });
   }
 
-  GetAllSports? getAllSports;
-  void getSportsData() {
-    emit(GetAllSportsLoading());
-    DioHelper.getData(path: "http://3.13.247.140/api/all-sports", query: {
-      "per_page": pages,
-      "page": page,
-    }).then((value) {
-      getAllSports = GetAllSports.fromJson(value.data);
-      // items.add(getAllSports.data.length+1.toString());
-      emit(GetAllSportsSuccess());
-    }).catchError((er) {
-      emit(GetAllSportsError());
-      print(er.toString());
-    });
-  }
+  // GetAllSports? getAllSports;
+  // void getSportsData() {
+  //   emit(GetAllSportsLoading());
+  //   DioHelper.getData(path: "http://3.13.247.140/all-sports", query: {
+  //     "per_page": pages,
+  //     "page": page,
+  //   }).then((value) {
+  //     getAllSports = GetAllSports.fromJson(value.data);
+  //     // items.add(getAllSports.data.length+1.toString());
+  //     emit(GetAllSportsSuccess());
+  //   }).catchError((er) {
+  //     emit(GetAllSportsError());
+  //     print(er.toString());
+  //   });
+  // }
 
   RegisterModel? registerModel;
   void register({
@@ -364,39 +522,43 @@ class PlayerCubit extends Cubit<PlayerState> {
     required String phone,
     required String password,
     required String confirmPassword,
-    String? countryCode,
-    String? roleTypeId,
-    String? code,
+    int? countryCode,
+    int? phoneType,
+    int? roleTypeId,
+    String? fcmToken,
   }) {
     emit(RegisterLoading());
-    DioHelper.postData(path: 'http://3.13.247.140/api/register',
-        // token: null,
-        data: {
-          "name": name,
-          "phone": phone,
-          "country_phone_code": countryCode,
-          "password_confirmation": confirmPassword,
-          "password": password,
-          "country_code": code,
-          "account_type_id": roleTypeId,
-        }).then((value) {
-      registerModel = RegisterModel.fromJson(value.data);
-      emit(RegisterSuccess(registerModel!.data!.token!.accessToken));
-
-      //  getPlayerData();
-    }).whenComplete(() {
-      getPlayerData();
-    }).catchError((er) {
-      print(er.toString());
+    try {
+      DioHelper.postData(
+          path: kBaseUrl + '/register',
+          // token: null,
+          data: {
+            "name": name,
+            "phone": phone,
+            "country_id": countryCode,
+            "password_confirmation": confirmPassword,
+            "password": password,
+            "fcm_token": fcmToken,
+            "type_id": roleTypeId,
+            "phone_type": phoneType,
+          }).then((value) {
+        registerModel = RegisterModel.fromJson(value.data);
+        emit(RegisterSuccess());
+      }).catchError((er) {
+        print(er.toString());
+        emit(RegisterError(message: registerModel!.message));
+      });
+    } catch (er) {
       emit(RegisterError());
-    });
+      print(er.toString);
+    }
   }
 
   SearchModel? searchModel;
   void getSearch({String? txt}) {
     emit(GetSearchLoading());
     DioHelper.getData(
-      path: "http://3.13.247.140/api/sports?term=${txt}",
+      path: "http://3.13.247.140/sports?term=${txt}",
     ).then((value) {
       searchModel = SearchModel.fromJson(value.data);
       emit(GetSearchSuccess());
@@ -407,32 +569,32 @@ class PlayerCubit extends Cubit<PlayerState> {
     });
   }
 
-  PositionModel? positionModel;
-  void getPosition() {
-    try {
-      emit(GetPositionsLoading());
-      DioHelper.getData(path: kPositions, token: uid).then((value) {
-        positionModel = PositionModel.fromJson(value.data);
-        emit(GetPositionsSuccess());
-        print(positionModel!.data[1]);
-      }).catchError((er) {
-        emit(GetPositionsError());
+  // PositionModel? positionModel;
+  // void getPosition() {
+  //   try {
+  //     emit(GetPositionsLoading());
+  //     DioHelper.getData(path: kPositions, token: uid).then((value) {
+  //       positionModel = PositionModel.fromJson(value.data);
+  //       emit(GetPositionsSuccess());
+  //       print(positionModel!.data[1]);
+  //     }).catchError((er) {
+  //       emit(GetPositionsError());
 
-        print(er.toString());
-      });
-    } on DioError catch (er) {
-      print(er.toString());
-    }
-  }
+  //       print(er.toString());
+  //     });
+  //   } on DioError catch (er) {
+  //     print(er.toString());
+  //   }
+  // }
 
-  AccountTypeModel? accountTypeModel;
+  AcountTypesModel? accountTypeModel;
 
   void getAcounts() {
     emit(GetAcountTypeLoading());
     DioHelper.getData(
-      path: kCounts,
+      path: kBaseUrl + '/types',
     ).then((value) {
-      accountTypeModel = AccountTypeModel.fromJson(value.data);
+      accountTypeModel = AcountTypesModel.fromJson(value.data);
       emit(GetAcountTypeSuccess());
     }).catchError((er) {
       emit(GetAcountTypeError(er.toString()));
@@ -441,12 +603,70 @@ class PlayerCubit extends Cubit<PlayerState> {
     });
   }
 
+  Widget? appPage;
+  String? acountType;
+  String? type;
+  int? accountType;
+  void changeAccountType(
+    int id,
+    String acount,
+  ) {
+    accountType = id;
+    acountType = acount;
+
+    emit(ChangeType());
+  }
+
+  int? countrCode;
+  String? codeCountry;
+  void changeCountryCode(
+    int count,
+    String code,
+  ) {
+    countrCode = count;
+    codeCountry = code;
+    // countrCodes = val;
+    emit(ChangeCountry());
+  }
+
+  String? countrCodes;
+  int? countrycodeVal;
+  void changeCountryCodes(
+    int id,
+    String count,
+  ) {
+    countrCodes = count;
+    countrycodeVal = id;
+    emit(ChangeCountry());
+  }
+
   void removeImageProfil() {
     imageProfile = null;
     emit(RemoveImageProfile());
   }
 
+  VerifyModel? verifyModel;
+  void verifyPhone({
+    String? phone,
+    String? code,
+  }) {
+    emit(VerifyPhoneLoading());
+    DioHelper.postData(path: kBaseUrl + '/verifyPhone', data: {
+      "phone": phone,
+      'code': code,
+    }).then((value) {
+      verifyModel = VerifyModel.fromJson(value.data);
+      emit(VerifyPhoneSuccess(verifyModel!.data!.token));
+    }).catchError((er) {
+      print(er.toString());
+      emit(VerifyPhoneError());
+    });
+  }
+
+  File? imageProduct;
+  File? imageCertificate;
   File? imageProfile;
+  File? clubLogo;
   var picker = ImagePicker();
   Future upladImage() async {
     emit(UploadImagePlayerLoading());
@@ -457,6 +677,55 @@ class PlayerCubit extends Cubit<PlayerState> {
     } else {
       print('no image');
       emit(UploadImagePlayerError());
+    }
+  }
+
+  Future upladImageProducts() async {
+    emit(UploadImagePlayerLoading());
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      imageProduct = File(image.path);
+      emit(UploadImagePlayerSuccess());
+    } else {
+      print('no image');
+      emit(UploadImagePlayerError());
+    }
+  }
+
+  Future upladImageCertifictae() async {
+    emit(UploadImagePlayerLoading());
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      imageCertificate = File(image.path);
+      emit(UploadImagePlayerSuccess());
+    } else {
+      print('no image');
+      emit(UploadImagePlayerError());
+    }
+  }
+
+  Future upladLogo() async {
+    emit(UploadImagePlayerLoading());
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      clubLogo = File(image.path);
+      emit(UploadLogoSuccess());
+    } else {
+      print('no image');
+      emit(UploadLogoError());
+    }
+  }
+
+  File? imageCoupon;
+  Future upladImageCoupon() async {
+    emit(UploadImagePlayerLoading());
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      imageCoupon = File(image.path);
+      emit(UploadLogoSuccess());
+    } else {
+      print('no image');
+      emit(UploadLogoError());
     }
   }
 
@@ -493,53 +762,102 @@ class PlayerCubit extends Cubit<PlayerState> {
     emit(ChangeIsFreeStyling());
   }
 
-  PlayerData? playerData;
+  AddCouponModel? addCouponModel;
+  void storageImageCoupon({
+    String? name,
+    String? address,
+    int? sportId,
+    int? discount,
+  }) async {
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'discount': discount,
+      'sport_id': sportId,
+      "image": await MultipartFile.fromFile(imageCoupon!.path,
+          filename: imageCoupon!.path, contentType: MediaType('image', 'jpg')),
+    });
+
+    emit(AddCouponLoading());
+    try {
+      DioHelper.postData(
+        path: kBaseUrl + '/coupons',
+        data: formData,
+        token: uid,
+      ).then((value) {
+        addCouponModel = AddCouponModel.fromJson(value.data);
+        getCoupons();
+      }).catchError((er) {
+        print(er.toString());
+        emit(AddCouponError());
+      });
+    } on DioError catch (er) {
+      emit(AddCouponError());
+    }
+  }
+
+  EditCouponModel? editCouponModel;
+  void EditCoupon({
+    int? id,
+    String? name,
+    String? address,
+    int? sportId,
+    int? discount,
+  }) async {
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'discount': discount,
+      'sport_id': sportId,
+      "image": await MultipartFile.fromFile(imageCoupon!.path,
+          filename: imageCoupon!.path, contentType: MediaType('image', 'jpg')),
+    });
+
+    emit(AddCouponLoading());
+    try {
+      DioHelper.patchData(
+        path: kBaseUrl + '/coupons',
+        data: formData,
+        token: uid,
+      ).then((value) {
+        addCouponModel = AddCouponModel.fromJson(value.data);
+        getCoupons();
+      }).catchError((er) {
+        print(er.toString());
+        emit(AddCouponError());
+      });
+    } on DioError catch (er) {
+    } on DioError catch (er) {
+      emit(AddCouponError());
+    }
+  }
+
+  ProfileModel? playerData;
   void storageImageInApi({
     dynamic sportId,
     dynamic positionId,
-    dynamic dateOfBirth,
-    dynamic clubId,
-    dynamic height,
-    dynamic weight,
-    dynamic liftingLegWieghts,
-    String? state,
-    dynamic runningTime,
-    dynamic verticalJumpingDistance,
-    dynamic longJumpingDistance,
-    dynamic liftingArmsWeights,
-    dynamic nationality,
-    String? livingCountry,
-    String? gender,
-    String? limbsDirection,
+    dynamic clubName,
+    dynamic country,
+    dynamic city,
   }) async {
     FormData formData = FormData.fromMap({
-      "living_country": livingCountry,
-      "sport_id": sportId,
-      "gender": gender,
-      "limbs_direction": limbsDirection,
-      "running_time": runningTime,
-      "vertical_jumping_distance": verticalJumpingDistance,
-      "long_jumping_distance": longJumpingDistance,
-      "lifting_arms_weights": liftingArmsWeights,
-      "nationality": nationality,
-      "position_id": positionId,
-      "date_of_birth": dateOfBirth,
-      "club_id": clubId,
-      "height": height,
-      "weight": weight,
-      "lifting_leg_weights": liftingLegWieghts,
-      "state": state,
-      "profile_picture": await MultipartFile.fromFile(imageProfile!.path,
+      "city_id": city,
+      "countr_id": country,
+      "club_name": clubName,
+      "sport_id": sportsId,
+      'position_id': positionId,
+      
+      "club_logo": await MultipartFile.fromFile(clubLogo!.path,
+          filename: clubLogo!.path, contentType: MediaType('image', 'jpg')),
+      "image": await MultipartFile.fromFile(imageProfile!.path,
           filename: imageProfile!.path, contentType: MediaType('image', 'jpg')),
     });
     emit(StorageImagePlayerLoading());
     try {
       DioHelper.postData(
-        path: kPostPlayerData,
+        path: kBaseUrl + '/updateProfileData',
         data: formData,
         token: uid,
       ).then((value) {
-        playerData = PlayerData.fromJson(value.data);
+        playerData = ProfileModel.fromJson(value.data);
         getPlayerData();
       }).catchError((er) {
         print(er.toString());
@@ -550,72 +868,316 @@ class PlayerCubit extends Cubit<PlayerState> {
     }
   }
 
-  PlayerData? editData;
-  void editProfileData({
-    dynamic sportId,
-    dynamic positionId,
-    dynamic dateOfBirth,
-    dynamic clubId,
-    dynamic height,
-    dynamic weight,
-    dynamic liftingLegWieghts,
-    String? state,
-    dynamic runningTime,
-    dynamic verticalJumpingDistance,
-    dynamic longJumpingDistance,
-    dynamic liftingArmsWeights,
-    dynamic nationality,
-    String? livingCountry,
-    String? gender,
-    String? limbsDirection,
+  PerformancDataModel? performancData;
+  void uploadPerformanceData({
+    dynamic Left,
+    dynamic runTime,
+    dynamic longJumpdistance,
+    dynamic liftingweighthand,
+    dynamic verticalJumpdistance,
+    dynamic liftingweightleg,
   }) async {
     FormData formData = FormData.fromMap({
-      "living_country": livingCountry,
-      "sport_id": sportId,
-      "gender": gender,
-      "limbs_direction": limbsDirection,
-      "running_time": runningTime,
-      "vertical_jumping_distance": verticalJumpingDistance,
-      "long_jumping_distance": longJumpingDistance,
-      "lifting_arms_weights": liftingArmsWeights,
-      "nationality": nationality,
-      "position_id": positionId,
-      "date_of_birth": dateOfBirth,
-      "club_id": clubId,
-      "height": height,
-      "weight": weight,
-      "lifting_leg_weights": liftingLegWieghts,
-      "state": state,
+      "right_left": city,
+      "runTime": runTime,
+      "verticalJump_distance": verticalJumpdistance,
+      "longJump_distance": longJumpdistance,
+      "lifting_weight_hand": liftingweighthand,
+      "lifting_weight_leg": liftingweightleg,
     });
-    emit(EditDataLoading());
+    emit(PerformanceDataLoading());
     try {
       DioHelper.postData(
-        path: kPostPlayerData,
+        path: kBaseUrl + '/updatePerformanceData',
         data: formData,
         token: uid,
       ).then((value) {
-        editData = PlayerData.fromJson(value.data);
-        emit(EditDataSuccess());
+        playerData = ProfileModel.fromJson(value.data);
+        getPlayerData();
       }).catchError((er) {
         print(er.toString());
-        emit(EditDataError());
+        emit(PerformanceDataError());
       });
     } on DioError catch (er) {
       emit(StorageImagePlayerError());
-
-      print(er.toString());
     }
   }
 
-  GetPlayerProfileData? getPlayerProfileData;
+  GenralDataModel? genralDataModel;
+  void uploadGenralData({
+    dynamic countryId,
+    dynamic nationality,
+    dynamic cityId,
+    dynamic gender,
+    dynamic birthDate,
+    dynamic weight,
+    dynamic hieght,
+    dynamic founded,
+    dynamic founder,
+    dynamic website,
+    dynamic manager,
+    dynamic stadium,
+    dynamic companyLocation,
+    dynamic companyType,
+  }) async {
+    FormData formData = FormData.fromMap({
+      "nationality_id": nationality,
+      "country_id": countryId,
+      "city_id": cityId,
+      "gender": gender,
+      "birth_date": birthDate,
+      "weight": weight,
+      "manager": manager,
+      "stadium": stadium,
+      "founder": founder,
+      "founded": founded,
+      "company_location": companyLocation,
+      "website": website,
+      "company_type": companyType,
+      "height": hieght,
+    });
+    emit(GenralDataLoading());
+    try {
+      DioHelper.postData(
+        path: kBaseUrl + '/updateGeneralData',
+        data: formData,
+        token: uid,
+      ).then((value) {
+        genralDataModel = GenralDataModel.fromJson(value.data);
+        getPlayerData();
+      }).catchError((er) {
+        print(er.toString());
+        emit(StorageImagePlayerError());
+      });
+    } on DioError catch (er) {
+      emit(StorageImagePlayerError());
+    }
+  }
+
+  AddCertificateModel? addCertificateModel;
+  void uploadCertificate({
+    dynamic name1,
+    dynamic date1,
+    dynamic id1,
+  }) async {
+    FormData formData = FormData.fromMap({
+      "certificates[0][name]": name1,
+      "certificates[0][date]": date1,
+      "certificates[0][id]": id1,
+      "image": await MultipartFile.fromFile(imageCertificate!.path,
+          filename: imageCertificate!.path,
+          contentType: MediaType('image', 'jpg')),
+    });
+    emit(UploadCertificateLoading());
+    try {
+      DioHelper.postData(
+        path: kBaseUrl + '/updateCertificates',
+        data: formData,
+        token: uid,
+      ).then((value) {
+        addCertificateModel = AddCertificateModel.fromJson(value.data);
+        getPlayerData();
+      }).catchError((er) {
+        print(er.toString());
+        emit(UploadCertificateSuccess());
+      });
+    } on DioError catch (er) {
+      emit(UploadCertificateError());
+    }
+  }
+
+  TitesModel? titlesModel;
+  void uploadTiltes({
+    dynamic sportId1,
+    dynamic legueType1,
+    dynamic number1,
+  }) async {
+    FormData formData = FormData.fromMap({
+      "titles[0][sport_id]": sportId1,
+      "titles[0][league_type]": legueType1,
+      "titles[0][number]": number1,
+    });
+    emit(UploadTitlesLoading());
+    try {
+      DioHelper.postData(
+        path: kBaseUrl + '/updateTitles',
+        data: formData,
+        token: uid,
+      ).then((value) {
+        titlesModel = TitesModel.fromJson(value.data);
+        getPlayerData();
+      }).catchError((er) {
+        print(er.toString());
+        emit(UploadTitlesError());
+      });
+    } on DioError catch (er) {
+      emit(StorageImagePlayerError());
+    }
+  }
+
+  ExperienceModel? experiencesModel;
+  void uploadExprience({
+    dynamic sportId,
+    dynamic positionId,
+    dynamic leagueType,
+    dynamic clubName,
+    dynamic startDate,
+    dynamic endDate,
+    dynamic type,
+    dynamic teamOne,
+    dynamic teamTwo,
+    dynamic teamOneScore,
+    dynamic teamTwoScore,
+  }) async {
+    FormData formData = FormData.fromMap({
+      "experiences[0][sport_id]": sportId,
+      "experiences[0][position_id]": positionId,
+      "experiences[0][league_type]": leagueType,
+      "experiences[0][club_name]": clubName,
+      "experiences[0][start_date]": startDate,
+      "experiences[0][type]": type,
+      "experiences[0][end_date]": endDate,
+      "experiences[0][team_one]": teamOne,
+      "experiences[0][team_two]": teamTwo,
+      "experiences[0][team_one_score]": teamOneScore,
+      "experiences[0][team_two_score]": teamTwoScore,
+    });
+    emit(ExpericeDataLoading());
+    try {
+      DioHelper.postData(
+        path: kBaseUrl + '/updateExperiences',
+        data: formData,
+        token: uid,
+      ).then((value) {
+        experiencesModel = ExperienceModel.fromJson(value.data);
+        getPlayerData();
+      }).catchError((er) {
+        print(er.toString());
+        emit(ExpericeDataSuccess());
+      });
+    } on DioError catch (er) {
+      emit(ExpericeDataError());
+    }
+  }
+
+  int? socialId;
+  String? socialval;
+  void getSocial(id, String value) {
+    socialId = id;
+    socialval = value;
+    emit(GetSocialId());
+  }
+
+  List<Social> social = [
+    Social(id: 1, text: 'faceBook'),
+    Social(id: 2, text: 'twitter'),
+    Social(id: 3, text: 'instagram'),
+    Social(id: 4, text: 'tiktok'),
+    Social(id: 5, text: 'youtube'),
+    Social(id: 6, text: 'gmail'),
+    Social(id: 6, text: 'telegram'),
+  ];
+
+  ContactModel? contactModel;
+  void uploadContact({
+    dynamic type,
+    dynamic code,
+    dynamic social,
+    dynamic privacy,
+    String? text,
+    dynamic id,
+  }) async {
+    FormData formData = FormData.fromMap({
+      'contacts[0][type]': type,
+      'contacts[0][social_media_type]': social,
+      'contacts[0][country_code]': code,
+      'contacts[0][privacy]': privacy,
+      'contacts[0][text]': text,
+      'contacts[0][id]': id,
+    });
+    emit(ContactsLoading());
+    try {
+      DioHelper.postData(
+        path: kBaseUrl + '/updateContacts',
+        data: formData,
+        token: uid,
+      ).then((value) {
+        contactModel = ContactModel.fromJson(value.data);
+        getPlayerData();
+      }).catchError((er) {
+        print(er.toString());
+        emit(ContactsError());
+      });
+    } on DioError catch (er) {
+      emit(ExpericeDataError());
+    }
+  }
+
+  // PlayerData? editData;
+  // void editProfileData({
+  //   dynamic sportId,
+  //   dynamic positionId,
+  //   dynamic dateOfBirth,
+  //   dynamic clubId,
+  //   dynamic height,
+  //   dynamic weight,
+  //   dynamic liftingLegWieghts,
+  //   String? state,
+  //   dynamic runningTime,
+  //   dynamic verticalJumpingDistance,
+  //   dynamic longJumpingDistance,
+  //   dynamic liftingArmsWeights,
+  //   dynamic nationality,
+  //   String? livingCountry,
+  //   String? gender,
+  //   String? limbsDirection,
+  // }) async {
+  //   FormData formData = FormData.fromMap({
+  //     "living_country": livingCountry,
+  //     "sport_id": sportId,
+  //     "gender": gender,
+  //     "limbs_direction": limbsDirection,
+  //     "running_time": runningTime,
+  //     "vertical_jumping_distance": verticalJumpingDistance,
+  //     "long_jumping_distance": longJumpingDistance,
+  //     "lifting_arms_weights": liftingArmsWeights,
+  //     "nationality": nationality,
+  //     "position_id": positionId,
+  //     "date_of_birth": dateOfBirth,
+  //     "club_id": clubId,
+  //     "height": height,
+  //     "weight": weight,
+  //     "lifting_leg_weights": liftingLegWieghts,
+  //     "state": state,
+  //   });
+  //   emit(EditDataLoading());
+  //   try {
+  //     DioHelper.postData(
+  //       path: kPostPlayerData,
+  //       data: formData,
+  //       token: uid,
+  //     ).then((value) {
+  //       editData = PlayerData.fromJson(value.data);
+  //       emit(EditDataSuccess());
+  //     }).catchError((er) {
+  //       print(er.toString());
+  //       emit(EditDataError());
+  //     });
+  //   } on DioError catch (er) {
+  //     emit(StorageImagePlayerError());
+
+  //     print(er.toString());
+  //   }
+  // }
+
+  GetUserDataModel? getProfileData;
   void getPlayerData() {
     try {
       emit(GetSportsDataLoading());
 
-      DioHelper.getData(
-              path: 'http://3.13.247.140/api/player/profile', token: uid)
-          .then((value) {
-        getPlayerProfileData = GetPlayerProfileData.fromJson(value.data);
+      DioHelper.getData(path: kBaseUrl + '/me', token: uid).then((value) {
+        getProfileData = GetUserDataModel.fromJson(value.data);
+        print(getProfileData!.data!.user!.phone);
         emit(GetSportsDataSuccess());
       }).catchError((er) {
         emit(GetSportsDataError());
@@ -631,56 +1193,16 @@ class PlayerCubit extends Cubit<PlayerState> {
     }
   }
 
-  AddExprienceModel? addExprienceModel;
-  void addExprience({
-    String? clubName,
-    String? startingDate,
-    String? endingDate,
-    String? leagueType,
-  }) {
-    emit(AddExprienceLoading());
+  var clubNameController = TextEditingController();
+  var leagueController = TextEditingController();
+  var positionController = TextEditingController();
+  var certificateController = TextEditingController();
+  var titlesController = TextEditingController();
 
-    DioHelper.postData(path: kAddExprience, token: uid, data: {
-      "club_name": clubName,
-      "starting_date": startingDate,
-      "ending_date": endingDate,
-      "league_type": leagueType,
-    }).then((value) {
-      addExprienceModel = AddExprienceModel.fromJson(value.data);
-            getPlayerData();
+  DateTime? startingDate;
+  DateTime? endingDate;
 
-    }).catchError((er) {
-      emit(AddExprienceError());
-
-      print(er.toString());
-    });
-  }
-
-  AddContactModel? addContactModel;
-  void contactInfo({
-    String? contentType,
-    String? contentvalue,
-    String? privacy,
-  }) {
-    emit(AddContactLoading());
-
-    DioHelper.postData(
-      path: kAddContact,
-      token: uid,
-      data: {
-        "contact_type": contentType,
-        "contact_value": contentvalue,
-        "privacy": privacy,
-      },
-    ).then((value) {
-      addContactModel = AddContactModel.fromJson(value.data);
-      getPlayerData();
-    }).catchError((er) {
-      emit(AddContactError());
-
-      print(er.toString());
-    });
-  }
+  // AddExprienceModel? addExprienceModel;
 
   File? skillsVideo;
 
@@ -764,12 +1286,10 @@ class PlayerCubit extends Cubit<PlayerState> {
     emit(DeleteSkillsLoading());
     try {
       DioHelper.deleteData(
-              token: uid,
-              path: 'http://3.13.247.140/api/player/delete-skill/$id')
+              token: uid, path: 'http://3.13.247.140/player/delete-skill/$id')
           .then((value) {
         deleteSkills = DeleteSkills.fromJson(value.data);
-              getPlayerData();
-
+        getPlayerData();
       }).catchError((er) {
         emit(DeleteSkillsError());
         getPlayerData();
@@ -796,7 +1316,7 @@ class PlayerCubit extends Cubit<PlayerState> {
               'title': title,
               'is_freestyle': freeStyling,
             },
-            path: 'http://3.13.247.140/api/player/edit-skill/$id')
+            path: 'http://3.13.247.140/player/edit-skill/$id')
         .then((value) {
       editSkills = EditSkills.fromJson(value.data);
       emit(EditSkillsSuccess());
@@ -838,6 +1358,97 @@ class PlayerCubit extends Cubit<PlayerState> {
     });
   }
 
+  bool changed = false;
+  bool changed1 = false;
+  bool changed2 = false;
+  void isChanged(change) {
+    changed = change;
+    emit(Changed());
+  }
+
+  void isChanged1(change) {
+    changed1 = change;
+    emit(Changed());
+  }
+
+  void isChanged2(change) {
+    changed2 = change;
+    emit(Changed());
+  }
+
+  bool changedS = false;
+  bool changedS1 = false;
+  bool changedS2 = false;
+  void isChangedS(change) {
+    changedS = change;
+    emit(Changed());
+  }
+
+  void isChangedS1(change) {
+    changedS1 = change;
+    emit(Changed());
+  }
+
+  void isChangedS2(change) {
+    changedS2 = change;
+    emit(Changed());
+  }
+
+  int sideIndex = 0;
+  var sidebarcontroller = SidebarXController(selectedIndex: 0, extended: false);
+
+  bool select1 = false;
+  bool select2 = false;
+  bool select3 = false;
+  bool select4 = false;
+
+  void changeSelectedIndex1() {
+    select1 = true;
+    select2 = false;
+    select3 = false;
+    select4 = false;
+
+    emit(ChangeSelectedIndex());
+  }
+
+  void changeSelectedIndex2() {
+    select1 = false;
+    select2 = true;
+    select3 = false;
+    select4 = false;
+
+    emit(ChangeSelectedIndex());
+  }
+
+  void changeSelectedIndex3() {
+    select1 = false;
+    select2 = false;
+    select3 = true;
+    select4 = false;
+
+    emit(ChangeSelectedIndex());
+  }
+
+  void changeSelectedIndex4() {
+    select1 = false;
+    select2 = false;
+    select3 = false;
+    select4 = true;
+
+    emit(ChangeSelectedIndex());
+  }
+
+  bool isCancel = false;
+  void changeIsCancel() {
+    isCancel = !isCancel;
+    emit(ChangeSelectedIndex());
+  }
+
+  bool isStartingRecord = false;
+  void ChangeRecord() {
+    isStartingRecord = !isStartingRecord;
+    emit(ChangeSelectedIndex());
+  }
   ////// video_trimmer: ^1.1.3////////
 // How to make like that system ?
 

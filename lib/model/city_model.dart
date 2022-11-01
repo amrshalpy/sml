@@ -1,9 +1,9 @@
 class CityModel {
   List<Data>? data;
+  int? status;
   String? message;
-  List<Null>? errors;
 
-  CityModel({this.data, this.message, this.errors});
+  CityModel({this.data, this.status, this.message});
 
   CityModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -12,13 +12,8 @@ class CityModel {
         data!.add(new Data.fromJson(v));
       });
     }
+    status = json['status'];
     message = json['message'];
-    if (json['errors'] != null) {
-      errors = <Null>[];
-      json['errors'].forEach((v) {
-        errors!.add(v);
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -26,35 +21,27 @@ class CityModel {
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
+    data['status'] = this.status;
     data['message'] = this.message;
-    if (this.errors != null) {
-      data['errors'] = this.errors!.map((v) => v).toList();
-    }
     return data;
   }
 }
 
 class Data {
   int? id;
-  int? countryId;
   String? name;
-  String? countryCode;
 
-  Data({this.id, this.countryId, this.name, this.countryCode});
+  Data({this.id, this.name});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    countryId = json['country_id'];
     name = json['name'];
-    countryCode = json['country_code'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['country_id'] = this.countryId;
     data['name'] = this.name;
-    data['country_code'] = this.countryCode;
     return data;
   }
 }

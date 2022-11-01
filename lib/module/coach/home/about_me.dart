@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/module/coach/coach-cubit/coach_cubit.dart';
-import 'package:sportive/module/coach/coach-cubit/coach_state.dart';
+
 import 'package:sportive/module/coach/courses/courses.dart';
 import 'package:sportive/module/coach/details/coach_details.dart';
 import 'package:sportive/module/coach/free_styling/free_styling.dart';
@@ -13,7 +12,10 @@ import 'package:sportive/module/coach/pdf%20_page/pdf_screen.dart';
 import 'package:sportive/module/coach/qr_code/qr_code.dart';
 import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/following/following.dart';
+import 'package:sportive/module/player/home/widget/logo.dart';
 import 'package:sportive/module/player/pt/pt_screen.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
+import 'package:sportive/player-cubit/player_state.dart';
 
 class CoachHome extends StatefulWidget {
   CoachHome({Key? key}) : super(key: key);
@@ -43,10 +45,10 @@ class _CoachHomeState extends State<CoachHome> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CoachCubit, CoachState>(
+    return BlocConsumer<PlayerCubit, PlayerState>(
         listener: (context, state) {},
         builder: (context, state) {
-          CoachCubit cubit = CoachCubit.get(context);
+          PlayerCubit cubit = PlayerCubit.get(context);
           return Scaffold(
             key: scaffoldKey,
             resizeToAvoidBottomInset: false,

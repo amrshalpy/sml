@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/module/coach/coach-cubit/coach_cubit.dart';
 import 'package:sportive/module/coach/explore/widget/get_category.dart';
 import 'package:sportive/module/coach/explore/widget/get_sports.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 
 void getPoistion(context) {
   showModalBottomSheet(
@@ -16,7 +16,7 @@ void getPoistion(context) {
       builder: (context) => Padding(
             padding:
                  EdgeInsets.only(top: 20.h, right: 10.w, bottom: 40.h, left: 10.w),
-            child: CoachCubit.get(context).sportModel !=null
+            child: PlayerCubit.get(context).sportModel !=null
                 ? Column(mainAxisSize: MainAxisSize.min, children: [
                     Row(
                       children: [
@@ -47,13 +47,13 @@ void getPoistion(context) {
                         children: [
                           Column(
                             children: [
-                            getSports(context),
+                            // getSports(context),
                             ],
                           ),
                           SizedBox(
                             width: 15.w,
                           ),
-                        Expanded(child: category()),
+                        // Expanded(child: category()),
                         ],
                       ),
                     )

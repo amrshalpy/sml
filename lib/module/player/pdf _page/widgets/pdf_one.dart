@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-  final pdf = pw.Document;
+
+final pdf = pw.Document;
 
 Widget pdfOne({
   String? img,
@@ -30,37 +31,50 @@ Widget pdfOne({
                         'images/002.png',
                       ),
                     ),
-                    RotationTransition(
-                      turns: AlwaysStoppedAnimation(20 / 180),
-                      child: Align(
-                        alignment: AlignmentDirectional.topCenter,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            right: 20.h,
-                            left: 90.h,
+                    // RotationTransition(
+                    //   turns: AlwaysStoppedAnimation(20 / 180),
+                    //   child: Align(
+                    //     alignment: AlignmentDirectional.topCenter,
+                    //     child: Padding(
+                    //       padding: EdgeInsets.only(
+                    //         right: 20.h,
+                    //         left: 90.h,
+                    //       ),
+                    //       child:
+                    Padding(
+                      padding: EdgeInsets.only(left: 120.w, top: 5.h),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Image.asset(
+                            'images/Rectangle 474.png',
                           ),
-                          child: Container(
-                            // margin: EdgeInsets.only(left: 60),
-                            height: 90.h,
-                            width: 100.w,
-                            // child: RotatedBox(
-                            //   quarterTurns: 7,
-                            //   child: Image.asset(
-                            //     'images/mohamed-salah-sportstiger.jpeg',
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            // ),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(img!), fit: BoxFit.cover),
-                              border: Border.all(color: Colors.white, width: 3),
-                              borderRadius: BorderRadius.circular(20),
+                          Transform.rotate(
+                            angle: -30,
+                            child: Container(
+                              // margin: EdgeInsets.only(left: 60),
+                              height: 80.h,
+                              width: 70.w,
+                              // child: RotatedBox(
+                              //   quarterTurns: 7,
+                              //   child: Image.asset(
+                              //     'images/mohamed-salah-sportstiger.jpeg',
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              // ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(img!),
+                                    fit: BoxFit.contain),
+                                // border: Border.all(color: Colors.white, width: 3),
+                                // borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                
+
                     widgetRight!,
                   ],
                 ),
@@ -113,7 +127,6 @@ Widget pdfOne({
                 )
               ],
             ),
-          
           ),
         ],
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sportive/module/club/club_cubit/club_cubit.dart';
 import 'package:sportive/module/club/club_pt/widgets/get_club_pt.dart';
 import 'package:sportive/module/club/club_pt/widgets/get_sports_list.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 
 class OldPerformance extends StatelessWidget {
   OldPerformance({Key? key}) : super(key: key);
@@ -17,11 +17,11 @@ class OldPerformance extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) =>
-                  getSportsList(ClubCubit.get(context).sportsList[index]),
+                  getSportsList(PlayerCubit.get(context).sportsList[index]),
               separatorBuilder: (context, index) => SizedBox(
                     width: 12.w,
                   ),
-              itemCount: ClubCubit.get(context).sportsList.length),
+              itemCount: PlayerCubit.get(context).sportsList.length),
         ),
        
         SizedBox(

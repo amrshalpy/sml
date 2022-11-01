@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/app.dart';
 import 'package:sportive/componant/const/const.dart';
-import 'package:sportive/module/club/club_cubit/club_cubit.dart';
 import 'package:sportive/module/club/home/home.dart';
-import 'package:sportive/module/coach/coach-cubit/coach_cubit.dart';
 import 'package:sportive/module/coach/home/about_me.dart';
-import 'package:sportive/module/doctors/doctor_cubit/doctor_cubit.dart';
+import 'package:sportive/module/company/company_cubit/company_cubit.dart';
+import 'package:sportive/module/company/home/about_me.dart';
 import 'package:sportive/module/doctors/home/about_me.dart';
 import 'package:sportive/module/player/home/about_me.dart';
 import 'package:sportive/module/player/player_login/player_login.dart';
@@ -19,6 +19,8 @@ import 'package:sportive/module/player/splash_screen/splash_screen.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/share/cache_helper.dart';
 import 'package:sportive/share/dio_helper.dart';
+
+late List<CameraDescription> cameras;
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -31,23 +33,26 @@ class MyHttpOverrides extends HttpOverrides {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   await DioHelper.init();
   HttpOverrides.global = MyHttpOverrides();
 
   await CacheHelper.init();
-  // isQrCode = CacheHelper.getShared(key: 'qr') != false
-  //     ? CacheHelper.getShared(key: 'qr')
-  //     : false;
+
   uid = CacheHelper.getShared(key: kUid) != null
       ? CacheHelper.getShared(key: kUid)
+      : null;
+  page1 = CacheHelper.getShared(key: kType1) != null
+      ? CacheHelper.getShared(key: kType1)
       : null;
 
   print('uid : $uid');
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) =>
+    MyApp(), // Wrap your app
+    // ),
   );
 }
 
@@ -62,39 +67,30 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<PlayerCubit>(
             create: (context) => PlayerCubit()
-              // ..getSportsData()
-              //  ..getPosition()
-              // ..getPlayerData()
-              // ..getCountry()
-              // ..getSearch()
-              // ..getCity()
-              // ..fetchData()
-              // ..getSports()
-              // ..getSubSports()
-              ),
-        BlocProvider(create: (context) => ClubCubit()),
-        BlocProvider(
-            create: (context) => CoachCubit()
-              // ..getSports()
-              // ..getSubSports()
-              ),
-        BlocProvider(
-            create: (context) => DoctorCubit()
-              // ..getSports()
-              //  ..getPosition()
-              // ..getSubSports()
-              // ..getSportsData()
-              // ..fetchData()
-              ),
+              ..getDeviceId()
+              ..getCountry()
+              ..getAcounts()
+              ..getProducts()
+            // ..getPlayerData()
+            // ..getSportsData()
+            //  ..getPosition()
+            // ..getPlayerData()
+            // ..getCountry()
+            // ..getSearch()
+            // ..getCity()
+            // ..fetchData()
+            // ..getSports()
+            // ..getSubSports()
+            ),
       ],
       child: ScreenUtilInit(
         builder: (context, child) => MaterialApp(
           useInheritedMediaQuery: true,
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
+          // locale: DevicePreview.locale(context),
+          // builder: DevicePreview.appBuilder,
           debugShowCheckedModeBanner: false,
           title: 'Sportive',
-          home: PlayerLogin(),
+          home:uid==null?  PlayerLogin():Home(),
         ),
         designSize: Size(360, 640),
       ),
@@ -269,3 +265,4 @@ class MyApp extends StatelessWidget {
 //   }
 // }
 
+T? _ambiguate<T>(T? value) => value;
