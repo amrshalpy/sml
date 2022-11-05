@@ -29,17 +29,18 @@ Widget mainSports(context) {
                             topRight: Radius.circular(10),
                           )),
 
-                      child: getMainSport(
-                         PlayerCubit.get(context)
-                              .sportModel!
-                              .data[index],context,index
-                          ),
+                      // child:
+                      //  getMainSport(
+                      //    PlayerCubit.get(context)
+                      //         .sportModel!
+                      //         .data[index],context,index
+                          // ),
                     ),
                     separatorBuilder: (context, index) => SizedBox(
                           height: 15.h,
                         ),
                     itemCount:
-                        PlayerCubit.get(context).sportModel!.data.length)
+                       10)
                 : CircularProgressIndicator(),
           ),
         ):Center(child: CircularProgressIndicator());

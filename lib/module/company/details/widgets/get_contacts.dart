@@ -61,7 +61,7 @@ class GetContacts extends StatelessWidget {
                                             '${PlayerCubit.get(context).countrCodes}',
                                         color: Colors.black,
                                         fontSize: 10.sp,
-                                        fontWeight: FontWeight.bold)
+                                        fontWeight: FontWeight.normal)
                                     : FaIcon(FontAwesomeIcons.phone)),
                           ),
                           Expanded(
@@ -91,8 +91,8 @@ class GetContacts extends StatelessWidget {
                         width: 120.w,
                         child: mainButton(
                             txt: 'request',
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.normal,
                             ontap: () {
                               PlayerCubit.get(context).uploadContact(
                                   privacy: 1,
@@ -189,8 +189,8 @@ class GetContacts extends StatelessWidget {
                         child: mainButton(
                             colorButton: Colors.red,
                             txt: 'request',
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.normal,
                             ontap: () {
                               PlayerCubit.get(context).uploadContact(
                                   privacy: 1,
@@ -285,8 +285,8 @@ class GetContacts extends StatelessWidget {
                           child: mainButton(
                               txt: 'request',
                               colorButton: Colors.blue,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.normal,
                               ontap: () {
                                 PlayerCubit.get(context).uploadContact(
                                     privacy: 1,

@@ -12,6 +12,7 @@ import 'package:sportive/module/coach/pdf%20_page/pdf_screen.dart';
 import 'package:sportive/module/coach/qr_code/qr_code.dart';
 import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/following/following.dart';
+import 'package:sportive/module/player/home/widget/get_tabs.dart';
 import 'package:sportive/module/player/home/widget/logo.dart';
 import 'package:sportive/module/player/pt/pt_screen.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
@@ -45,111 +46,282 @@ class _CoachHomeState extends State<CoachHome> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PlayerCubit, PlayerState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          PlayerCubit cubit = PlayerCubit.get(context);
-          return Scaffold(
-            key: scaffoldKey,
-            resizeToAvoidBottomInset: false,
-            body: Stack(
-              children: [
-                crdientColor(),
-                Column(
-                  children: [
-                    LogoPage(
-                      context: context,
-                    ),
-                    Divider(
-                      height: .1,
-                      color: Colors.white,
-                      thickness: 1,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                      child: Container(
-                          height: 66.h,
-                          width: double.infinity.w,
-                          child: ReorderableListView.builder(
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(),
-                            itemCount: list.length,
-                            scrollDirection: Axis.horizontal,
-                            buildDefaultDragHandles: list.length > 1,
-                            itemBuilder: (context, index) => Container(
-                                key: ValueKey(index),
-                                child: InkWell(
-                                    onTap: () {
-                                      if (list[index].img ==
-                                          'images/icons8-more-info-30.png') {
-                                        setState(() {
-                                          page = CoachDetails();
-                                        });
-                                      } else if (list[index].img ==
-                                          "images/icons8-pdf-30.png") {
-                                        setState(() {
-                                          page = PdfScreen();
-                                        });
-                                      } else if (list[index].img ==
-                                          "images/sportıve ıcon (1).png") {
-                                        setState(() {
-                                          page = Courses();
-                                        });
-                                      } else if (list[index].img ==
-                                          "images/QR (1).png") {
-                                        setState(() {
-                                          page = QrCode();
-                                        });
-                                      } else if (list[index].img ==
-                                          "images/freestyling3.png") {
-                                        setState(() {
-                                          page = FreeStyling();
-                                        });
-                                      } else if (list[index].img ==
-                                          "images/icons8-user-groups-64.png") {
-                                        setState(() {
-                                          page = Following();
-                                        });
-                                      } else if (list[index].img ==
-                                          "images/pt.png") {
-                                        setState(() {
-                                          page = PtScreen();
-                                        });
-                                      } else if (list[index].img ==
-                                          "images/icons8-share-48 (2).png") {
-                                        setState(() {
-                                          page = PtScreen();
-                                        });
-                                      }
-                                    },
-                                    child:
-                                        Container(child: getist(list[index])))),
-                            onReorder: (newIndex, oldIndex) {
-                              setState(() {
-                                if (newIndex > oldIndex) {
-                                  newIndex -= 1;
-                                }
-                                final item = list.removeAt(oldIndex);
-                                list.insert(newIndex, item);
-                              });
-                            },
-                          )),
-                    ),
-                    const Divider(
-                      height: .1,
-                      color: Colors.white,
-                      thickness: 1,
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Expanded(child: page),
-                  ],
-                ),
-              ],
-            ),
-          );
-        });
+    return BlocProvider(
+      create: (context) => PlayerCubit()
+      ..getCountry()
+              ..getPlayerData()
+              ..getCity()
+              ..getCategory()
+              ..getAcounts()
+              ..getDeviceId()
+              ..getProducts()
+              ..getCoupons(),
+      child: BlocConsumer<PlayerCubit, PlayerState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            PlayerCubit cubit = PlayerCubit.get(context);
+            return Scaffold(
+              key: scaffoldKey,
+              resizeToAvoidBottomInset: false,
+              body:cubit.getProfileData!=null &&cubit.getProfileData!.data!.user!.taps !=[]? Stack(
+                children: [
+                  crdientColor(),
+                  Column(
+                    children: [
+                      LogoPage(
+                        context: context,
+                      ),
+                      Divider(
+                        height: .1,
+                        color: Colors.white,
+                        thickness: 1,
+                      ),
+                       Padding(
+                            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                            child: Container(
+                              height: 66.h,
+                              width: double.infinity.w,
+                              child: cubit.getProfileData!.data!.user!.taps !=[]? 
+                              ListView.separated(
+                                shrinkWrap: true,
+                                physics: BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder:
+                                
+                                 (context,index)=>InkWell(
+                                      onTap: (){
+                                        if (cubit
+                                                          .getProfileData!
+                                                          .data!
+                                                          .user!
+                                                          .taps![index]
+                                                          .name ==
+                                                      'about me') {
+                                                    nextPage(
+                                                        context: context,
+                                                        page: CoachDetails());
+                                                  }else if (cubit
+                                                          .getProfileData!
+                                                          .data!
+                                                          .user!
+                                                          .taps![index]
+                                                          .name ==
+                                                      'skills videos') {
+                                                    nextPage(
+                                                        context: context,
+                                                        page: Courses());
+                                                  }else if (cubit
+                                                          .getProfileData!
+                                                          .data!
+                                                          .user!
+                                                          .taps![index]
+                                                          .name ==
+                                                      'PDF') {
+                                                    nextPage(
+                                                        context: context,
+                                                        page: PdfScreen());
+                                                  }else if (cubit
+                                                          .getProfileData!
+                                                          .data!
+                                                          .user!
+                                                          .taps![index]
+                                                          .name ==
+                                                      'QR code') {
+                                                    nextPage(
+                                                        context: context,
+                                                        page: QrCode());
+                                                  }else if (cubit
+                                                          .getProfileData!
+                                                          .data!
+                                                          .user!
+                                                          .taps![index]
+                                                          .name ==
+                                                      'freestyle') {
+                                                    nextPage(
+                                                        context: context,
+                                                        page: FreeStyling());
+                                                 
+                                                  }
+                                     },
+                                  
+                                   child: getTabs(cubit.getProfileData!.data!.user!.taps![index])),
+                                separatorBuilder: (context, index) => SizedBox(width: 10.w,),
+                                itemCount: cubit.getProfileData!.data!.user!.taps!.length,
+                              ):Center(child: CircularProgressIndicator())
+
+
+                              // ReorderableListView.builder(
+                              //   shrinkWrap: true,
+                              //   physics: BouncingScrollPhysics(),
+                              //   itemCount: list.length,
+                              //   scrollDirection: Axis.horizontal,
+                              //   buildDefaultDragHandles: list.length > 1,
+                              //   itemBuilder: (context, index) => Container(
+                              //       key: ValueKey(index),
+                              //       child: InkWell(
+                              //           // onLongPress: () {
+                              //           //   // if (list[index].img ==
+                              //           //   //     "images/freestyling3.png") {
+                              //           //   //   setState(() {
+                              //           //   //     page = FreeStyling();
+                              //           //   //     isFreestyle = true;
+                              //           //   //     list.removeAt(index);
+                              //           //   //   });
+                              //           //   // }
+                              //           // },
+                              //           onTap: () {
+                              //             if (list[index].img ==
+                              //                 "images/freestyling3.png") {
+                              //               setState(() {
+                              //                 page = FreeStyling();
+                              //                 isFreestyle = true;
+                              //                 list.removeAt(index);
+                              //               });
+                              //             }
+                              //             if (list[index].img ==
+                              //                 'images/icons8-more-info-30.png') {
+                              //               setState(() {
+                              //                 page = PlayerDetails();
+                              //               });
+                              //             } else if (list[index].img ==
+                              //                 "images/icons8-pdf-30.png") {
+                              //               setState(() {
+                              //                 page = PdfScreen();
+                              //               });
+                              //             } else if (list[index].img ==
+                              //                 "images/sportıve ıcon (1).png") {
+                              //               setState(() {
+                              //                 page = Skills();
+                              //               });
+                              //             } else if (list[index].img ==
+                              //                 "images/QR (1).png") {
+                              //               setState(() {
+                              //                 page = QrCode();
+                              //               });
+                              //             }
+                              //             // else if (list[index].img ==
+                              //             //     "images/freestyling3.png") {
+                              //             //   setState(() {
+                              //             //     page = FreeStyling();
+                              //             //   });
+                              //             // }
+                              //             else if (list[index].img ==
+                              //                 "images/icons8-user-groups-64.png") {
+                              //               setState(() {
+                              //                 page = Following();
+                              //               });
+                              //             } else if (list[index].img ==
+                              //                 "images/pt.png") {
+                              //               setState(() {
+                              //                 page = PtScreen();
+                              //               });
+                              //             } else if (list[index].img ==
+                              //                 "images/icons8-share-48 (2).png") {
+                              //               setState(() {
+                              //                 page = PtScreen();
+                              //               });
+                              //             }
+                              //           },
+                              //           child: Container(
+                              //               child: getist(list[index])))),
+                              //   onReorder: (int oldIndex, int newIndex) {
+                              //     setState(() {
+                              //       list.insert(
+                              //           newIndex, list.removeAt(oldIndex));
+                              //     });
+                              //   },
+                              // ),
+                           
+                            ),
+                          ),
+                         
+                      // Padding(
+                      //   padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                      //   child: Container(
+                      //       height: 66.h,
+                      //       width: double.infinity.w,
+                      //       child: ReorderableListView.builder(
+                      //         shrinkWrap: true,
+                      //         physics: BouncingScrollPhysics(),
+                      //         itemCount: list.length,
+                      //         scrollDirection: Axis.horizontal,
+                      //         buildDefaultDragHandles: list.length > 1,
+                      //         itemBuilder: (context, index) => Container(
+                      //             key: ValueKey(index),
+                      //             child: InkWell(
+                      //                 onTap: () {
+                      //                   if (list[index].img ==
+                      //                       'images/icons8-more-info-30.png') {
+                      //                     setState(() {
+                      //                       page = CoachDetails();
+                      //                     });
+                      //                   } else if (list[index].img ==
+                      //                       "images/icons8-pdf-30.png") {
+                      //                     setState(() {
+                      //                       page = PdfScreen();
+                      //                     });
+                      //                   } else if (list[index].img ==
+                      //                       "images/sportıve ıcon (1).png") {
+                      //                     setState(() {
+                      //                       page = Courses();
+                      //                     });
+                      //                   } else if (list[index].img ==
+                      //                       "images/QR (1).png") {
+                      //                     setState(() {
+                      //                       page = QrCode();
+                      //                     });
+                      //                   } else if (list[index].img ==
+                      //                       "images/freestyling3.png") {
+                      //                     setState(() {
+                      //                       page = FreeStyling();
+                      //                     });
+                      //                   } else if (list[index].img ==
+                      //                       "images/icons8-user-groups-64.png") {
+                      //                     setState(() {
+                      //                       page = Following();
+                      //                     });
+                      //                   } else if (list[index].img ==
+                      //                       "images/pt.png") {
+                      //                     setState(() {
+                      //                       page = PtScreen();
+                      //                     });
+                      //                   } else if (list[index].img ==
+                      //                       "images/icons8-share-48 (2).png") {
+                      //                     setState(() {
+                      //                       page = PtScreen();
+                      //                     });
+                      //                   }
+                      //                 },
+                      //                 child:
+                      //                     Container(child: getist(list[index])))),
+                      //         onReorder: (newIndex, oldIndex) {
+                      //           setState(() {
+                      //             if (newIndex > oldIndex) {
+                      //               newIndex -= 1;
+                      //             }
+                      //             final item = list.removeAt(oldIndex);
+                      //             list.insert(newIndex, item);
+                      //           });
+                      //         },
+                      //       )),
+                      // ),
+                   
+                      const Divider(
+                        height: .1,
+                        color: Colors.white,
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Expanded(child: page),
+                    ],
+                  ),
+                ],
+              ):Center(child: CircularProgressIndicator()),
+            );
+          }),
+    );
   }
 }
 

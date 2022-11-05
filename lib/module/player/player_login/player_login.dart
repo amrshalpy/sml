@@ -49,12 +49,18 @@ class _PlayerLoginState extends State<PlayerLogin> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PlayerCubit, PlayerState>(listener: (context, state) {
-      if(state is RegisterError){
-        SnackBar(content:Text(' ${state.message}',));
+      if (state is RegisterError) {
+        SnackBar(
+            content: Text(
+          ' ${state.message}',
+        ));
       }
-      
+
       if (state is RegisterSuccess) {
-         SnackBar(content:Text(' success',));
+        SnackBar(
+            content: Text(
+          ' success',
+        ));
         // CacheHelper.setShared(key: kUid, value: state.uid).then((value) {
         //  PlayerCubit.get(context).getPlayerData();
         nextPage(
@@ -67,7 +73,6 @@ class _PlayerLoginState extends State<PlayerLogin> {
       }
     }, builder: (context, state) {
       PlayerCubit cubit = PlayerCubit.get(context);
-      
 
       return Scaffold(
         // resizeToAvoidBottomInset: false,
@@ -168,8 +173,7 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                                       txt: cubit.codeCountry ==
                                                               null
                                                           ? '+93 '
-                                                          : cubit.codeCountry
-                                                              ,
+                                                          : cubit.codeCountry,
                                                       color: Colors.black,
                                                       fontSize: 7.sp,
                                                       fontWeight:
@@ -179,8 +183,6 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                           SizedBox(
                                             width: 5.w,
                                           ),
-                                        
-                                        
                                           Expanded(
                                             child: buildTextFormField(
                                               controller: phoneController,
@@ -318,10 +320,10 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                       itemBuilder: (context, index) => InkWell(
                                           onTap: () {
                                             cubit.changeCountryCode(
-                                              cubit.countryModel!.data![index]
-                                                  .id!,cubit.countryModel!.data![index]
-                                                  .countryCode!
-                                            );
+                                                cubit.countryModel!.data![index]
+                                                    .id!,
+                                                cubit.countryModel!.data![index]
+                                                    .countryCode!);
                                             print(cubit.countryModel!
                                                 .data![index].countryCode);
                                             // print('country');
@@ -368,11 +370,24 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                     itemBuilder: (context, index) => InkWell(
                                       onTap: () {
                                         cubit.changeAccountType(
-                                            cubit.accountTypeModel!.data![index]
-                                                .id!,
-                                            cubit.accountTypeModel!.data![index]
-                                                .name!,
-                                                );
+                                          cubit.accountTypeModel!.data![index]
+                                              .id!,
+                                          cubit.accountTypeModel!.data![index]
+                                              .name!,
+                                        );
+                                        cubit.changeType(acount:
+                                          cubit.accountTypeModel!.data![index]
+                                              .name
+                                              .toString(),
+                                        );
+                                        CacheHelper.setInt(
+                                                key: kType1,
+                                                value: 
+                                          cubit.accountTypeModel!.data![index]
+                                              .id)
+                                            .then((value) {
+                                          print(value.toString());
+                                        });
                                         // print(cubit.accountType);
                                         // print(cubit.acountType);
                                         setState(() {
@@ -421,10 +436,9 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                 phone: phoneController.text,
                                 countryCode: cubit.countrCode,
                                 roleTypeId: cubit.accountType,
-                                fcmToken: 'yyuuy099',
+                                fcmToken: 'yyuuy0998',
                                 phoneType: cubit.fmcToken);
                           }
-                       
                         },
                         txt: 'confirm phone',
                         fontSize: 16.sp,
@@ -437,11 +451,6 @@ class _PlayerLoginState extends State<PlayerLogin> {
     });
   }
 
-  void onCountryChange(CountryCode countryCode) {
-    // print("New Country selected: " + countryCode.toString());
-    setState(() {
-      code = countryCode.toString();
-    });
-    print(code);
-  }
+ 
+  
 }

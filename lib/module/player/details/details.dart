@@ -147,7 +147,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                             ),
                                             child: cubit.getProfileData!.data!
                                                         .user!.country!.name ==
-                                                    null
+                                                    ''
                                                 ? Center(
                                                     child: defaultText(
                                                         txt: cubit.countryVal ==
@@ -199,7 +199,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                               .user!
                                                               .city!
                                                               .name ==
-                                                          null
+                                                          ''
                                                       ? Center(
                                                           child: defaultText(
                                                               txt: cubit.cityVal ==
@@ -256,7 +256,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                         .user!
                                                         .nationality!
                                                         .name ==
-                                                    null
+                                                    ""
                                                 ? Center(
                                                     child: defaultText(
                                                         txt: cubit.nationVal == null
@@ -808,6 +808,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                           ),
                         ],
                       ),
+                      cubit.getProfileData!.data!.user!.performance!=null?
                       ListView(
                         children: [
                           Container(
@@ -844,7 +845,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                 BorderRadius.circular(10.r)),
                                         child: cubit.getProfileData!.data!.user!
                                                     .performance!.right ==
-                                                null
+                                                ''
                                             ? DropdownButtonFormField(
                                                 dropdownColor: contactColor,
                                                 style: TextStyle(
@@ -1130,7 +1131,319 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                             ),
                           )),
                         ],
+                      ):    ListView(
+                        children: [
+                          Container(
+                              child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 5.h, right: 15.w, left: 10.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                defaultText(
+                                    txt: 'Right or left',
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/roght or left p.png',
+                                      height: 30.h,
+                                      width: 30.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        height: 58.h,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff40768C),
+                                            borderRadius:
+                                                BorderRadius.circular(10.r)),
+                                        child: DropdownButtonFormField(
+                                                dropdownColor: contactColor,
+                                                style: TextStyle(
+                                                    color: hintColor,
+                                                    fontSize: 17.sp,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                                decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10))),
+                                                items: PlayerCubit.get(context)
+                                                    .direction
+                                                    .map<DropdownMenuItem<String>>(
+                                                        (String val) =>
+                                                            DropdownMenuItem(
+                                                              child: Text(val),
+                                                              value: val,
+                                                            ))
+                                                    .toList(),
+                                                value: PlayerCubit.get(context)
+                                                    .right,
+                                                onChanged: (val) {
+                                                  PlayerCubit.get(context)
+                                                      .onChangedDirection(val);
+                                                })
+                                            
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                defaultText(
+                                    txt: 'Performance :',
+                                    color: Colors.yellowAccent,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  height: 6.h,
+                                ),
+                                defaultText(
+                                    txt: 'Running time',
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/Group 23.png',
+                                      height: 30.h,
+                                      width: 30.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Expanded(
+                                      child: buildTextFormField(
+                                        hint:  'Running time'
+                                           ,
+                                        color: contactColor,
+
+                                        // label: 'Running time',
+                                        controller: runningController,
+                                        type: TextInputType.number,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    defaultText(
+                                        txt: 'sec/100 m',
+                                        color: Colors.red,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 6.h,
+                                ),
+                                defaultText(
+                                    txt: 'Vertical Jumping distance',
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/verical jumb.png',
+                                      height: 30.h,
+                                      width: 30.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Expanded(
+                                      child: buildTextFormField(
+                                        color: contactColor,
+
+                                        hint:'Vertical Jumping distance'
+                                        // ignore: dead_code
+                                        ,
+                                        // label: 'Vertical Jumping distance',
+                                        controller: verticalJumpController,
+                                        type: TextInputType.number,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    defaultText(
+                                        txt: 'meter',
+                                        color: Colors.red,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                defaultText(
+                                    txt: 'Long Jumping',
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/long jumping di.png',
+                                      height: 30.h,
+                                      width: 30.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Expanded(
+                                      child: buildTextFormField(
+                                        color: contactColor,
+
+                                        hint:'Long Jumping',
+                                        // label: 'Long Jumping',
+                                        controller: longJumpingController,
+                                        type: TextInputType.number,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    defaultText(
+                                        txt: 'meter',
+                                        color: Colors.red,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                defaultText(
+                                    txt: 'Lefting Weights',
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/leftting weight.png',
+                                      height: 30.h,
+                                      width: 30.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Expanded(
+                                      child: buildTextFormField(
+                                        color: contactColor,
+
+                                        hint: 'Lefting Weights',
+                                        // label: 'Lefting Weights',
+                                        controller: leftingWeightsController,
+                                        type: TextInputType.number,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.h,
+                                    ),
+                                    defaultText(
+                                        txt: 'Kg',
+                                        color: Colors.red,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                defaultText(
+                                    txt: 'Leg Weights ',
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/leg weight.png',
+                                      height: 30.h,
+                                      width: 30.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Expanded(
+                                      child: buildTextFormField(
+                                        color: contactColor,
+
+                                        hint: 'Leg weights',
+                                        // label: 'Leg weights',
+                                        controller: legWeightsController,
+                                        type: TextInputType.number,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    defaultText(
+                                        txt: 'Kg',
+                                        color: Colors.red,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Align(
+                                    alignment: AlignmentDirectional.bottomEnd,
+                                    child: state is StorageImagePlayerLoading
+                                        ? CupertinoActivityIndicator()
+                                        : greenButton(
+                                            txt: 'Save',
+                                            onPress: () {
+                                              cubit.uploadPerformanceData(
+                                                Left: cubit.directionVal,
+                                                liftingweighthand:
+                                                    wieghtController.text,
+                                                liftingweightleg:
+                                                    legWeightsController.text,
+                                                longJumpdistance:
+                                                    longJumpingController.text,
+                                                runTime: runningController.text,
+                                                verticalJumpdistance:
+                                                    verticalJumpController.text,
+                                              );
+                                              print(dateTime.toString());
+                                            }))
+                              ],
+                            ),
+                          )),
+                        ],
                       ),
+                  
+                  
                       ListView(
                         children: [
                           Container(

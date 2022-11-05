@@ -469,14 +469,14 @@ class ExperiencePosition {
 }
 
 class Performance {
-  int? id;
-  int? runTime;
+  Null id;
+  Null runTime;
   String? right;
-  int? verticalJumpDistance;
-  int? longJumpDistance;
-  int? liftingWeight;
-  int? liftingWeightLeg;
-  int? liftingWeightHand;
+  Null verticalJumpDistance;
+  Null longJumpDistance;
+  Null liftingWeight;
+  Null liftingWeightLeg;
+  Null liftingWeightHand;
   String? createdAt;
 
   Performance(

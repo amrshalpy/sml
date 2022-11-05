@@ -48,13 +48,19 @@ class ChangeProfile extends PlayerState {}
 
 class ChangeQrCode extends PlayerState {}
 
+class ChangeAcountType extends PlayerState {
+  String? type;
+  ChangeAcountType(this.type);
+}
+
 class ChangeIsVideo extends PlayerState {}
 
 class ChangeIsFreeStyling extends PlayerState {}
 
-class GetSportModel extends PlayerState {}
+// class GetSportModel extends PlayerState {}
 
 class GetSportId extends PlayerState {}
+class ChangeTaps extends PlayerState {}
 
 class GetSubSportModel extends PlayerState {}
 
@@ -96,6 +102,18 @@ class GetPositionsLoading extends PlayerState {}
 class GetPositionsSuccess extends PlayerState {}
 
 class GetPositionsError extends PlayerState {}
+class AddPositionsLoading extends PlayerState {}
+
+class AddPositionsSuccess extends PlayerState {}
+
+class AddPositionsError extends PlayerState {}
+
+class AddSportsLoading extends PlayerState {}
+
+class AddSportsSuccess extends PlayerState {}
+
+class AddSportsError extends PlayerState {}
+
 
 class GenrateQrLoading extends PlayerState {}
 

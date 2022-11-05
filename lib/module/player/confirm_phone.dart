@@ -27,6 +27,10 @@ class _ConfimPhoneState extends State<ConfimPhone> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PlayerCubit, PlayerState>(listener: (context, state) {
+      // if (state is ChangeAcountType) {
+      //   CacheHelper.setShared(key: kType1, value: state.type).then((value) {});
+      // }
+
       if (state is VerifyPhoneSuccess) {
         CacheHelper.setShared(key: kUid, value: state.uid).then((value) {
           Timer(Duration(seconds: 3), () {
@@ -34,37 +38,22 @@ class _ConfimPhoneState extends State<ConfimPhone> {
                 ? CacheHelper.getShared(key: kUid)
                 : null;
           });
+
           if (uid != null) {
             if (PlayerCubit.get(context).accountType == 1) {
               nextPageUntil(context: context, page: Home());
-              setState(() {
-                appPages = Home();
-              });
+
+              print(PlayerCubit.get(context).accountType);
             } else if (PlayerCubit.get(context).accountType == 2) {
               nextPageUntil(context: context, page: ClubHome());
-              setState(() {
-                appPages = ClubHome();
-              });
-            } else if (PlayerCubit.get(context).accountType == 3) {
-              nextPageUntil(context: context, page: DoctorHome());
-              setState(() {
-                appPages = DoctorHome();
-              });
             } else if (PlayerCubit.get(context).accountType == 4) {
+              nextPageUntil(context: context, page: DoctorHome());
+            } else if (PlayerCubit.get(context).accountType == 3) {
               nextPageUntil(context: context, page: CoachHome());
-              setState(() {
-                appPages = CoachHome();
-              });
             } else if (PlayerCubit.get(context).accountType == 5) {
               nextPageUntil(context: context, page: CompanyHome());
-              setState(() {
-                appPages = CompanyHome();
-              });
             } else if (PlayerCubit.get(context).accountType == 6) {
               nextPageUntil(context: context, page: ClubHome());
-              setState(() {
-                appPages = ClubHome();
-              });
             } else if (PlayerCubit.get(context).accountType == 7) {
               // CacheHelper.setShared(
               //         key: kType6, value: PlayerCubit.get(context).accountType)
@@ -153,52 +142,11 @@ class _ConfimPhoneState extends State<ConfimPhone> {
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           ontap: () {
+                            ChangeType();
                             PlayerCubit.get(context).verifyPhone(
                               code: '#DE#E##',
                               phone: widget.phone,
                             );
-
-                            //         if (PlayerCubit.get(context).roleId == 1) {
-                            //           nextPageUntil(context: context, page: Home());
-                            //           setState(() {
-                            //             pages = Home();
-                            //           });
-                            //         } else if (PlayerCubit.get(context).roleId == 2 ||
-                            //             PlayerCubit.get(context).roleId == 3 ||
-                            //             PlayerCubit.get(context).roleId == 4) {
-                            //           nextPageUntil(context: context, page: ClubHome());
-                            //           setState(() {
-                            //             pages = ClubHome();
-                            //           });
-                            //         } else if (PlayerCubit.get(context).roleId == 5 ||
-                            //             PlayerCubit.get(context).roleId == 6 ||
-                            //             PlayerCubit.get(context).roleId == 7) {
-                            //           nextPageUntil(
-                            //               context: context, page: DoctorHome());
-                            //           setState(() {
-                            //             pages = DoctorHome();
-                            //           });
-                            //         } else if (PlayerCubit.get(context).roleId == 8 ||
-                            //             PlayerCubit.get(context).roleId == 9) {
-                            //           nextPageUntil(
-                            //               context: context, page: CoachHome());
-                            //           setState(() {
-                            //             pages = CoachHome();
-                            //           });
-                            //         } else if (PlayerCubit.get(context).roleId == 10) {
-                            //           nextPageUntil(
-                            //               context: context, page: (CompanyHome()));
-                            //           setState(() {
-                            //             pages = CompanyHome();
-                            //           });
-                            //         } else if (PlayerCubit.get(context).roleId == 11) {
-                            //           // nextPageUntil(context: context, page: ());
-                            //           //  setState(() {
-                            //           //   pages = UserHome();
-                            //           // });
-                            //           //   }
-                            //           // });
-                            //         }
                           })
                     ],
                   ),

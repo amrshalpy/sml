@@ -8,9 +8,9 @@ import 'package:sportive/player-cubit/player_cubit.dart';
 
 Widget getMainSport(Data data, context, index) => InkWell(
       onTap: () {
-        PlayerCubit.get(context).getIndex( index);
+        // PlayerCubit.get(context).getIndex( index);
         
-        subSportsCategory(id: data.id);
+        // subSportsCategory(id: data.id);
         
         // print('sportId = ${data.id}');
       },
@@ -32,9 +32,9 @@ Widget getMainSport(Data data, context, index) => InkWell(
                 ),
               ),
               decoration: BoxDecoration(
-                  color: PlayerCubit.get(context).sportIndex == index
-                      ? Colors.orange
-                      : Colors.transparent,
+                  color: 
+                      // ? Colors.orange
+                       Colors.transparent,
                   border: Border.all(
                     color: Colors.white,
                     width: 2,

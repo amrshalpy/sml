@@ -14,8 +14,9 @@ Widget getSports(context) {
           child: Container(
             height: 400.h,
             width: 25.w,
-            child: PlayerCubit.get(context).sportModel!.data .isNotEmpty
-                ? ListView.separated(
+             child:
+            // PlayerCubit.get(context).sportModel!.data .isNotEmpty
+                 ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Container(
                        decoration: BoxDecoration(
@@ -28,18 +29,19 @@ Widget getSports(context) {
                             topRight: Radius.circular(10),
                           )),
 
-                      child: getSport(
-                          PlayerCubit.get(context)
-                              .sportModel!
-                              .data[index],
-                          context,index),
+                      // child: getSport(
+                      //     PlayerCubit.get(context)
+                      //         .sportModel!
+                      //         .data[index],
+                      //     context,index),
                     ),
                     separatorBuilder: (context, index) => SizedBox(
                           height: 15.h,
                         ),
-                    itemCount:
-                        PlayerCubit.get(context).sportModel!.data.length)
-                : CircularProgressIndicator(),
+                    itemCount:10
+                        // PlayerCubit.get(context).sportModel!.data.length
+                        )
+                // : CircularProgressIndicator(),
           ),
         ):Center(child: CircularProgressIndicator());
       });

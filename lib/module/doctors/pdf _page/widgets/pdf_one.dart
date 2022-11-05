@@ -50,7 +50,7 @@ Widget pdfOne({
                             // ),
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(img!), fit: BoxFit.cover),
+                                  image: NetworkImage(img!), fit: BoxFit.cover),
                               border: Border.all(color: Colors.white, width: 3),
                               borderRadius: BorderRadius.circular(20),
                             ),

@@ -17,6 +17,7 @@ import 'package:sportive/model/acount_type.dart';
 import 'package:sportive/model/add_category_model.dart';
 import 'package:sportive/model/add_certificate.dart';
 import 'package:sportive/model/add_coupon.dart';
+import 'package:sportive/model/add_position.dart';
 import 'package:sportive/model/add_products.dart';
 import 'package:sportive/model/add_skills.dart';
 import 'package:sportive/model/city_model.dart';
@@ -31,6 +32,8 @@ import 'package:sportive/model/get_category_model.dart';
 import 'package:sportive/model/get_company-products.dart';
 import 'package:sportive/model/get_coupon.dart';
 import 'package:sportive/model/get_player_data.dart';
+import 'package:sportive/model/get_position.dart';
+import 'package:sportive/model/get_sport_model.dart';
 import 'package:sportive/model/get_user_data.dart';
 import 'package:sportive/model/performance_data.dart';
 import 'package:sportive/model/profile_model.dart';
@@ -140,7 +143,7 @@ class PlayerCubit extends Cubit<PlayerState> {
     } on PlatformException {
       deviceId = 'Failed to get deviceId.';
     }
-emit(GetDeviceId());
+    emit(GetDeviceId());
     devicesId = deviceId;
     print("deviceId->$devicesId");
   }
@@ -334,12 +337,6 @@ emit(GetDeviceId());
   //   });
   // }
 
-  var sportIndex = 0;
-  void getIndex(index) {
-    sportIndex = index;
-    emit(GetSportModel());
-  }
-
   String? nationVal;
   int? nation;
   void changeNation(value, val) {
@@ -428,18 +425,84 @@ emit(GetDeviceId());
     emit(ChangeQrCode());
   }
 
-  MainSportsModel? sportModel;
+  GetSportModel? sportModel;
+
   void getSports() {
     emit(GetSportsLoading());
     DioHelper.getData(
       path: kBaseUrl + '/sports',
+      token: uid,
     ).then((value) {
-      sportModel = MainSportsModel.fromJson(value.data);
+      sportModel = GetSportModel.fromJson(value.data);
 
       emit(GetSportsSuccess());
     }).catchError((er) {
       print(er.toString());
       emit(GetSportsError());
+    });
+  }
+
+  AddPositionModel? addPositionModel;
+  void addPositions({
+    String? shortCut,
+    String? sportId,
+    String? typeId,
+    String? name,
+  }) {
+    emit(AddPositionsLoading());
+    DioHelper.postData(path: kBaseUrl + '/positions', token: uid, data: {
+      'shortcut': shortCut,
+      'sport_id': sportId,
+      'type_id': typeId,
+      'categories[0][name]': name,
+    }).then((value) {
+      addPositionModel = AddPositionModel.fromJson(value.data);
+      emit(AddPositionsSuccess());
+    }).catchError((er) {
+      emit(AddPositionsError());
+      print(er.toString());
+    });
+  }
+
+ void addSports({
+    String? categoryName,
+    String? sportId,
+    String? typeId,
+    String? name,
+  })async {
+    emit(AddPositionsLoading());
+     FormData formData = FormData.fromMap({
+      'name': name,
+      'categories[0][name]': categoryName,
+      "image": await MultipartFile.fromFile(imageCoupon!.path,
+          filename: imageCoupon!.path, contentType: MediaType('image', 'jpg')),
+    });
+    DioHelper.postData(path: kBaseUrl + '/sports',
+     token: uid, data: formData,
+   
+     
+    ).then((value) {
+      addPositionModel = AddPositionModel.fromJson(value.data);
+      emit(AddPositionsSuccess());
+    }).catchError((er) {
+      emit(AddPositionsError());
+      print(er.toString());
+    });
+  }
+
+  GetPositionModel? getPositionModel;
+  void getPositions(id) {
+    emit(GetPositionsLoading());
+    DioHelper.getData(
+        path: kBaseUrl + '/positions',
+        token: uid,
+        query: {"sport_id": id}).then((value) {
+      getPositionModel = GetPositionModel.fromJson(value.data);
+
+      emit(GetPositionsSuccess());
+    }).catchError((er) {
+      print(er.toString());
+      emit(GetPositionsSuccess());
     });
   }
 
@@ -615,6 +678,12 @@ emit(GetDeviceId());
     acountType = acount;
 
     emit(ChangeType());
+  }
+
+  void changeType({String? acount}) {
+    type = acount;
+
+    emit(ChangeAcountType(type));
   }
 
   int? countrCode;
@@ -844,7 +913,6 @@ emit(GetDeviceId());
       "club_name": clubName,
       "sport_id": sportsId,
       'position_id': positionId,
-      
       "club_logo": await MultipartFile.fromFile(clubLogo!.path,
           filename: clubLogo!.path, contentType: MediaType('image', 'jpg')),
       "image": await MultipartFile.fromFile(imageProfile!.path,
@@ -1169,6 +1237,14 @@ emit(GetDeviceId());
   //     print(er.toString());
   //   }
   // }
+
+  int? taps;
+  void changeTaps(id) {
+    taps = id;
+    emit(ChangeTaps());
+  }
+
+  GetSportModel? getSportModel;
 
   GetUserDataModel? getProfileData;
   void getPlayerData() {

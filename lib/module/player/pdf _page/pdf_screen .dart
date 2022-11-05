@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/constants/constants.dart';
 import 'package:sportive/componant/style/colors.dart';
@@ -33,25 +34,7 @@ class _PdfScreenState extends State<PdfScreen> {
         builder: (context, state) {
           PlayerCubit cubit = PlayerCubit.get(context);
           return
-              //  Center(
-              //         child: Padding(
-              //           padding: EdgeInsets.only(top: 97.h),
-              //           child: Column(
-              //             children: [
-              //               Lottie.asset('assets/33283-plik-pdf.json'),
-              //               SizedBox(
-              //                 height: 10,
-              //               ),
-              //               defaultText(
-              //                   txt: 'Please complete your profile ',
-              //                   color: Colors.white10,
-              //                   fontSize: 16.sp,
-              //                   fontWeight: FontWeight.bold)
-              //             ],
-              //           ),
-              //         ),
-              //       )
-
+          cubit.getProfileData!=null?
               Stack(
             alignment: AlignmentDirectional.topCenter,
             children: [
@@ -3996,8 +3979,29 @@ class _PdfScreenState extends State<PdfScreen> {
               //       ),
               //     ),
               //   ),
+       
             ],
-          );
+          ):
+               Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 97.h),
+                        child: Column(
+                          children: [
+                            Lottie.asset('assets/33283-plik-pdf.json'),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            defaultText(
+                                txt: 'Please complete your profile ',
+                                color: Colors.white10,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold)
+                          ],
+                        ),
+                      ),
+                    )
+
+          ;
         });
   }
 }

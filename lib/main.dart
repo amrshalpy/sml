@@ -45,20 +45,45 @@ void main() async {
   page1 = CacheHelper.getShared(key: kType1) != null
       ? CacheHelper.getShared(key: kType1)
       : null;
+  print(page1);
+  Widget? pagee;
+  
+      if (page1 == 1) {
+      pagee = Home();
+    } else if (page1 == 2) {
+      pagee = ClubHome();
+    } else if (page1 == 5) {
+      pagee = CompanyHome();
+    } else if (page1 == 6) {
+      pagee = ClubHome();
+    } else if (page1 == 3) {
+      pagee = CoachHome();
+    } else if (page1 == 4) {
+      pagee = DoctorHome();
+    }
+  
+  if (uid != null) {
+    pagee ;
+  } else {
+    PlayerLogin();
+  }
 
   print('uid : $uid');
   runApp(
     // DevicePreview(
     //   enabled: !kReleaseMode,
     //   builder: (context) =>
-    MyApp(), // Wrap your app
+    MyApp(
+      page: pagee,
+    ), // Wrap your app
     // ),
   );
 }
 
 //
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  Widget? page;
+  MyApp({Key? key, this.page}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -71,17 +96,8 @@ class MyApp extends StatelessWidget {
               ..getCountry()
               ..getAcounts()
               ..getProducts()
-            // ..getPlayerData()
-            // ..getSportsData()
-            //  ..getPosition()
-            // ..getPlayerData()
-            // ..getCountry()
-            // ..getSearch()
-            // ..getCity()
-            // ..fetchData()
-            // ..getSports()
-            // ..getSubSports()
-            ),
+              ..getCategory()
+              ..getCoupons()),
       ],
       child: ScreenUtilInit(
         builder: (context, child) => MaterialApp(
@@ -90,7 +106,7 @@ class MyApp extends StatelessWidget {
           // builder: DevicePreview.appBuilder,
           debugShowCheckedModeBanner: false,
           title: 'Sportive',
-          home:uid==null?  PlayerLogin():Home(),
+          home: page
         ),
         designSize: Size(360, 640),
       ),
