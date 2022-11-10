@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sportive/componant/componant/componant.dart';
-import 'package:sportive/componant/style/colors.dart';
-import 'package:sportive/player-cubit/player_cubit.dart';
-import 'package:sportive/module/player/pt/widgets/get_pt.dart';
-import 'package:sportive/module/player/pt/widgets/get_sports_list.dart';
 import 'package:sportive/module/player/pt/widgets/new_performance.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/module/player/pt/widgets/old_performance.dart';
 
 class PtScreen extends StatelessWidget {
@@ -57,11 +54,11 @@ class PtScreen extends StatelessWidget {
             height: 10.h,
           ),
           Container(
-            height: 370.h,
+            height: 460.h,
             width: double.infinity,
             child: TabBarView(children: [
               OldPerformance(),
-              OldPerformance(),
+              NewPerformance(),
             ]),
           )
         ],

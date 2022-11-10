@@ -6,7 +6,7 @@ String? uid;
 int? page1;
 
 bool isQrCode = false;
-Widget? appPages;
+Widget? appPages ;
 bool select = false;
   bool isCancel = false;
 

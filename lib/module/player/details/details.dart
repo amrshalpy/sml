@@ -1569,6 +1569,10 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                                   teamTwoScore: 3,
                                                   type: 1,
                                                 );
+                                                 pageController.nextPage(
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
                                               },
                                               child: Container(
                                                   height: 30.h,
@@ -1701,7 +1705,12 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                                           alignment:
                                               AlignmentDirectional.bottomEnd,
                                           child: greenButton(
-                                              txt: 'Save', onPress: () {}),
+                                              txt: 'Save', onPress: () {
+                                                 pageController.animateToPage(1,
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
+                                              }),
                                         )
                                       ]),
                                 ),

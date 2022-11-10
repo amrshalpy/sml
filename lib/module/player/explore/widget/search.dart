@@ -10,42 +10,56 @@ searchSports() {
   return BlocConsumer<PlayerCubit, PlayerState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return PlayerCubit.get(context).searchModel != null
+        return PlayerCubit.get(context).searchSports != null
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: PlayerCubit.get(context).searchModel!.data != null
+                child: PlayerCubit.get(context).searchSports!.data != null
                     ? ListView.separated(
                         scrollDirection: Axis.vertical,
                         // physics: NeverScrollableScrollPhysics(),
                         controller: PlayerCubit.get(context).controller,
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
-                        itemBuilder: (context, index) => Container(
-                          decoration: BoxDecoration(
-                              // color:
-                              //     PlayerCubit.get(context).sportIndex ==
-                              //             index
-                              //         ? Colors.orangeAccent
-                              //         : Colors.transparent,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              )),
-                          child: getSearch(
-                            PlayerCubit.get(context)
-                                .searchModel!
-                                .data!
-                                .data[index],context,index
-                          ),
-                        ),
+                        itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                PlayerCubit.get(context).getSportIndex(index);
+                                PlayerCubit.get(context).getSportId(
+                                    PlayerCubit.get(context)
+                                        .sportModel!
+                                        .data![index]
+                                        .id);
+                                PlayerCubit.get(context).getPositions(
+                                    id: PlayerCubit.get(context)
+                                        .sportModel!
+                                        .data![index]
+                                        .id);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.yellowAccent, width: .3),
+                                    color:
+                                        PlayerCubit.get(context).sportIndex ==
+                                                index
+                                            ? Colors.orangeAccent
+                                            : Colors.transparent,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    )),
+                                child: getSearch(
+                                    PlayerCubit.get(context)
+                                        .searchSports!
+                                        .data![index],
+                                    context,
+                                    index),
+                              ),
+                            ),
                         separatorBuilder: (context, index) => SizedBox(
                               height: 15.h,
                             ),
-                        itemCount: PlayerCubit.get(context)
-                            .searchModel!
-                            .data!
-                            .data
-                            .length)
+                        itemCount:
+                            PlayerCubit.get(context).searchSports!.data!.length)
                     : CircularProgressIndicator(),
               )
             : Center(child: CircularProgressIndicator());

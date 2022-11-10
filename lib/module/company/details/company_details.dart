@@ -77,7 +77,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         controller: pageController,
                         onPageChanged: (index) {},
                         children: [
-                          Explore(),
+                          Explore(pageController: pageController,),
                           ListView(
                             children: [
                               Stack(
@@ -568,6 +568,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                           nationality:
                                                               cubit.nation,
                                                         );
+                                                         pageController.nextPage(
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
                                                       })
                                                 ],
                                               ),
@@ -1140,7 +1144,12 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                               child: greenButton(
                                                                   txt: 'Save',
                                                                   onPress:
-                                                                      () {}),
+                                                                      () {
+                                                                         pageController.animateToPage(1,
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
+                                                                      }),
                                                             )
                                                           ],
                                                         ),

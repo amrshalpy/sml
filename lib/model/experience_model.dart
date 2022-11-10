@@ -261,7 +261,7 @@ class Country {
   }
 }
 class Tsport {
-  int? id;
+  Null id;
   String? name;
   String? image;
 
@@ -548,7 +548,7 @@ class Sports {
   }
 }
 class Position {
-  int? id;
+  Null id;
   String? name;
   String? image;
 

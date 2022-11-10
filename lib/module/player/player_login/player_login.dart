@@ -1,3 +1,5 @@
+// ignore_for_file: null_check_always_fails, dead_code
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,10 +59,13 @@ class _PlayerLoginState extends State<PlayerLogin> {
       }
 
       if (state is RegisterSuccess) {
-        SnackBar(
-            content: Text(
-          ' success',
-        ));
+        showAboutDialog(context: context, children: [
+          Center(
+            child: Text(
+              ' success',
+            ),
+          )
+        ]);
         // CacheHelper.setShared(key: kUid, value: state.uid).then((value) {
         //  PlayerCubit.get(context).getPlayerData();
         nextPage(
@@ -375,19 +380,18 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                           cubit.accountTypeModel!.data![index]
                                               .name!,
                                         );
-                                        cubit.changeType(acount:
-                                          cubit.accountTypeModel!.data![index]
-                                              .name
+                                        cubit.changeType(
+                                          acount: cubit.accountTypeModel!
+                                              .data![index].name
                                               .toString(),
                                         );
-                                        CacheHelper.setInt(
-                                                key: kType1,
-                                                value: 
-                                          cubit.accountTypeModel!.data![index]
-                                              .id)
-                                            .then((value) {
-                                          print(value.toString());
-                                        });
+                                        // CacheHelper.setInt(
+                                        //         key: kType1,
+                                        //         value: cubit.accountTypeModel!
+                                        //             .data![index].id)
+                                        //     .then((value) {
+                                        //   print(value.toString());
+                                        // });
                                         // print(cubit.accountType);
                                         // print(cubit.acountType);
                                         setState(() {
@@ -413,6 +417,7 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                         .length,
                                   ),
                                 )),
+                      
                         ],
                       ),
                     ),
@@ -436,8 +441,15 @@ class _PlayerLoginState extends State<PlayerLogin> {
                                 phone: phoneController.text,
                                 countryCode: cubit.countrCode,
                                 roleTypeId: cubit.accountType,
-                                fcmToken: 'yyuuy0998',
+                                fcmToken: cubit.devicesId,
                                 phoneType: cubit.fmcToken);
+                            CacheHelper.setInt(
+                                    key: kType1, value: cubit.accountType)
+                                .then((value) {
+                              print(value.toString());
+                            });
+                            print('account type = ${cubit.accountType}');
+                            print('device type = ${cubit.devicesId}');
                           }
                         },
                         txt: 'confirm phone',
@@ -450,7 +462,4 @@ class _PlayerLoginState extends State<PlayerLogin> {
       );
     });
   }
-
- 
-  
 }

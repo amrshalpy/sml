@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/constants/constants.dart';
+import 'package:sportive/module/player/explore/widget/get_poistion.dart';
+import 'package:sportive/module/player/explore/widget/get_your_game.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/player-cubit/player_state.dart';
 
@@ -462,7 +464,7 @@ class Explore extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         onTap: () {
-                          // getGame(context);
+                          getGame(context);
                         },
                       ),
                       SizedBox(
@@ -476,7 +478,7 @@ class Explore extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         onTap: () {
-                          // getPoistion(context);
+                           getPoistion(context);
                         },
                       ),
                     ],

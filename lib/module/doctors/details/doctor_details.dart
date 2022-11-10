@@ -98,7 +98,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         controller: pageController,
                         onPageChanged: (index) {},
                         children: [
-                          Explore(),
+                          Explore(pageController: pageController,),
                           ListView(
                             children: [
                               Stack(
@@ -846,6 +846,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                                       teamTwoScore: 3,
                                                       type: 1,
                                                     );
+                                                     pageController.nextPage(
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
                                                   }),
                                         ),
                                       ]),
@@ -966,7 +970,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                               alignment: AlignmentDirectional
                                                   .bottomEnd,
                                               child: greenButton(
-                                                  txt: 'Save', onPress: () {}),
+                                                  txt: 'Save', onPress: () {
+                                                     pageController.animateToPage(1,
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
+                                                  }),
                                             )
                                           ]),
                                     ),

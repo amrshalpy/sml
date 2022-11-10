@@ -94,7 +94,7 @@ class _CoachDetailsState extends State<CoachDetails> {
                         controller: pageController,
                         onPageChanged: (index) {},
                         children: [
-                          Explore(),
+                          Explore(pageController: pageController,),
                           ListView(
                             children: [
                               Stack(
@@ -403,6 +403,7 @@ class _CoachDetailsState extends State<CoachDetails> {
                                                 ],
                                               ),
                                             ),
+                                           
                                             SizedBox(
                                               height: 5.h,
                                             ),
@@ -518,6 +519,10 @@ class _CoachDetailsState extends State<CoachDetails> {
                                                                   100),
                                                           curve:
                                                               Curves.easeInOut);
+                                                               pageController.nextPage(
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
                                                     }))
                                           ]),
                                     ),
@@ -842,6 +847,10 @@ class _CoachDetailsState extends State<CoachDetails> {
                                                       teamTwoScore: 3,
                                                       type: 1,
                                                     );
+                                                     pageController.nextPage(
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
                                                   }),
                                         ),
                                       ]),
@@ -962,7 +971,12 @@ class _CoachDetailsState extends State<CoachDetails> {
                                               alignment: AlignmentDirectional
                                                   .bottomEnd,
                                               child: greenButton(
-                                                  txt: 'Save', onPress: () {}),
+                                                  txt: 'Save', onPress: () {
+                                                     pageController.animateToPage(1,
+                                                      duration: Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.easeInOut);
+                                                  }),
                                             )
                                           ]),
                                     ),

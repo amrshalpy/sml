@@ -42,7 +42,7 @@ class _ConfimPhoneState extends State<ConfimPhone> {
           if (uid != null) {
             if (PlayerCubit.get(context).accountType == 1) {
               nextPageUntil(context: context, page: Home());
-
+              
               print(PlayerCubit.get(context).accountType);
             } else if (PlayerCubit.get(context).accountType == 2) {
               nextPageUntil(context: context, page: ClubHome());

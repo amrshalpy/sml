@@ -4,39 +4,30 @@ import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/model/sub_sport_model.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 
-Widget subSports(Data data, BuildContext context, int index) => InkWell(
-  onTap: (){
- PlayerCubit.get(context).getSportId(index);
- PlayerCubit.get(context).sportedId(data.id);
-// PlayerCubit.get(context).storageImageInApi(
-//           sportId: data.id,
-//         );
-  },
-  child:   Padding(
-    padding: EdgeInsets.only(top: 1.h),
-    child: Container(
-      child: Padding(
-        padding: EdgeInsets.only(
-          right: 7.w,
-          left: 7.w,
-        ),
-        child: defaultText(
-          txt: '${data.name}',
-          color: Colors.white,
-          fontWeight: FontWeight.normal,
-          fontSize: 18,
-        ),
+Widget subSports() => Padding(
+  padding: EdgeInsets.only(top: 1.h),
+  child: Container(
+    child: Padding(
+      padding: EdgeInsets.only(
+        right: 7.w,
+        left: 7.w,
       ),
-      decoration: BoxDecoration(
-        color: PlayerCubit.get(context).sportId==index?Colors.orange:Colors.transparent,
-          border: Border.all(
-            color: Colors.white,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(10),
-            topLeft: Radius.circular(10),
-          )),
+      child: defaultText(
+        txt: '',
+        color: Colors.white,
+        fontWeight: FontWeight.normal,
+        fontSize: 18,
+      ),
     ),
+    decoration: BoxDecoration(
+      color: Colors.transparent,
+        border: Border.all(
+          color: Colors.white,
+          width: 2,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(10),
+          topLeft: Radius.circular(10),
+        )),
   ),
 );

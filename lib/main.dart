@@ -46,7 +46,7 @@ void main() async {
       ? CacheHelper.getShared(key: kType1)
       : null;
   print(page1);
-  Widget? pagee;
+  Widget pagee = PlayerLogin();
   
       if (page1 == 1) {
       pagee = Home();
@@ -93,11 +93,15 @@ class MyApp extends StatelessWidget {
         BlocProvider<PlayerCubit>(
             create: (context) => PlayerCubit()
               ..getDeviceId()
+              ..initPlatformState()
               ..getCountry()
               ..getAcounts()
               ..getProducts()
               ..getCategory()
-              ..getCoupons()),
+              ..getSports()
+              ..getPositions()
+              ..getCoupons()
+              ),
       ],
       child: ScreenUtilInit(
         builder: (context, child) => MaterialApp(

@@ -11,19 +11,16 @@ import 'package:sportive/module/company/explore/widget/get_product.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/player-cubit/player_state.dart';
 
-class Explore extends StatefulWidget {
-  Explore({Key? key}) : super(key: key);
+class Explore extends StatelessWidget {
+  PageController? pageController;
+  Explore({Key? key,this.pageController}) : super(key: key);
 
-  @override
-  State<Explore> createState() => _ExploreState();
-}
-
-class _ExploreState extends State<Explore> {
   var nameController = TextEditingController();
-  var pageController = PageController();
 
   var clubController = TextEditingController();
+
   bool isProduct = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PlayerCubit, PlayerState>(
@@ -266,49 +263,44 @@ class _ExploreState extends State<Explore> {
                                 ),
                               ],
                             ),
-                           
                           ],
                         ),
-                    
                       ]),
                       SizedBox(
                         height: 1,
                       ),
-                         Align(
-                            alignment: AlignmentDirectional.bottomEnd,
-                            child: State is StorageImagePlayerSuccess
-                                ? CupertinoActivityIndicator()
-                                : InkWell(
-                                    onTap: () {
-                                      PlayerCubit.get(context)
-                                          .storageImageInApi(
-                                        clubName: clubController.text,
-                                        positionId: 1,
-                                        sportId: 1,
-                                      );
-                                      print('save');
+                      Align(
+                          alignment: AlignmentDirectional.bottomEnd,
+                          child: State is StorageImagePlayerSuccess
+                              ? CupertinoActivityIndicator()
+                              : InkWell(
+                                  onTap: () {
+                                    PlayerCubit.get(context).storageImageInApi(
+                                      clubName: clubController.text,
+                                      positionId: 1,
+                                      sportId: 1,
+                                    );
+                                    print('save');
 
-                                      pageController.nextPage(
-                                          duration: Duration(milliseconds: 100),
-                                          curve: Curves.easeInOut);
-                                    },
-                                    child: Container(
-                                        height: 30.h,
-                                        width: 80.w,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.green,
+                                    pageController!.nextPage(
+                                        duration: Duration(milliseconds: 100),
+                                        curve: Curves.easeInOut);
+                                  },
+                                  child: Container(
+                                      height: 30.h,
+                                      width: 80.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.green,
+                                      ),
+                                      child: Center(
+                                        child: defaultText(
+                                          txt: 'Save',
+                                          fontSize: 17.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
                                         ),
-                                        child: Center(
-                                          child: defaultText(
-                                            txt: 'Save',
-                                            fontSize: 17.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ))))
-               
+                                      ))))
                     ],
                   ),
                 )

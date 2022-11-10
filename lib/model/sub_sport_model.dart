@@ -17,13 +17,13 @@ class SubSports {
 }
 
 class Data {
-  int? id;
+  Null id;
   String? name;
-  int? sportId;
-  int? numberOfUsers;
+  Null sportId;
+  Null numberOfUsers;
   String? createdAt;
   String? updatedAt;
-  int? isUserAdd;
+  Null isUserAdd;
 
   Data(
       {this.id,

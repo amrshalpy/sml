@@ -1,7 +1,7 @@
 class AddPositionModel {
   String? message;
   Data? data;
-  int? status;
+  Null status;
 
   AddPositionModel({this.message, this.data, this.status});
 
@@ -41,11 +41,11 @@ class Data {
 }
 
 class FData {
-  int? id;
+  Null id;
   String? name;
   Sport? sport;
   Category? category;
-  int? usersCount;
+  Null usersCount;
 
   FData({this.id, this.name, this.sport, this.category, this.usersCount});
 
@@ -75,7 +75,7 @@ class FData {
 }
 
 class Sport {
-  int? id;
+  Null id;
   String? name;
   Null? image;
 
@@ -97,9 +97,9 @@ class Sport {
 }
 
 class Category {
-  int? id;
+  Null id;
   String? name;
-  int? type;
+  Null type;
   String? typeName;
   Parent? parent;
 
@@ -128,9 +128,9 @@ class Category {
 }
 
 class Parent {
-  int? id;
+  Null id;
   String? name;
-  int? type;
+  Null type;
   Null? parentId;
   String? createdAt;
   String? updatedAt;

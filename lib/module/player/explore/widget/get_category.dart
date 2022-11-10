@@ -30,14 +30,11 @@ Widget category() {
                           //         ? Colors.orangeAccent
                           //         : Colors.transparent,
                         ),
-    child: getSubSport(PlayerCubit.get(context)
-                              .subSportModel!
-                              .data[index],context,index),                      ),
+    child: getSubSport(),                      ),
                       separatorBuilder: (context, index) => SizedBox(
                         height: 7,
                       ),
-                      itemCount:
-                          PlayerCubit.get(context).subSportModel!.data.length,
+                      itemCount:10,
                       shrinkWrap: true,
                     )
                  

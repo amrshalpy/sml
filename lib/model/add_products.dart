@@ -1,7 +1,7 @@
 class AddProductModel {
   String? message;
   Data? data;
-  int? status;
+  Null status;
 
   AddProductModel({this.message, this.data, this.status});
 
@@ -27,7 +27,7 @@ class Data {
 }
 
 class Tdata {
-  int? id;
+  Null id;
   String? name;
   Category? category;
   User? user;
@@ -47,9 +47,9 @@ class Tdata {
 }
 
 class Category {
-  int? id;
+  Null id;
   String? name;
-  int? type;
+  Null type;
   String? typeName;
   Parent? parent;
 
@@ -78,9 +78,9 @@ class Category {
 }
 
 class Parent {
-  int? id;
+  Null id;
   String? name;
-  int? type;
+  Null type;
   Null? parentId;
   String? createdAt;
   String? updatedAt;
@@ -115,10 +115,10 @@ class Parent {
 }
 
 class User {
-  int? id;
+  Null id;
   String? name;
   String? image;
-  int? gender;
+  Null gender;
   String? birthDate;
   String? type;
 

@@ -1,60 +1,55 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:sportive/module/player/explore/widget/get_all.dart';
-// import 'package:sportive/player-cubit/player_cubit.dart';
-// import 'package:sportive/player-cubit/player_state.dart';
+import 'package:flutter/material.dart';
+import 'package:sportive/module/player/explore/widget/get_all.dart';
+import 'package:sportive/player-cubit/player_cubit.dart';
 
-// getAllSports() {
-//   return BlocConsumer<PlayerCubit, PlayerState>(
-//       listener: (context, state) {},
-//       builder: (context, state) {
-//         return Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: Container(
-//                   height: 400.h,
-//                   width: 25.w,
-//                   child:  ListView.separated(
-//                           physics: BouncingScrollPhysics(),
-//                           scrollDirection: Axis.vertical,
-//                           controller: PlayerCubit.get(context).controller,
-//                           shrinkWrap: true,
-//                           itemBuilder: (context, index) {
-//                             if (PlayerCubit.get(context).isPage==true) {
-//                               CircularProgressIndicator();
-//                             }
-//                             return InkWell(
-//                               onTap: () {
-//                                 PlayerCubit.get(context).getIndex(index);
-//                               },
-//                               child: Container(
-//                                 decoration: BoxDecoration(
-//                                     // color:
-//                                     //     PlayerCubit.get(context).sportIndex ==
-//                                     //             index
-//                                     //         ? Colors.orangeAccent
-//                                     //         : Colors.transparent,
-//                                     borderRadius: BorderRadius.only(
-//                                       bottomLeft: Radius.circular(10),
-//                                       topRight: Radius.circular(10),
-//                                     )),
-//                                 child: getAllSport(
-//                                     PlayerCubit.get(context)
-//                                         .getAllSports!
-//                                         .data[index],
-//                                     context,
-//                                     index),
-//                               ),
-//                             );
-//                           },
-//                           separatorBuilder: (context, index) => SizedBox(
-//                                 height: 15.h,
-//                               ),
-//                           itemCount:
-//                               PlayerCubit.get(context).dataOfPages!.length += 7)
-                    
-//                 ),
-//               )
-//             ;
-//       });
-// }
+getAllSports(context) {
+  return PlayerCubit.get(context).sportModel!.data != null
+      ? Padding(
+          padding: EdgeInsets.only(right: 10),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: 10,
+                  ),
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      PlayerCubit.get(context).getSportIndex(index);
+                      PlayerCubit.get(context).getSportId(
+                          PlayerCubit.get(context).sportModel!.data![index].id);
+                      PlayerCubit.get(context).getPositions(
+                          id: PlayerCubit.get(context)
+                              .sportModel!
+                              .data![index]
+                              .id);
+                      print(PlayerCubit.get(context).spId);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.yellowAccent,
+                            width: .4,
+                          ),
+                          color: PlayerCubit.get(context).sportIndex == index
+                              ? Colors.orangeAccent
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10))),
+                      child: getAllSport(
+                        PlayerCubit.get(context).sportModel!.data![index],
+                        context,
+                      ),
+                    ),
+                  ),
+                  itemCount: PlayerCubit.get(context).sportModel!.data!.length,
+                ),
+              )
+            ],
+          ),
+        )
+      : Center(child: CircularProgressIndicator());
+}

@@ -29,13 +29,13 @@ Widget pdfOne({
                       ),
                     ),
                     RotationTransition(
-                      turns: AlwaysStoppedAnimation(20 / 180),
+                      turns: AlwaysStoppedAnimation(7 / 180),
                       child: Align(
                         alignment: AlignmentDirectional.topCenter,
                         child: Padding(
                           padding: EdgeInsets.only(
                             right: 20.h,
-                            left: 90.h,
+                            left: 110.h,
                           ),
                           child: Container(
                             // margin: EdgeInsets.only(left: 60),

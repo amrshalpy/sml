@@ -4,19 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:sportive/componant/componant/componant.dart';
-import 'package:sportive/componant/const/const.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/module/player/balance/balance.dart';
-import 'package:sportive/module/player/explore/widget/widget/get_list/get_list.dart';
 import 'package:sportive/module/player/free_styling/free_styling.dart';
 import 'package:sportive/module/player/home/widget/get_tabs.dart';
-import 'package:sportive/module/player/home/widget/logo.dart';
 import 'package:sportive/module/player/pdf%20_page/pdf_screen%20.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/player-cubit/player_state.dart';
 import 'package:sportive/model/widget_list_model.dart';
 import 'package:sportive/module/player/details/details.dart';
-import 'package:sportive/module/player/following/following.dart';
 import 'package:sportive/module/player/pt/pt_screen.dart';
 import 'package:sportive/module/player/qr_code/qr_code.dart';
 import 'package:sportive/module/player/skills/skills.dart';
@@ -60,11 +56,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return BlocProvider<PlayerCubit>(
       create: (context) => PlayerCubit()
-        ..getPlayerData()
         ..getCountry()
-        ..getProducts()
-        ..getCity()
-        ..getAcounts(),
+              ..getPlayerData()
+              ..getCity()
+              ..getPositions()
+              ..getSports()
+              ..getCategory()
+              ..getAcounts()
+              ..getProducts()
+              ..getCoupons(),
       child: BlocConsumer<PlayerCubit, PlayerState>(listener: (context, state) {
         if (state is GetSportsDataLoading) {
           Center(
@@ -87,6 +87,7 @@ class _HomeState extends State<Home> {
                       Stack(children: [
                         crdientColor(),
                         NestedScrollView(
+                          physics: BouncingScrollPhysics(),
                           floatHeaderSlivers: true,
                           headerSliverBuilder: (context, innerBoxIsScrolled) =>
                               [
@@ -176,80 +177,70 @@ class _HomeState extends State<Home> {
                                                           .taps![index]
                                                           .name ==
                                                       'about me') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: PlayerDetails());
-                                                  }else if (cubit
+                                                    setState(() {
+                                                      page = PlayerDetails();
+                                                    });
+                                                  } else if (cubit
                                                           .getProfileData!
                                                           .data!
                                                           .user!
                                                           .taps![index]
                                                           .name ==
                                                       'skills videos') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: Skills());
-                                                  }else if (cubit
-                                                          .getProfileData!
-                                                          .data!
-                                                          .user!
-                                                          .taps![index]
-                                                          .name ==
-                                                      'skills videos') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: Skills());
-                                                  }else if (cubit
+                                                    setState(() {
+                                                      page = Skills();
+                                                    });
+                                                  
+                                                  } else if (cubit
                                                           .getProfileData!
                                                           .data!
                                                           .user!
                                                           .taps![index]
                                                           .name ==
                                                       'PDF') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: PdfScreen());
-                                                  }else if (cubit
+                                                    setState(() {
+                                                      page = PdfScreen();
+                                                    });
+                                                  } else if (cubit
                                                           .getProfileData!
                                                           .data!
                                                           .user!
                                                           .taps![index]
                                                           .name ==
                                                       'QR code') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: QrCode());
-                                                  }else if (cubit
+                                                    setState(() {
+                                                      page = QrCode();
+                                                    });
+                                                  } else if (cubit
                                                           .getProfileData!
                                                           .data!
                                                           .user!
                                                           .taps![index]
                                                           .name ==
                                                       'following') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: Following());
-                                                  }else if (cubit
+                                                    setState(() {
+                                                      page = PdfScreen();
+                                                    });
+                                                  } else if (cubit
                                                           .getProfileData!
                                                           .data!
                                                           .user!
                                                           .taps![index]
                                                           .name ==
                                                       'PT') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: PtScreen());
-                                                  }else if (cubit
+                                                    setState(() {
+                                                      page = PtScreen();
+                                                    });
+                                                  } else if (cubit
                                                           .getProfileData!
                                                           .data!
                                                           .user!
                                                           .taps![index]
                                                           .name ==
                                                       'freestyle') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: FreeStyling());
-                                                 
+                                                   setState(() {
+                                                      page = Skills();
+                                                    });
                                                   }
                                                 },
                                                 child: getTabs(cubit
@@ -584,6 +575,7 @@ class _HomeState extends State<Home> {
                         ),
                     ],
                   )
+               
                 : Center(child: CircularProgressIndicator()));
       }),
     );

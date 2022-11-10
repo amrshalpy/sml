@@ -33,6 +33,7 @@ class ChangeIndexPage extends PlayerState {}
 class Changetype extends PlayerState {}
 
 class GetSportsId extends PlayerState {}
+class GetSportsIndex extends PlayerState {}
 
 class GetSporttId extends PlayerState {}
 
@@ -319,3 +320,29 @@ class AddCouponLoading extends PlayerState {}
 class AddCouponSuccess extends PlayerState {}
 
 class AddCouponError extends PlayerState {}
+
+
+class AddPTLoading extends PlayerState {}
+
+class AddPTSuccess extends PlayerState {}
+
+class AddPTError extends PlayerState {}
+
+class GetPTLoading extends PlayerState {}
+
+class GetPTSuccess extends PlayerState {}
+
+class GetPTError extends PlayerState {}
+
+class EditPTLoading extends PlayerState {}
+
+class EditPTSuccess extends PlayerState {}
+
+class EditPTError extends PlayerState {}
+
+class DeletePTLoading extends PlayerState {}
+
+class DeletePTSuccess extends PlayerState {}
+
+class DeletePTError extends PlayerState {}
+

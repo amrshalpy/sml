@@ -34,19 +34,12 @@ Widget subSportsCategory({id}) {
                                   topRight: Radius.circular(10),
                                 )),
                             child: subSports(
-                                PlayerCubit.get(context)
-                                    .subSportModel!
-                                    .data[index],
-                                context,
-                                index),
+                              ),
                           ),
                           separatorBuilder: (context, index) => SizedBox(
                                 height: 15.h,
                               ),
-                          itemCount: PlayerCubit.get(context)
-                              .subSportModel!
-                              .data
-                              .length)
+                          itemCount: 10)
                       : CircularProgressIndicator(),
                 )
               : Center(child: CircularProgressIndicator());

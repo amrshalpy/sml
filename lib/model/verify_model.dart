@@ -10,8 +10,6 @@ class VerifyModel {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     status = json['status'];
   }
-
-  
 }
 
 class Data {
@@ -24,8 +22,6 @@ class Data {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     token = json['token'];
   }
-
-  
 }
 
 class User {
@@ -59,11 +55,11 @@ class User {
   Position? position;
   Nationality? nationality;
   List<Taps>? taps;
-  List<Titles>? titles;
-  List<Certificates>? certificates;
-  List<Experiences>? experiences;
-  Performance? performance;
-  List<Contacts>? contacts;
+  List<Null>? titles;
+  List<Null>? certificates;
+  List<Null>? experiences;
+  Null performance;
+  List<Null>? contacts;
 
   User(
       {this.id,
@@ -126,8 +122,9 @@ class User {
     likeCount = json['like_count'];
     shareCount = json['share_count'];
     titlesCount = json['titles_count'];
-    performance =
-        json['Performance'] != null ? Performance.fromJson(json['Performance']) : null;
+    performance = json['Performance'];
+    // performance =
+    //     json['Performance'] != null ? Performance.fromJson(json['Performance']) : null;
     country =
         json['country'] != null ? new Country.fromJson(json['country']) : null;
     city = json['city'] != null ? new City.fromJson(json['city']) : null;
@@ -146,37 +143,34 @@ class User {
       });
     }
     if (json['titles'] != null) {
-      titles = <Titles>[];
+      titles = <Null>[];
       json['titles'].forEach((v) {
-        titles!.add(new Titles.fromJson(v));
+        titles!.add(v);
       });
     }
     if (json['certificates'] != null) {
-      certificates = <Certificates>[];
+      certificates = <Null>[];
       json['certificates'].forEach((v) {
-        certificates!.add(new Certificates.fromJson(v));
+        certificates!.add(v);
       });
     }
     if (json['experiences'] != null) {
-      experiences = <Experiences>[];
+      experiences = <Null>[];
       json['experiences'].forEach((v) {
-        experiences!.add(new Experiences.fromJson(v));
+        experiences!.add(v);
       });
     }
-    
+
     if (json['contacts'] != null) {
-      contacts = <Contacts>[];
+      contacts = <Null>[];
       json['contacts'].forEach((v) {
-        contacts!.add(new Contacts.fromJson(v));
+        contacts!.add(v);
       });
     }
   }
-
-  
 }
 
 class Country {
-
   int? id;
   String? name;
   String? image;
@@ -199,7 +193,7 @@ class Country {
 }
 
 class Sports {
-  int? id;
+  Null id;
   String? name;
   String? image;
 
@@ -241,8 +235,9 @@ class Types {
     return data;
   }
 }
+
 class Nationality {
-  int? id;
+  Null id;
   String? name;
   String? image;
 
@@ -264,7 +259,7 @@ class Nationality {
 }
 
 class City {
-  int? id;
+  Null id;
   String? name;
   String? image;
 
@@ -286,7 +281,7 @@ class City {
 }
 
 class Position {
-  int? id;
+  Null id;
   String? name;
   String? image;
 
@@ -367,249 +362,250 @@ class Sections {
   }
 }
 
-class Titles {
-  int? id;
-  Null? sport;
-  int? number;
-  int? leagueType;
+// class Titles {
+//   int? id;
+//   Null? sport;
+//   int? number;
+//   int? leagueType;
 
-  Titles({this.id, this.sport, this.number, this.leagueType});
+//   Titles({this.id, this.sport, this.number, this.leagueType});
 
-  Titles.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    sport = json['sport'];
-    number = json['number'];
-    leagueType = json['league_type'];
-  }
+//   Titles.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     sport = json['sport'];
+//     number = json['number'];
+//     leagueType = json['league_type'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['sport'] = this.sport;
-    data['number'] = this.number;
-    data['league_type'] = this.leagueType;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['sport'] = this.sport;
+//     data['number'] = this.number;
+//     data['league_type'] = this.leagueType;
+//     return data;
+//   }
+// }
 
-class Certificates {
-  int? id;
-  String? name;
-  String? image;
-  String? date;
+// class Certificates {
+//   int? id;
+//   String? name;
+//   String? image;
+//   String? date;
 
-  Certificates({this.id, this.name, this.image, this.date});
+//   Certificates({this.id, this.name, this.image, this.date});
 
-  Certificates.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    image = json['image'];
-    date = json['date'];
-  }
+//   Certificates.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     name = json['name'];
+//     image = json['image'];
+//     date = json['date'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['image'] = this.image;
-    data['date'] = this.date;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['name'] = this.name;
+//     data['image'] = this.image;
+//     data['date'] = this.date;
+//     return data;
+//   }
+// }
 
-class Experiences {
-  int? id;
-  Sportsss? sport;
-  ExPosition? position;
-  String? clubName;
-  int? leagueType;
-  String? startDate;
-  String? endDate;
-  int? type;
-  String? teamOne;
-  int? teamOneScore;
-  String? teamTwo;
-  int? teamTwoScore;
-  String? createdAt;
+// class Experiences {
+//   int? id;
+//   Sportsss? sport;
+//   ExPosition? position;
+//   String? clubName;
+//   int? leagueType;
+//   String? startDate;
+//   String? endDate;
+//   int? type;
+//   String? teamOne;
+//   int? teamOneScore;
+//   String? teamTwo;
+//   int? teamTwoScore;
+//   String? createdAt;
 
-  Experiences(
-      {this.id,
-      this.sport,
-      this.position,
-      this.clubName,
-      this.leagueType,
-      this.startDate,
-      this.endDate,
-      this.type,
-      this.teamOne,
-      this.teamOneScore,
-      this.teamTwo,
-      this.teamTwoScore,
-      this.createdAt});
+//   Experiences(
+//       {this.id,
+//       this.sport,
+//       this.position,
+//       this.clubName,
+//       this.leagueType,
+//       this.startDate,
+//       this.endDate,
+//       this.type,
+//       this.teamOne,
+//       this.teamOneScore,
+//       this.teamTwo,
+//       this.teamTwoScore,
+//       this.createdAt});
 
-  Experiences.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    sport = json['sport'] != null ? new Sportsss.fromJson(json['sport']) : null;
-    position = json['position'] != null
-        ? new ExPosition.fromJson(json['position'])
-        : null;
-    clubName = json['club_name'];
-    leagueType = json['league_type'];
-    startDate = json['start_date'];
-    endDate = json['end_date'];
-    type = json['type'];
-    teamOne = json['team_one'];
-    teamOneScore = json['team_one_score'];
-    teamTwo = json['team_two'];
-    teamTwoScore = json['team_two_score'];
-    createdAt = json['created_at'];
-  }
+//   Experiences.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     sport = json['sport'] != null ? new Sportsss.fromJson(json['sport']) : null;
+//     position = json['position'] != null
+//         ? new ExPosition.fromJson(json['position'])
+//         : null;
+//     clubName = json['club_name'];
+//     leagueType = json['league_type'];
+//     startDate = json['start_date'];
+//     endDate = json['end_date'];
+//     type = json['type'];
+//     teamOne = json['team_one'];
+//     teamOneScore = json['team_one_score'];
+//     teamTwo = json['team_two'];
+//     teamTwoScore = json['team_two_score'];
+//     createdAt = json['created_at'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.sport != null) {
-      data['sport'] = this.sport!.toJson();
-    }
-    if (this.position != null) {
-      data['position'] = this.position!.toJson();
-    }
-    data['club_name'] = this.clubName;
-    data['league_type'] = this.leagueType;
-    data['start_date'] = this.startDate;
-    data['end_date'] = this.endDate;
-    data['type'] = this.type;
-    data['team_one'] = this.teamOne;
-    data['team_one_score'] = this.teamOneScore;
-    data['team_two'] = this.teamTwo;
-    data['team_two_score'] = this.teamTwoScore;
-    data['created_at'] = this.createdAt;
-    return data;
-  }
-}
-class Sportsss {
-  int? id;
-  String? name;
-  String? image;
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     if (this.sport != null) {
+//       data['sport'] = this.sport!.toJson();
+//     }
+//     if (this.position != null) {
+//       data['position'] = this.position!.toJson();
+//     }
+//     data['club_name'] = this.clubName;
+//     data['league_type'] = this.leagueType;
+//     data['start_date'] = this.startDate;
+//     data['end_date'] = this.endDate;
+//     data['type'] = this.type;
+//     data['team_one'] = this.teamOne;
+//     data['team_one_score'] = this.teamOneScore;
+//     data['team_two'] = this.teamTwo;
+//     data['team_two_score'] = this.teamTwoScore;
+//     data['created_at'] = this.createdAt;
+//     return data;
+//   }
+// }
 
-  Sportsss({this.id, this.name, this.image});
+// class Sportsss {
+//   int? id;
+//   String? name;
+//   String? image;
 
-  Sportsss.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    image = json['image'];
-  }
+//   Sportsss({this.id, this.name, this.image});
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['image'] = this.image;
-    return data;
-  }
-}
+//   Sportsss.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     name = json['name'];
+//     image = json['image'];
+//   }
 
-class ExPosition {
-  int? id;
-  String? name;
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['name'] = this.name;
+//     data['image'] = this.image;
+//     return data;
+//   }
+// }
 
-  ExPosition({this.id, this.name});
+// class ExPosition {
+//   int? id;
+//   String? name;
 
-  ExPosition.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
+//   ExPosition({this.id, this.name});
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    return data;
-  }
-}
+//   ExPosition.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     name = json['name'];
+//   }
 
-class Performance {
-  int? id;
-  int? runTime;
-  int? verticalJumpDistance;
-  int? longJumpDistance;
-  int? liftingWeight;
-  int? liftingWeightLeg;
-  int? liftingWeightHand;
-  String? createdAt;
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['name'] = this.name;
+//     return data;
+//   }
+// }
 
-  Performance(
-      {this.id,
-      this.runTime,
-      this.verticalJumpDistance,
-      this.longJumpDistance,
-      this.liftingWeight,
-      this.liftingWeightLeg,
-      this.liftingWeightHand,
-      this.createdAt});
+// class Performance {
+//   int? id;
+//   Null runTime;
+//   Null verticalJumpDistance;
+//   Null longJumpDistance;
+//   Null liftingWeight;
+//   Null liftingWeightLeg;
+//   Null liftingWeightHand;
+//   String? createdAt;
 
-  Performance.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    runTime = json['runTime'];
-    verticalJumpDistance = json['verticalJump_distance'];
-    longJumpDistance = json['longJump_distance'];
-    liftingWeight = json['lifting_weight'];
-    liftingWeightLeg = json['lifting_weight_leg'];
-    liftingWeightHand = json['lifting_weight_hand'];
-    createdAt = json['created_at'];
-  }
+//   Performance(
+//       {this.id,
+//       this.runTime,
+//       this.verticalJumpDistance,
+//       this.longJumpDistance,
+//       this.liftingWeight,
+//       this.liftingWeightLeg,
+//       this.liftingWeightHand,
+//       this.createdAt});
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['runTime'] = this.runTime;
-    data['verticalJump_distance'] = this.verticalJumpDistance;
-    data['longJump_distance'] = this.longJumpDistance;
-    data['lifting_weight'] = this.liftingWeight;
-    data['lifting_weight_leg'] = this.liftingWeightLeg;
-    data['lifting_weight_hand'] = this.liftingWeightHand;
-    data['created_at'] = this.createdAt;
-    return data;
-  }
-}
+//   Performance.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     runTime = json['runTime'];
+//     verticalJumpDistance = json['verticalJump_distance'];
+//     longJumpDistance = json['longJump_distance'];
+//     liftingWeight = json['lifting_weight'];
+//     liftingWeightLeg = json['lifting_weight_leg'];
+//     liftingWeightHand = json['lifting_weight_hand'];
+//     createdAt = json['created_at'];
+//   }
 
-class Contacts {
-  int? id;
-  String? text;
-  String? countryCode;
-  int? type;
-  int? socialMediaType;
-  int? privacy;
-  String? createdAt;
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['runTime'] = this.runTime;
+//     data['verticalJump_distance'] = this.verticalJumpDistance;
+//     data['longJump_distance'] = this.longJumpDistance;
+//     data['lifting_weight'] = this.liftingWeight;
+//     data['lifting_weight_leg'] = this.liftingWeightLeg;
+//     data['lifting_weight_hand'] = this.liftingWeightHand;
+//     data['created_at'] = this.createdAt;
+//     return data;
+//   }
+// }
 
-  Contacts(
-      {this.id,
-      this.text,
-      this.countryCode,
-      this.type,
-      this.socialMediaType,
-      this.privacy,
-      this.createdAt});
+// class Contacts {
+//   int? id;
+//   String? text;
+//   String? countryCode;
+//   int? type;
+//   int? socialMediaType;
+//   int? privacy;
+//   String? createdAt;
 
-  Contacts.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    text = json['text'];
-    countryCode = json['country_code'];
-    type = json['type'];
-    socialMediaType = json['social_media_type'];
-    privacy = json['privacy'];
-    createdAt = json['created_at'];
-  }
+//   Contacts(
+//       {this.id,
+//       this.text,
+//       this.countryCode,
+//       this.type,
+//       this.socialMediaType,
+//       this.privacy,
+//       this.createdAt});
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['text'] = this.text;
-    data['country_code'] = this.countryCode;
-    data['type'] = this.type;
-    data['social_media_type'] = this.socialMediaType;
-    data['privacy'] = this.privacy;
-    data['created_at'] = this.createdAt;
-    return data;
-  }
-}
+//   Contacts.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     text = json['text'];
+//     countryCode = json['country_code'];
+//     type = json['type'];
+//     socialMediaType = json['social_media_type'];
+//     privacy = json['privacy'];
+//     createdAt = json['created_at'];
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['text'] = this.text;
+//     data['country_code'] = this.countryCode;
+//     data['type'] = this.type;
+//     data['social_media_type'] = this.socialMediaType;
+//     data['privacy'] = this.privacy;
+//     data['created_at'] = this.createdAt;
+//     return data;
+//   }
+// }

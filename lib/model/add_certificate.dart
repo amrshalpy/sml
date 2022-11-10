@@ -41,7 +41,7 @@ class Data {
 }
 
 class User {
-  int? id;
+  Null id;
   String? name;
   String? phone;
   String? email;
@@ -49,8 +49,8 @@ class User {
   String? clubName;
   String? clubLogo;
   String? gender;
-  int? height;
-  int? weight;
+  Null height;
+  Null weight;
   String? manager;
   String? stadium;
   String? founder;
@@ -58,12 +58,12 @@ class User {
   String? founded;
   String? birthDate;
   String? companyLocation;
-  int? companyType;
+  Null companyType;
   String? website;
-  int? viewCount;
-  int? likeCount;
-  int? shareCount;
-  int? titlesCount;
+  Null viewCount;
+  Null likeCount;
+  Null shareCount;
+  Null titlesCount;
   Country? country;
   City? city;
   Tsports? sport;
@@ -253,7 +253,7 @@ class User {
 }
 
 class Country {
-  int? id;
+  Null id;
   String? name;
   Null? image;
 
@@ -426,8 +426,8 @@ class Sections {
 class Titles {
   int? id;
   Position? sport;
-  int? number;
-  int? leagueType;
+  Null number;
+  Null leagueType;
 
   Titles({this.id, this.sport, this.number, this.leagueType});
 

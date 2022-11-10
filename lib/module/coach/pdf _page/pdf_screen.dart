@@ -132,6 +132,7 @@ class _PdfScreenState extends State<PdfScreen> {
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           children: [
+                            
                             Container(
                               // height: MediaQuery.of(context).size.height * .78,
                               child: pdfOne(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sidebarx/sidebarx.dart';
 import 'package:sportive/componant/componant/componant.dart';
 import 'package:sportive/componant/style/colors.dart';
 import 'package:sportive/module/company/details/company_details.dart';
@@ -10,8 +12,10 @@ import 'package:sportive/module/company/qr_code/qr_code.dart';
 
 import 'package:sportive/module/doctors/tips/tips.dart';
 import 'package:sportive/model/widget_list_model.dart';
+import 'package:sportive/module/player/balance/balance.dart';
 import 'package:sportive/module/player/home/widget/get_tabs.dart';
 import 'package:sportive/module/player/home/widget/logo.dart';
+import 'package:sportive/module/player/skills/skills.dart';
 import 'package:sportive/player-cubit/player_cubit.dart';
 import 'package:sportive/player-cubit/player_state.dart';
 
@@ -40,16 +44,22 @@ class _CompanyHomeState extends State<CompanyHome> {
   var clubController = TextEditingController();
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isFreestyle = false;
+  bool isRemoveStyling = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PlayerCubit>(
       create: (context) => PlayerCubit()
-        ..getProducts()
-        ..getCity()
         ..getCountry()
-        ..getCategory()
-        ..getPlayerData(),
+              ..getPlayerData()
+              ..getCity()
+              ..getPositions()
+              ..getSports()
+              ..getCategory()
+              ..getAcounts()
+              ..getProducts()
+              ..getCoupons(),
       child: BlocConsumer<PlayerCubit, PlayerState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -57,26 +67,83 @@ class _CompanyHomeState extends State<CompanyHome> {
             return Scaffold(
               key: scaffoldKey,
               resizeToAvoidBottomInset: false,
-              body:cubit.getProfileData!=null &&cubit.getProfileData!.data!.user!.taps !=[]? Stack(
-                children: [
-                  crdientColor(),
-                  Column(
+              body:cubit.getProfileData!=null &&cubit.getProfileData!.data!.user!.taps !=[]? 
+              Stack(
                     children: [
-                      LogoPage(
-                        context: context,
-                      ),
-                      Divider(
-                        height: .1,
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                       Padding(
-                            padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                            child: Container(
-                              height: 66.h,
-                              width: double.infinity.w,
-                              child: cubit.getProfileData!.data!.user!.taps !=[]? 
-                              ListView.separated(
+                      Stack(children: [
+                        crdientColor(),
+                        NestedScrollView(
+                          physics: BouncingScrollPhysics(),
+                          floatHeaderSlivers: true,
+                          headerSliverBuilder: (context, innerBoxIsScrolled) =>
+                              [
+                            SliverAppBar(
+                              backgroundColor: mainColor.withOpacity(.9),
+                              expandedHeight: 80.h,
+                              flexibleSpace: FlexibleSpaceBar(
+                                title: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Image.asset(
+                                        'images/logospotive1.png',
+                                        height: 40.h,
+                                        width: 160.w,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 15.w,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          'images/req to contact1.png',
+                                          height: 15.h,
+                                          width: 15.w,
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        Image.asset(
+                                          'images/notifcation1.png',
+                                          height: 15.h,
+                                          width: 15.w,
+                                        ),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.menu,
+                                              size: 15.h,
+                                              color: Colors.white,
+                                            ))
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              pinned: true,
+                              floating: true,
+                              snap: true,
+                            )
+                          ],
+                          body: CustomScrollView(slivers: [
+                            SliverToBoxAdapter(
+                              child: Column(children: [
+                                Divider(
+                                  height: .1,
+                                  color: Colors.white,
+                                  thickness: 1,
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.w, right: 10.w),
+                                  child: Container(
+                                      height: 66.h,
+                                      width: double.infinity.w,
+                                      child: cubit.getProfileData!.data!.user!
+                                                  .taps !=
+                                              []
+                                          ?    ListView.separated(
                                 shrinkWrap: true,
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
@@ -91,9 +158,10 @@ class _CompanyHomeState extends State<CompanyHome> {
                                                           .taps![index]
                                                           .name ==
                                                       'about me') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: CompanyDetails());
+                                                   setState(() {
+                                                     page= CompanyDetails();
+                                                   });
+                                                        
                                                   }else if (cubit
                                                           .getProfileData!
                                                           .data!
@@ -101,9 +169,10 @@ class _CompanyHomeState extends State<CompanyHome> {
                                                           .taps![index]
                                                           .name ==
                                                       'skills videos') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: Tips());
+                                                   setState(() {
+                                                      page= Skills();
+                                                   });
+                                                       
                                                   }else if (cubit
                                                           .getProfileData!
                                                           .data!
@@ -111,9 +180,10 @@ class _CompanyHomeState extends State<CompanyHome> {
                                                           .taps![index]
                                                           .name ==
                                                       'PDF') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: PdfScreen());
+                                                   setState(() {
+                                                     page= PdfScreen();
+                                                   });
+                                                        
                                                   }else if (cubit
                                                           .getProfileData!
                                                           .data!
@@ -121,9 +191,10 @@ class _CompanyHomeState extends State<CompanyHome> {
                                                           .taps![index]
                                                           .name ==
                                                       'QR code') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: QrCode());
+                                                   setState(() {
+                                                     page= QrCode();
+                                                   });
+                                                        
                                                   }else if (cubit
                                                           .getProfileData!
                                                           .data!
@@ -131,9 +202,10 @@ class _CompanyHomeState extends State<CompanyHome> {
                                                           .taps![index]
                                                           .name ==
                                                       'freestyle') {
-                                                    nextPage(
-                                                        context: context,
-                                                        page: FreeStyling());
+                                                   setState(() {
+                                                     page= Skills();
+                                                   });
+                                                        
                                                  
                                                   }
                                      },
@@ -143,176 +215,323 @@ class _CompanyHomeState extends State<CompanyHome> {
                                 itemCount: cubit.getProfileData!.data!.user!.taps!.length,
                               ):Center(child: CircularProgressIndicator())
 
+                                      // ReorderableListView.builder(
+                                      //   shrinkWrap: true,
+                                      //   physics: BouncingScrollPhysics(),
+                                      //   itemCount: list.length,
+                                      //   scrollDirection: Axis.horizontal,
+                                      //   buildDefaultDragHandles: list.length > 1,
+                                      //   itemBuilder: (context, index) => Container(
+                                      //       key: ValueKey(index),
+                                      //       child: InkWell(
+                                      //           // onLongPress: () {
+                                      //           //   // if (list[index].img ==
+                                      //           //   //     "images/freestyling3.png") {
+                                      //           //   //   setState(() {
+                                      //           //   //     page = FreeStyling();
+                                      //           //   //     isFreestyle = true;
+                                      //           //   //     list.removeAt(index);
+                                      //           //   //   });
+                                      //           //   // }
+                                      //           // },
+                                      //           onTap: () {
+                                      //             if (list[index].img ==
+                                      //                 "images/freestyling3.png") {
+                                      //               setState(() {
+                                      //                 page = FreeStyling();
+                                      //                 isFreestyle = true;
+                                      //                 list.removeAt(index);
+                                      //               });
+                                      //             }
+                                      //             if (list[index].img ==
+                                      //                 'images/icons8-more-info-30.png') {
+                                      //               setState(() {
+                                      //                 page = PlayerDetails();
+                                      //               });
+                                      //             } else if (list[index].img ==
+                                      //                 "images/icons8-pdf-30.png") {
+                                      //               setState(() {
+                                      //                 page = PdfScreen();
+                                      //               });
+                                      //             } else if (list[index].img ==
+                                      //                 "images/sportıve ıcon (1).png") {
+                                      //               setState(() {
+                                      //                 page = Skills();
+                                      //               });
+                                      //             } else if (list[index].img ==
+                                      //                 "images/QR (1).png") {
+                                      //               setState(() {
+                                      //                 page = QrCode();
+                                      //               });
+                                      //             }
+                                      //             // else if (list[index].img ==
+                                      //             //     "images/freestyling3.png") {
+                                      //             //   setState(() {
+                                      //             //     page = FreeStyling();
+                                      //             //   });
+                                      //             // }
+                                      //             else if (list[index].img ==
+                                      //                 "images/icons8-user-groups-64.png") {
+                                      //               setState(() {
+                                      //                 page = Following();
+                                      //               });
+                                      //             } else if (list[index].img ==
+                                      //                 "images/pt.png") {
+                                      //               setState(() {
+                                      //                 page = PtScreen();
+                                      //               });
+                                      //             } else if (list[index].img ==
+                                      //                 "images/icons8-share-48 (2).png") {
+                                      //               setState(() {
+                                      //                 page = PtScreen();
+                                      //               });
+                                      //             }
+                                      //           },
+                                      //           child: Container(
+                                      //               child: getist(list[index])))),
+                                      //   onReorder: (int oldIndex, int newIndex) {
+                                      //     setState(() {
+                                      //       list.insert(
+                                      //           newIndex, list.removeAt(oldIndex));
+                                      //     });
+                                      //   },
+                                      // ),
 
-                              // ReorderableListView.builder(
-                              //   shrinkWrap: true,
-                              //   physics: BouncingScrollPhysics(),
-                              //   itemCount: list.length,
-                              //   scrollDirection: Axis.horizontal,
-                              //   buildDefaultDragHandles: list.length > 1,
-                              //   itemBuilder: (context, index) => Container(
-                              //       key: ValueKey(index),
-                              //       child: InkWell(
-                              //           // onLongPress: () {
-                              //           //   // if (list[index].img ==
-                              //           //   //     "images/freestyling3.png") {
-                              //           //   //   setState(() {
-                              //           //   //     page = FreeStyling();
-                              //           //   //     isFreestyle = true;
-                              //           //   //     list.removeAt(index);
-                              //           //   //   });
-                              //           //   // }
-                              //           // },
-                              //           onTap: () {
-                              //             if (list[index].img ==
-                              //                 "images/freestyling3.png") {
-                              //               setState(() {
-                              //                 page = FreeStyling();
-                              //                 isFreestyle = true;
-                              //                 list.removeAt(index);
-                              //               });
-                              //             }
-                              //             if (list[index].img ==
-                              //                 'images/icons8-more-info-30.png') {
-                              //               setState(() {
-                              //                 page = PlayerDetails();
-                              //               });
-                              //             } else if (list[index].img ==
-                              //                 "images/icons8-pdf-30.png") {
-                              //               setState(() {
-                              //                 page = PdfScreen();
-                              //               });
-                              //             } else if (list[index].img ==
-                              //                 "images/sportıve ıcon (1).png") {
-                              //               setState(() {
-                              //                 page = Skills();
-                              //               });
-                              //             } else if (list[index].img ==
-                              //                 "images/QR (1).png") {
-                              //               setState(() {
-                              //                 page = QrCode();
-                              //               });
-                              //             }
-                              //             // else if (list[index].img ==
-                              //             //     "images/freestyling3.png") {
-                              //             //   setState(() {
-                              //             //     page = FreeStyling();
-                              //             //   });
-                              //             // }
-                              //             else if (list[index].img ==
-                              //                 "images/icons8-user-groups-64.png") {
-                              //               setState(() {
-                              //                 page = Following();
-                              //               });
-                              //             } else if (list[index].img ==
-                              //                 "images/pt.png") {
-                              //               setState(() {
-                              //                 page = PtScreen();
-                              //               });
-                              //             } else if (list[index].img ==
-                              //                 "images/icons8-share-48 (2).png") {
-                              //               setState(() {
-                              //                 page = PtScreen();
-                              //               });
-                              //             }
-                              //           },
-                              //           child: Container(
-                              //               child: getist(list[index])))),
-                              //   onReorder: (int oldIndex, int newIndex) {
-                              //     setState(() {
-                              //       list.insert(
-                              //           newIndex, list.removeAt(oldIndex));
-                              //     });
-                              //   },
-                              // ),
-                           
+                                      ),
+                                ),
+                                const Divider(
+                                  height: .1,
+                                  color: Colors.white,
+                                  thickness: 1,
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                              ]),
+                            ),
+                            SliverToBoxAdapter(
+                                child: Stack(
+                              alignment: AlignmentDirectional.centerEnd,
+                              children: [
+                                Container(height: 526.h, child: page),
+                                if (isFreestyle)
+                                  Stack(
+                                    alignment: AlignmentDirectional.topEnd,
+                                    children: [
+                                      InkWell(
+                                        onLongPress: () {
+                                          setState(() {
+                                            isRemoveStyling = true;
+                                          });
+                                        },
+                                        onTap: () {
+                                          setState(() {
+                                            page = FreeStyling();
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 15.w, bottom: 90.h),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                // key: ValueKey(list),
+                                                height: 60.h,
+                                                width: 55.w,
+                                                decoration: BoxDecoration(
+                                                  color: Color.fromARGB(
+                                                      255, 240, 238, 238),
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.contain,
+                                                      image: AssetImage(
+                                                          'images/freestyling3.png')),
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    // color: Colors.red,
+                                                    width: .5.w,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            isFreestyle = false;
+                                            isRemoveStyling = false;
+                                            list.add(
+                                              WidgetList(
+                                                  img:
+                                                      'images/freestyling3.png',
+                                                  txt: 'Free styling'),
+                                            );
+                                          });
+                                        },
+                                        child: isRemoveStyling
+                                            ? CircleAvatar(
+                                                radius: 15,
+                                                backgroundColor: Colors.white
+                                                    .withOpacity(.5),
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  color: Colors.black,
+                                                ))
+                                            : Container(),
+                                      )
+                                    ],
+                                  ),
+                              ],
+                            )),
+                          ]),
+                        )
+                      ]),
+                      if (cubit.isCancel == true)
+                        SidebarX(
+                          controller: cubit.sidebarcontroller,
+                          theme: SidebarXTheme(
+                            margin: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: mainColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            hoverColor: mainColor,
+                            textStyle: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white.withOpacity(0.7)),
+                            selectedTextStyle:
+                                const TextStyle(color: Colors.white),
+                            itemTextPadding: const EdgeInsets.only(left: 15),
+                            selectedItemTextPadding:
+                                const EdgeInsets.only(left: 30),
+                            itemDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: canvasColor),
+                            ),
+                            selectedItemDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: actionColor.withOpacity(0.37),
+                              ),
+                              gradient: LinearGradient(
+                                colors: [accentCanvasColor, canvasColor],
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.28),
+                                  blurRadius: 30,
+                                )
+                              ],
+                            ),
+                            iconTheme: IconThemeData(
+                              color: Colors.white.withOpacity(0.7),
+                              size: 20,
+                            ),
+                            selectedIconTheme: const IconThemeData(
+                              color: Colors.white,
+                              size: 20,
                             ),
                           ),
-                         
-                      // Padding(
-                      //   padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                      //   child: Container(
-                      //       height: 66.h,
-                      //       width: double.infinity.w,
-                      //       child: ReorderableListView.builder(
-                      //         shrinkWrap: true,
-                      //         physics: BouncingScrollPhysics(),
-                      //         itemCount: list.length,
-                      //         scrollDirection: Axis.horizontal,
-                      //         buildDefaultDragHandles: list.length > 1,
-                      //         itemBuilder: (context, index) => Container(
-                      //             key: ValueKey(index),
-                      //             child: InkWell(
-                      //                 onTap: () {
-                      //                   if (list[index].img ==
-                      //                       'images/icons8-more-info-30.png') {
-                      //                     setState(() {
-                      //                       page = CompanyDetails();
-                      //                     });
-                      //                   } else if (list[index].img ==
-                      //                       "images/icons8-pdf-30.png") {
-                      //                     setState(() {
-                      //                       page = PdfScreen();
-                      //                     });
-                      //                   } else if (list[index].img ==
-                      //                       "images/sportıve ıcon (1).png") {
-                      //                     setState(() {
-                      //                       page = Tips();
-                      //                     });
-                      //                   } else if (list[index].img ==
-                      //                       "images/QR (1).png") {
-                      //                     setState(() {
-                      //                       page = QrCode();
-                      //                     });
-                      //                   } else if (list[index].img ==
-                      //                       "images/freestyling3.png") {
-                      //                     setState(() {
-                      //                       page = FreeStyling();
-                      //                     });
-                      //                   } else if (list[index].img ==
-                      //                       "images/icons8-user-groups-64.png") {
-                      //                     setState(() {
-                      //                       page = Following();
-                      //                     });
-                      //                   } else if (list[index].img ==
-                      //                       "images/pt.png") {
-                      //                     setState(() {
-                      //                       page = Cards();
-                      //                     });
-                      //                   } else if (list[index].img ==
-                      //                       "images/icons8-share-48 (2).png") {
-                      //                     setState(() {
-                      //                       page = PtScreen();
-                      //                     });
-                      //                   }
-                      //                 },
-                      //                 child: Container(
-                      //                     child: getist(list[index])))),
-                      //         onReorder: (newIndex, oldIndex) {
-                      //           setState(() {
-                      //             if (newIndex > oldIndex) {
-                      //               newIndex -= 1;
-                      //             }
-                      //             final item = list.removeAt(oldIndex);
-                      //             list.insert(newIndex, item);
-                      //           });
-                      //         },
-                      //       )),
-                      // ),
-                     
-                      const Divider(
-                        height: .1,
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Expanded(child: page),
+                          extendedTheme: const SidebarXTheme(
+                            width: 210,
+                            decoration: BoxDecoration(
+                              color: canvasColor,
+                            ),
+                          ),
+                          footerDivider: divider,
+                          headerBuilder: (context, extended) {
+                            return SizedBox(
+                              height: 80.h,
+                              // child: Padding(
+                              //   padding: EdgeInsets.only(
+                              //       top: 50.h, left: 12.w, right: 12.w),
+                              //   child: Image.asset(
+                              //     'images/mohamed-salah-sportstiger.jpeg',
+                              //     height: 100.h,
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              // ),
+                            );
+                          },
+                          items: [
+                            SidebarXItem(
+                              iconWidget: Icon(
+                                FontAwesomeIcons.home,
+                                color: Colors.white38,
+                              ),
+                              label: 'Profile',
+                              onTap: () {
+                                nextPage(context: context, page: CompanyHome());
+                              },
+                            ),
+                            SidebarXItem(
+                                iconWidget: Icon(
+                                  FontAwesomeIcons.balanceScaleLeft,
+                                  color: Colors.white30,
+                                ),
+                                label: 'Balance',
+                                onTap: () {
+                                  setState(() {
+                                    cubit.select1 = true;
+                                    cubit.select2 = false;
+                                    cubit.select3 = false;
+                                    cubit.select4 = false;
+                                  });
+                                  nextPage(context: context, page: Balance());
+                                }),
+                            SidebarXItem(
+                                iconWidget: Icon(
+                                  FontAwesomeIcons.amazonPay,
+                                  color: Colors.white30,
+                                ),
+                                label: 'Upgrade membership',
+                                onTap: () {
+                                  setState(() {
+                                    cubit.select1 = false;
+                                    cubit.select2 = true;
+                                    cubit.select3 = false;
+                                    cubit.select4 = false;
+                                  });
+                                  nextPage(context: context, page: Balance());
+                                }),
+                            SidebarXItem(
+                                iconWidget: Icon(
+                                  Icons.settings,
+                                  color: Colors.white30,
+                                ),
+                                label: 'Settings',
+                                onTap: () {
+                                  setState(() {
+                                    cubit.select1 = false;
+                                    cubit.select2 = false;
+                                    cubit.select3 = true;
+                                    cubit.select4 = false;
+                                  });
+                                  nextPage(context: context, page: Balance());
+                                }),
+                            SidebarXItem(
+                                iconWidget: Icon(
+                                  FontAwesomeIcons.qrcode,
+                                  color: Colors.white30,
+                                ),
+                                label: 'QrCode',
+                                onTap: () {
+                                  setState(() {
+                                    cubit.select1 = false;
+                                    cubit.select2 = false;
+                                    cubit.select3 = false;
+                                    cubit.select4 = true;
+                                  });
+                                  nextPage(context: context, page: Balance());
+                                }),
+                          ],
+                        ),
                     ],
-                  ),
-                ],
-              ):Center(child: CircularProgressIndicator()),
+                  ):Center(child: CircularProgressIndicator())
+               
+              
             );
           }),
     );
